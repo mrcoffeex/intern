@@ -1,0 +1,70 @@
+<!-- SCRIPTS -->
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/bootstrap.bundle.min.js"></script>
+<script src="../../js/isotope.pkgd.min.js"></script>
+<script src="../../js/stickyfill.min.js"></script>
+<script src="../../js/jquery.fancybox.min.js"></script>
+<script src="../../js/jquery.easing.1.3.js"></script>
+
+<script src="../../js/jquery.waypoints.min.js"></script>
+<script src="../../js/jquery.animateNumber.min.js"></script>
+<script src="../../js/owl.carousel.min.js"></script>
+
+<script src="../../js/bootstrap-select.min.js"></script>
+
+<script src="../../js/toastr.min.js"></script>
+<script src="../../js/custom.js"></script>
+<script src="../../js/tagify.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<script src="../../js/dropify.js"></script>
+
+<script>
+
+    //modal autofocus
+    $(document).on('shown.bs.modal', function() {
+      $(this).find('[autofocus]').focus();
+      $(this).find('[autofocus]').select();
+    });
+
+	function btnLoader(formObj){
+
+		formObj.disabled = true;
+		formObj.innerHTML = "processing ...";
+		return true;  
+
+	}
+    
+    //toastr custom options
+	toastr.options = {
+	  "closeButton": true,
+	  "debug": false,
+	  "newestOnTop": false,
+	  "progressBar": true,
+	  "positionClass": "toast-top-center",
+	  "preventDuplicates": false,
+	  "onclick": null,
+	  "showDuration": "300",
+	  "hideDuration": "1000",
+	  "timeOut": "5000",
+	  "extendedTimeOut": "1000",
+	  "showEasing": "swing",
+	  "hideEasing": "linear",
+	  "showMethod": "fadeIn",
+	  "hideMethod": "fadeOut"
+	}
+
+	// tags
+	$(document).ready(function() {
+
+		// var setLocations = document.querySelector('textarea[id="setLocations"]');
+    	// new Tagify(setLocations);
+
+		//salary range onchange
+		// $('#salaryMinimum').change(function(){
+		// 	$('#salaryMinimumValue').html($('#salaryMinimum').val());
+		// });
+    });
+
+</script>

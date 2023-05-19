@@ -1,0 +1,25 @@
+/* custom */
+
+.card-shadow {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+.btn-block{
+    display: block;
+    width: 100%;
+}
+
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 3.5rem);
+}
+
+.profile-img{
+    width: 150px;
+    height: 150px;
+}
