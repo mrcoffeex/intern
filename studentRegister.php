@@ -13,7 +13,7 @@
 
         if (checkUserEmail($studentEmail) == true) {
             
-            $request = createUserStudent($userCode, $studentFname, $studentLname, $studentEmail, $encPassword);
+            $request = createUserReg($userCode, $studentFname, $studentLname, $studentEmail, $encPassword, 3);
 
             if ($request == true) {
                 //send email OTP

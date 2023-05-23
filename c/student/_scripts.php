@@ -57,14 +57,7 @@
 
 	// tags
 	$(document).ready(function() {
-
-		// var setLocations = document.querySelector('textarea[id="setLocations"]');
-    	// new Tagify(setLocations);
-
-		//salary range onchange
-		// $('#salaryMinimum').change(function(){
-		// 	$('#salaryMinimumValue').html($('#salaryMinimum').val());
-		// });
+		//empty
     });
 
 </script>

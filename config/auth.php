@@ -40,7 +40,7 @@
 							break;
 						case '2':
 							createLog("Login", $userEmail, "auth");
-							header("location: ../c/company/");
+							header("location: ../c/business/");
 							break;
 						case '3':
 							createLog("Login", $userEmail, "auth");

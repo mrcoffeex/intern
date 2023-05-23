@@ -12,7 +12,7 @@
                 header("location: c/qa/");
                 break;
             case '2':
-                header("location: c/company/");
+                header("location: c/business/");
                 break;
             case '3':
                 header("location: c/student/");

@@ -670,7 +670,7 @@
         return $res;
     }
 
-    function createUserStudent($userCode, $fname, $lname, $uEmail, $uPassword){
+    function createUserReg($userCode, $fname, $lname, $uEmail, $uPassword, $userType){
 
         $statement=dataLink()->prepare("INSERT INTO 
                                         users
@@ -701,7 +701,7 @@
             'user_lname' => $lname,
             'user_email' => $uEmail,
             'user_password' => $uPassword,
-            'user_type' => 3
+            'user_type' => $userType
         ]);
 
         if ($statement) {
@@ -710,6 +710,30 @@
             return false;
         }
         
+    }
+
+    function updateUserAccount($userEmail, $userPassword, $userId){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        users
+                                        SET
+                                        user_email = :user_email,
+                                        user_password = :user_password,
+                                        user_updated = NOW()
+                                        Where
+                                        user_uid = :user_uid");
+        $statement->execute([
+            'user_email' => $userEmail,
+            'user_password' => $userPassword,
+            'user_uid' => $userId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+    
     }
 
     function getUserEmail($userCode){
@@ -728,6 +752,28 @@
 
         if (is_array($res)) {
             return $res['user_email'];
+        } else {
+            return null;
+        }
+
+    }
+
+    function getUserType($userCode){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        user_type 
+                                        FROM
+                                        users
+                                        Where
+                                        user_code = :user_code");
+        $statement->execute([
+            'user_code' => $userCode
+        ]);
+
+        $res=$statement->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($res)) {
+            return $res['user_type'];
         } else {
             return null;
         }
@@ -1439,5 +1485,88 @@
             return false;
         }
         
+    }
+
+    // business
+
+    function checkBusinessNameDuplicate($name){
+
+        $statement=dataLink()->prepare("SELECT
+                                        bus_id
+                                        FROM
+                                        business_profiles
+                                        Where
+                                        bus_name = :bus_name");
+        $statement->execute([
+            'bus_name' => $name
+        ]);
+
+        $count=$statement->rowCount();
+
+        if (empty($count)) {
+            return false;
+        } else {
+            return true;
+        }
+        
+
+    }
+
+    function createBusinessProfile($userCode, $businessName, $city){
+
+        $statement=dataLink()->prepare("INSERT INTO
+                                        business_profiles
+                                        (
+                                            user_code, 
+                                            bus_name, 
+                                            bus_tags, 
+                                            city_id, 
+                                            bus_created, 
+                                            bus_updated
+                                        )
+                                        Values
+                                        (
+                                            :user_code, 
+                                            :bus_name, 
+                                            :bus_tags, 
+                                            :city_id, 
+                                            NOW(), 
+                                            NOW()
+                                        )");
+        $statement->execute([
+            'user_code' => $userCode, 
+            'bus_name' => $businessName, 
+            'bus_tags' => '', 
+            'city_id' => $city
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    function getBusinessName($userCode){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        user_fname 
+                                        FROM
+                                        users
+                                        Where
+                                        user_code = :user_code");
+        $statement->execute([
+            'user_code' => $userCode
+        ]);
+
+        $res=$statement->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($res)) {
+            return $res['user_fname'];
+        } else {
+            return null;
+        }
+
     }
 ?>

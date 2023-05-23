@@ -16,7 +16,7 @@
                         <a href="#">Register</a>
                         <ul class="dropdown">
                             <li><a href="student">As Student</a></li>
-                            <li><a href="company">As Company</a></li>
+                            <li><a href="business">As Business</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -33,7 +33,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="student" class="text-decoration-none text-dark ml-3">As Student</a></li>
                             <div class="dropdown-divider"></div>
-                            <li><a href="company" class="text-decoration-none text-dark ml-3">As Company</a></li>
+                            <li><a href="business" class="text-decoration-none text-dark ml-3">As Business</a></li>
                         </ul>
                     </div>
                 </div>

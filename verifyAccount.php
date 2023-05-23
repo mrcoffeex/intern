@@ -21,8 +21,13 @@
             $request = verifyOTP($ucode, $otp);
     
             if ($request == true) {
-                createProfile($ucode);
-                createFilters($ucode);
+
+                if (getUserType($ucode) == 3) {
+                    createProfile($ucode);
+                } else {
+                    // nothing
+                }
+                
                 header("location: verified?token=" . my_rand_str(30) . "&ucode=$ucode");
             } else {
                 header("location: verify?token=" . my_rand_str(30) . "&ucode=$ucode&note=otp_fail");
@@ -30,7 +35,7 @@
             
     
         } else {
-            header("location: student?note=invalid");
+            header("location: verify?note=invalid");
         }
 
     }

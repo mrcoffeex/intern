@@ -133,8 +133,8 @@ $(document).ready(function () {
 
     //tagify
     var locations = document.getElementById('locations');
-    var skills = document.getElementById('skills');
     var locationsTag = new Tagify(locations);
+    var skills = document.getElementById('skills');
     var skillsTag = new Tagify(skills);
   
     $('#skillsBtn').click(function() {

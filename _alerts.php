@@ -129,6 +129,22 @@
             }
 
         }
+
+        // business
+        
+        if ($currpage == "business") {
+            
+            if ($note == "duplicate_email") {
+                echo "
+                    <script>
+                        toastr.error('Duplicate email address');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
         
     }
 ?>

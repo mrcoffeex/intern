@@ -1,7 +1,7 @@
 <?php  
     require 'config/includes.php';
 
-    $title = "Login";
+    $title = "Register | Student";
 ?>
 
 <!doctype html>
@@ -69,6 +69,7 @@
                   id="studentEmail" 
                   class="form-control" 
                   placeholder="Email address" 
+                  maxlength="100" 
                   required>
                   <small id="emailHelp" class="form-text"></small>
                 </div>
@@ -83,14 +84,15 @@
                         id="studentPassword" 
                         name="studentPassword" 
                         placeholder="Password" 
+                        maxlength="20" 
                         required>
                         <div class="input-group-append">
                             <button class="btn btn-dark" type="button" id="togglePasswordButton">
                                 <i class="icon-eye" id="eyeIcon"></i>
                             </button>
                         </div>
+                        <small id="passwordHelp" class="form-text"></small>
                   </div>
-                  <small id="passwordHelp" class="form-text"></small>
                 </div>
               </div>
 

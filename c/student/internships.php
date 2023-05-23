@@ -185,6 +185,8 @@
     <?php include '_modals.php'; ?>
     <?php include '_scripts.php'; ?>
     <?php include '_alerts.php'; ?>
+
+    <script src="../../js/internships.js"></script>
      
   </body>
 </html>

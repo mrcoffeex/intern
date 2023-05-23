@@ -12,7 +12,7 @@
                     <li class="d-lg-none has-children">
                         <a href="#"><?= $userFullname ?></a>
                         <ul class="dropdown">
-                            <li><a href="accountSettings">>Account Settings</a></li>
+                            <li><a href="accountSettings">>Settings</a></li>
                             <li><a href="_logout">Logout</a></li>
                         </ul>
                     </li>

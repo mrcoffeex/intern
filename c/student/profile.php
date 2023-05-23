@@ -7,9 +7,6 @@
     $selectProfile = selectProfile($userCode);
     $profile=$selectProfile->fetch(PDO::FETCH_ASSOC);
 
-    $selectFilters = selectProfileFilters($userCode);
-    $filter=$selectFilters->fetch(PDO::FETCH_ASSOC);
-
 ?>
 
 <!doctype html>
