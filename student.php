@@ -91,8 +91,10 @@
                                 <i class="icon-eye" id="eyeIcon"></i>
                             </button>
                         </div>
-                        <small id="passwordHelp" class="form-text"></small>
                   </div>
+                </div>
+                <div class="col-md-12 mb-3 mb-md-0">
+                    <small id="passwordHelp" class="form-text"></small>
                 </div>
               </div>
 
