@@ -87,3 +87,8 @@
 .text-justify{
     text-align: justify;
 }
+
+.profile-img{
+    width: 150px;
+    height: 150px;
+}

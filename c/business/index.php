@@ -25,28 +25,19 @@
                     <?php include '_breads.php'; ?>
 
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="alert alert-info" role="alert">Please complete your business profile. click here.</div>
-                        </div>
+                        
+                        <?php 
+                            include '_reminder.php';
+                        ?>
 
                         <div class="col-md-12 transparent">
                             <div class="row">
                                 <div class="col-md-3 mb-4 stretch-card transparent">
-                                    <div class="card card-tale">
-                                        <div class="card-body">
-                                        <p class="fs-6 mb-2">Digos City's Barangay</p>
-                                        <p class="fw-bold mb-2">
-                                            <span class="fs-3">26</span> Barangays
-                                        </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3 mb-4 stretch-card transparent">
                                     <div class="card card-dark-blue">
                                         <div class="card-body">
-                                        <p class="fs-6 mb-2">Approved 4ps</p>
+                                        <p class="fs-6 mb-2">Active Job Posts</p>
                                         <p class="fw-bold mb-2">
-                                            <span class="fs-3">12,318</span> Aug 2022
+                                            <span class="fs-3"><?= countPostActive($userCode) ?></span> posts
                                         </p>
                                         </div>
                                     </div>
@@ -54,9 +45,19 @@
                                 <div class="col-md-3 mb-4 stretch-card transparent">
                                     <div class="card card-light-blue">
                                         <div class="card-body">
-                                        <p class="fs-6 mb-2">4Ps Applicants</p>
+                                        <p class="fs-6 mb-2">Applicants</p>
                                         <p class="fw-bold mb-2">
-                                            <span class="fs-3">1,876</span> Aug 2022
+                                            <span class="fs-3"><?= countApplicantsByBusiness($userCode) ?></span>
+                                        </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mb-4 stretch-card transparent">
+                                    <div class="card card-tale">
+                                        <div class="card-body">
+                                        <p class="fs-6 mb-2">Hired Applicants</p>
+                                        <p class="fw-bold mb-2">
+                                            <span class="fs-3"><?= countApplicantsHiredByBusiness($userCode) ?></span>
                                         </p>
                                         </div>
                                     </div>
@@ -66,64 +67,73 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card">
-                            <div class="card-body">
-                            <p class="card-title"><i class="ti-calendar"></i> Announcements</p>
-                            <ul class="icon-data-list">
-                                <li>
-                                <div class="d-flex">
-                                    <img src="../../images/faces/face1.jpg" alt="user">
-                                    <div>
-                                    <p class="text-info mb-1">John Raven Manulat</p>
-                                    <p class="mb-0">e4Ps Map dashboard have been created and updated</p>
-                                    <small>9:30 am</small>
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title"><i class="ti-user"></i> New Applicants</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr class="table-dark">
+                                                    <th class="text-center">Document</th>
+                                                    <th>Fullname</th>
+                                                    <th class="text-center">Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php  
+                                                    $getApplicants=selectApplicantsByBusiness($userCode);
+                                                    while ($applicant=$getApplicants->fetch(pDO::FETCH_ASSOC)) {
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <a href="download?token=<?= my_rand_str(30) ?>&ucode=<?= $applicant['app_applicant'] ?>&postId=<?= $postId ?>">
+                                                            <button type="button" class="btn btn-info text-white">
+                                                                <i class="ti-download"></i>
+                                                            </button>
+                                                        </a>
+                                                    </td>
+                                                    <td title="click to show profile ...">
+                                                        <a href="applicantProfile?token=<?= my_rand_str(30) ?>&ucode=<?= $applicant['app_applicant'] ?>" target="_BLANK">
+                                                            <?= getUserFullnameByCode($applicant['app_applicant']) ?>
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center"><?= $applicant['app_status'] ?></td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                </li>
-                                <li>
-                                <div class="d-flex">
-                                    <img src="../../images/faces/face2.jpg" alt="user">
-                                    <div>
-                                    <p class="text-info mb-1">John Vianne Murcia</p>
-                                    <p class="mb-0">You have done a great job </p>
-                                    <small>10:30 am</small>
-                                    </div>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="d-flex">
-                                <img src="../../images/faces/face3.jpg" alt="user">
-                                <div>
-                                <p class="text-info mb-1">Joane May Delima</p>
-                                <p class="mb-0">Data have been in sync with the Map</p>
-                                <small>11:30 am</small>
-                                </div>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="d-flex">
-                                    <img src="../../images/faces/face4.jpg" alt="user">
-                                    <div>
-                                    <p class="text-info mb-1">Conrado Panerio</p>
-                                    <p class="mb-0">Presentation of the Project is done!</p>
-                                    <small>8:50 am</small>
-                                    </div>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="d-flex">
-                                    <img src="../../images/faces/face5.jpg" alt="user">
-                                    <div>
-                                    <p class="text-info mb-1">Marlon Suelto</p>
-                                    <p class="mb-0">Digos City Map is finished!</p>
-                                    <small>9:00 am</small>
-                                    </div>
-                                </div>
-                                </li>
-                            </ul>
                             </div>
                         </div>
+
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title"><i class="ti-view-list-alt"></i> Recent Job Posts</p>
+                                    <div class="row">
+                                        <?php  
+                                            $getPosts=selectPosts($userCode);
+                                            while ($post=$getPosts->fetch(PDO::FETCH_ASSOC)) {
+
+                                                $tagsArray = explode(',', $post['post_tags']);
+                                        ?>
+                                            <div class="col-md-12">
+                                                <div class="alert alert-info" role="alert">
+                                                    <p class="text-info mb-0">
+                                                        <a href="postView?postId=<?= $post['post_id'] ?>" class="text-decoration-none" target="_NEW">
+                                                            <?= $post['post_category'] ?>
+                                                        </a>
+                                                    </p>
+                                                    <p class="mb-0"><?= $post['post_title'] ?></p>
+                                                    <small>Posted <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?></small>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 

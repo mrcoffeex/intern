@@ -15,7 +15,7 @@
         <li class="nav-item">
             <a class="nav-link" href="posts">
                 <i class="ti-view-list-alt menu-icon"></i>
-                <span class="menu-title">Posts</span>
+                <span class="menu-title">Job Posts</span>
             </a>
         </li>
 

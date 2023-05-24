@@ -1,6 +1,11 @@
-// interships
+// internships
 
 $(document).ready(function () {
-    var locations = document.getElementById('setLocations');
-    var locationsTag = new Tagify(locations);
+
+    $('#salaryMinimum').change(function(){
+        $('#salaryMinimumValue').html($('#salaryMinimum').val());
+    }); 
+
+    $('#keywords').val("").focus().val($('#keywords').val());
+    
 });

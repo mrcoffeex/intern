@@ -68,9 +68,63 @@
 
         }
 
-        // profile
+        // postCreateForm
 
-        if ($currpage == "profile") {
+        if ($currpage == "posts") {
+            
+            if ($note == "removed") {
+                echo "
+                    <script>
+                        toastr.success('Post has been removed');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
+        // postView
+
+        if ($currpage == "posts") {
+            
+            if ($note == "status_change") {
+                echo "
+                    <script>
+                        toastr.success('Status changed');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
+        // postCreateForm
+
+        if ($currpage == "postCreateForm") {
+            
+            if ($note == "posted") {
+                echo "
+                    <script>
+                        toastr.success('Job Posted');
+                    </script>
+                ";
+            } else if ($note == "removed") {
+                echo "
+                    <script>
+                        toastr.success('Post has been removed');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
+        // postEdit
+
+        if ($currpage == "postEdit") {
             
             if ($note == "updated") {
                 echo "
@@ -78,16 +132,20 @@
                         toastr.success('Changes saved');
                     </script>
                 ";
-            } else if ($note == "exp_add") {
+            } else {
+                echo "";
+            }
+
+        }
+
+        // business me
+
+        if ($currpage == "me") {
+            
+            if ($note == "updated") {
                 echo "
                     <script>
-                        toastr.success('Experience added');
-                    </script>
-                ";
-            } else if ($note == "exp_remove") {
-                echo "
-                    <script>
-                        toastr.success('Experience removed');
+                        toastr.success('Changes saved');
                     </script>
                 ";
             } else {

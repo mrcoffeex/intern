@@ -11,14 +11,14 @@
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
+  <link rel="stylesheet" href="../../skydash/vendors/select2/select2.min.css">
+  <link rel="stylesheet" href="../../skydash/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
   <link rel="stylesheet" href="../../skydash/css/vertical-layout-light/style.css">
   <!-- custom -->
   <link rel="stylesheet" href="../../skydash/css/custom/main.css">
   <link rel="stylesheet" href="../../skydash/css/custom/toastr.min.css">
   <!-- endinject -->
 
-  <link rel="stylesheet" href="../../skydash/vendors/select2/select2.min.css">
-  <link rel="stylesheet" href="../../skydash/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
-
   <link rel="shortcut icon" href="../../skydash/images/logo.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" />
 </head>

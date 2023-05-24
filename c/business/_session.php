@@ -36,4 +36,7 @@
     $datenow = date("Y-m-d H:i:s");
     $onlydate = date("Y-m-d");
 
+    $getProfile=selectBusiness($userCode);
+    $profile=$getProfile->fetch(PDO::FETCH_ASSOC);
+
 ?>

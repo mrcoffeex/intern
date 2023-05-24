@@ -4,6 +4,26 @@
 
     $title = "InternShips";
 
+    if (isset($_POST['keywords'])) {
+
+        $keywords = clean_string($_POST['keywords']);
+        $city = clean_int($_POST['city']);
+        $type = clean_string($_POST['type']);
+        @$based = clean_string($_POST['based']) ? clean_string($_POST['based']) : 'Office-Based';
+        @$salaryMinimum = clean_float($_POST['salaryMinimum']) ? clean_float($_POST['salaryMinimum']) : '20000';
+        
+    } else {
+
+        $keywords = "";
+        $city = $profile['city_id'];
+        $type = "Full-TIme";
+        $based = "Office-Based";
+        $salaryMinimum = "20000";
+
+    }
+
+    include 'internships.paginate.php';
+    
 ?>
 
 <!doctype html>
@@ -31,48 +51,61 @@
     <!-- HOME -->
     <section class="section-hero overlay inner-page bg-image" style="background-image: url('../../images/hero_1.jpg');" id="home-section"></section>
 
-    <section class="site-section">
+    <section class="site-section pt-5">
         <div class="container">
             <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <p class="text-dark text-center">keywords: <?= $keywords ?> | <span class="text-primary"><?= $countRes ?></span> results</p>
+                </div>
+
                 <div class="col-lg-5">
-                    <form action="" method="post">
+                    <form action="" method="post" onsubmit="btnLoader(this.search)">
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h5 class="text-center">Keyword Search</h5>
-                                <input type="text" class="form-control" name="keywords" id="keywords" placeholder="ex. Customer Service Davao City" autofocus required>
+                                <div class="form-group">
+                                    <h5 class="text-center">Keyword Search</h5>
+                                    <input type="text" class="form-control" name="keywords" id="keywords" placeholder="ex. Customer Service" value="<?= $keywords ?>" autofocus >
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" id="search" class="btn btn-primary btn-block">Search Jobs</button>
+                                </div>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="text-center"><span class="text-primary"><i class="icon-filter"></i></span> Filters</h5>
-                                
+
                                 <div class="form-group">
-                                    <label for="">Job Category</label>
-                                    <input type="text" class="form-control" name="category" id="category" placeholder="ex. Web Developer">
+                                    <label for="" class="col-sm-12 p-0">City</label>
+                                    <select class="js-example-basic-multiple w-100" name="city" id="city">
+                                        <option value="<?= $city ?>"><?= getCityName($city) ?></option>
+                                        <?php  
+                                            $getCities=selectCities();
+                                            while ($city=$getCities->fetch(PDO::FETCH_ASSOC)) {
+                                        ?>
+                                        <option value="<?= $city['city_id'] ?>"><?= $city['city_name'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="" class="col-sm-12 p-0">Locations</label>
-                                    <textarea name="locations" id="setLocations" rows="3">Davao City,Cebu City,Manila,Quezon,Tarlac</textarea>
+                                    <label for="" class="col-sm-12 p-0">Job Type</label>
+                                    <select class="form-control" name="type" id="type" required>
+                                        <option><?= $type ?></option>
+                                        <option>Full-TIme</option>
+                                        <option>Part-TIme</option>
+                                    </select>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="type1" value="full" checked>
-                                    <label class="form-check-label" for="type1">Full-Time</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="type2" value="part" >
-                                    <label class="form-check-label" for="type2">Part-Time</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="base1" value="office" checked>
-                                    <label class="form-check-label" for="base1">Office-based</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="base2" value="home" >
-                                    <label class="form-check-label" for="base2">Home-based</label>
+                                <div class="form-group">
+                                    <label for="" class="col-sm-12 p-0">Job Based</label>
+                                    <select class="form-control" name="based" id="based" required>
+                                        <option><?= $based ?></option>
+                                        <option>Office-Based</option>
+                                        <option>Home-Based</option>
+                                    </select>
                                 </div>
                                 <div class="form-group mt-2">
-                                    <label for="">Desired minimum monthly salary <span class="text-primary">PHP <span id="salaryMinimumValue">20000</span></span></label>
-                                    <input type="range" class="form-control" name="salaryMinimum" id="salaryMinimum" min="10000" max="100000" step="5000" value="20000" required>
+                                    <label for="">Desired minimum monthly salary <span class="text-primary">PHP <span id="salaryMinimumValue"><?= $salaryMinimum ?></span></span></label>
+                                    <input type="range" class="form-control" name="salaryMinimum" id="salaryMinimum" min="10000" max="100000" step="5000" value="<?= $salaryMinimum ?>" required>
                                 </div>
                                 <div class="form-group float-right">
                                     <button type="button" class="btn btn-default text-primary">Clear all</button>
@@ -83,96 +116,57 @@
                 </div>
                 <div class="col-lg-7">
 
-                    <div class="card">
-                        <div class="card-body">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <h5 class="text-bold">Media & Public Relations (PR)</h5>
-                            </a>
-                            <h6 class="text-bold mb-3">Divine Company</h6>
+                    <?php 
+                        while ($post=$paginate->fetch(PDO::FETCH_ASSOC)) {
+                    ?>
 
-                            <p class="text-dark"><i class="icon-map-marker"></i> Davao City</p>
+                    <div class="card mb-2">
+                        <div class="card-body">
+                            <a href="post?token=<?= my_rand_str(30) ?>&postId=<?= $post['post_id'] ?>" target="_NEW" class="text-decoration-none text-dark">
+                                <h5 class="text-bold"><?= $post['post_category'] ?></h5>
+                            </a>
+                            <h6 class="text-bold mb-2"><?= $post['bus_name'] ?></h6>
+
+                            <p class="text-dark"><i class="icon-map-marker"></i> <?= getCityName($post['city_id']) ?></p>
 
                             <div class="row">
                                 <div class="col-sm-4 text-center">
-                                    <p class="text-uppercase text-bold">start date</p>
-                                    <p class="text-primary">Immediately</p>
+                                    <p class="text-uppercase text-bold">Job Type</p>
+                                    <p class="text-primary"><?= $post['post_type'] ?></p>
                                 </div>
                                 <div class="col-sm-4 text-center">
-                                    <p class="text-uppercase text-bold">duration</p>
-                                    <p class="text-dark">6 months</p>
-                                </div>
-                                <div class="col-sm-4 text-center">
-                                    <p class="text-uppercase text-bold">Salary</p>
-                                    <p class="text-dark">15,000 - 30,0000 /month</p>
-                                </div>
-                            </div>
-
-                            <span class="badge badge-secondary">Part-time</span>
-                            <span class="badge badge-secondary">Home-based</span>
-                            <span class="badge badge-info">InternShip</span>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <h5 class="text-bold">Web Developer Apprentice</h5>
-                            </a>
-                            <h6 class="text-bold mb-3">Growify Digital</h6>
-
-                            <p class="text-dark"><i class="icon-map-marker"></i> Davao City</p>
-
-                            <div class="row">
-                                <div class="col-sm-4 text-center">
-                                    <p class="text-uppercase text-bold">start date</p>
-                                    <p class="text-primary">Immediately</p>
-                                </div>
-                                <div class="col-sm-4 text-center">
-                                    <p class="text-uppercase text-bold">duration</p>
-                                    <p class="text-dark">3 months</p>
+                                    <p class="text-uppercase text-bold">Job Based</p>
+                                    <p class="text-primary"><?= $post['post_based'] ?></p>
                                 </div>
                                 <div class="col-sm-4 text-center">
                                     <p class="text-uppercase text-bold">Salary</p>
-                                    <p class="text-dark">10,000 - 25,0000 /month</p>
+                                    <p class="text-dark">
+                                        <?= RealNumber($post['post_salary_from'], 0) ?> - <?= RealNumber($post['post_salary_to'], 0) ?> /month
+                                    </p>
                                 </div>
                             </div>
 
-                            <span class="badge badge-dark">Full-time</span>
-                            <span class="badge badge-dark">Office-based</span>
-                            <span class="badge badge-info">InternShip</span>
+                            <?php  
+                                $tagsArray = explode(',', $post['post_tags']);
+                                foreach ($tagsArray as $tags) {
+                            ?>
+
+                            <span class="badge badge-secondary"><?= $tags ?></span>
+
+                            <?php } ?>
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <h5 class="text-bold">Intern Software Developer</h5>
-                            </a>
-                            <h6 class="text-bold mb-3">Digitals Co.</h6>
+                    <?php } ?>
 
-                            <p class="text-dark"><i class="icon-map-marker"></i> Davao City</p>
+                </div>
 
-                            <div class="row">
-                                <div class="col-sm-4 text-center">
-                                    <p class="text-uppercase text-bold">start date</p>
-                                    <p class="text-primary">Immediately</p>
-                                </div>
-                                <div class="col-sm-4 text-center">
-                                    <p class="text-uppercase text-bold">duration</p>
-                                    <p class="text-dark">6 months</p>
-                                </div>
-                                <div class="col-sm-4 text-center">
-                                    <p class="text-uppercase text-bold">Salary</p>
-                                    <p class="text-dark">17,000 - 21,0000 /month</p>
-                                </div>
-                            </div>
-
-                            <span class="badge badge-dark">Full-time</span>
-                            <span class="badge badge-dark">Office-based</span>
-                            <span class="badge badge-info">InternShip</span>
-                        </div>
+                <div class="col-lg-12">
+                    <div class="float-right mt-4">
+                        <ul class="pagination flex-wrap pagination-rounded">
+                            <?= $paginationCtrls; ?>
+                        </ul>
                     </div>
-
                 </div>
             </div>
         </div>

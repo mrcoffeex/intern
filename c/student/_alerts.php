@@ -95,6 +95,22 @@
             }
 
         }
+
+        // post
+
+        if ($currpage == "post") {
+            
+            if ($note == "applied") {
+                echo "
+                    <script>
+                        toastr.success('Application submitted');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
         
     }
 ?>

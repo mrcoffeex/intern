@@ -239,10 +239,10 @@
         return $res;
     }
 
-    function previewImage($image, $default_image, $directory){
+    function previewImage($image, $default, $directory){
 
         if (empty($image)) {
-            $res = $default_image;
+            $res = $res = $default;
         }else{
             $res = $directory . "" . $image;
         }
@@ -560,6 +560,53 @@
 
     }
 
+    function fileUpload($input, $location){
+
+        $errors= array();
+        $file_name = $_FILES[$input]['name'];
+
+        if (empty($file_name)) {
+            $res = "";
+        } else {
+            $file_size =$_FILES[$input]['size'];
+            $file_tmp =$_FILES[$input]['tmp_name'];
+            $file_type=$_FILES[$input]['type'];
+            $file_extension = pathinfo($_FILES[$input]['name'], PATHINFO_EXTENSION);
+
+            $final_filename = date("YmdHis")."_".$file_name;
+
+            $extensions= array("pdf","doc","docx");
+
+            if(in_array($file_extension, $extensions)=== false){
+                $errors[]="extension not allowed, please choose a JPEG or PNG file.";
+            }
+
+            if($file_size > 26000000){
+                $errors[]='File size must be excately 25 MB';
+            }
+
+            $file_directory = $location."".$final_filename;
+
+            if(empty($errors)==true){
+
+                move_uploaded_file($file_tmp, $file_directory);
+                $res = $final_filename;
+
+            }else{
+
+                if ($file_tmp == "") {
+                    $res = "";
+                }else{
+                    $res = "error";
+                }
+
+            }
+        }
+
+        return $res;
+
+    }
+
     // methods_system_logs
 
     function get_system_logs_skin($type){
@@ -734,6 +781,99 @@
             return false;
         }
     
+    }
+
+    function updateUserAccountImg($userEmail, $userPassword, $profileImg, $userId){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        users
+                                        SET
+                                        user_email = :user_email,
+                                        user_password = :user_password,
+                                        user_profile_img = :user_profile_img,
+                                        user_updated = NOW()
+                                        Where
+                                        user_uid = :user_uid");
+        $statement->execute([
+            'user_email' => $userEmail,
+            'user_password' => $userPassword,
+            'user_profile_img' => $profileImg,
+            'user_uid' => $userId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+    
+    }
+
+    function updateUserFirstname($fname, $userCode){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        users
+                                        SET
+                                        user_fname = :user_fname
+                                        Where
+                                        user_code = :user_code");
+        $statement->execute([
+            'user_fname' => $fname,
+            'user_code' => $userCode
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+    
+    }
+
+    function getUserFullname($userId){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        user_fname,
+                                        user_lname 
+                                        FROM
+                                        users
+                                        Where
+                                        user_uid = :user_uid");
+        $statement->execute([
+            'user_uid' => $userId
+        ]);
+
+        $res=$statement->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($res)) {
+            return $res['user_fname'] . " " . $res['user_lname'];
+        } else {
+            return null;
+        }
+
+    }
+
+    function getUserFullnameByCode($userCode){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        user_fname,
+                                        user_lname 
+                                        FROM
+                                        users
+                                        Where
+                                        user_code = :user_code");
+        $statement->execute([
+            'user_code' => $userCode
+        ]);
+
+        $res=$statement->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($res)) {
+            return $res['user_fname'] . " " . $res['user_lname'];
+        } else {
+            return null;
+        }
+
     }
 
     function getUserEmail($userCode){
@@ -970,6 +1110,20 @@
         
     }
 
+    function countProfiles(){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        profiles");
+        $statement->execute();
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
     function selectProfile($userCode){
 
         $statement=dataLink()->prepare("SELECT
@@ -1104,21 +1258,16 @@
 
     }
 
-    function selectSkills($skill){
+    function selectSkills(){
 
         $statement=dataLink()->prepare("SELECT
                                         skill_name
                                         FROM
                                         skills
-                                        Where
-                                        skill_name LIKE :skill_name
                                         Order By
                                         skill_name
-                                        ASC
-                                        LIMIT 10");
-        $statement->execute([
-            'skill_name' => "%$skill%"
-        ]);
+                                        ASC");
+        $statement->execute();
 
         return $statement;
 
@@ -1519,7 +1668,6 @@
                                         (
                                             user_code, 
                                             bus_name, 
-                                            bus_tags, 
                                             city_id, 
                                             bus_created, 
                                             bus_updated
@@ -1528,7 +1676,6 @@
                                         (
                                             :user_code, 
                                             :bus_name, 
-                                            :bus_tags, 
                                             :city_id, 
                                             NOW(), 
                                             NOW()
@@ -1536,7 +1683,6 @@
         $statement->execute([
             'user_code' => $userCode, 
             'bus_name' => $businessName, 
-            'bus_tags' => '', 
             'city_id' => $city
         ]);
 
@@ -1569,4 +1715,605 @@
         }
 
     }
+
+    function countBusinessProfiles(){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        business_profiles");
+        $statement->execute();
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function selectBusiness($userCode){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        business_profiles
+                                        WHere
+                                        user_code = :user_code");
+        $statement->execute([
+            'user_code' => $userCode
+        ]);
+
+        return $statement;
+
+    }
+
+    function updateBusiness($businessName, $intro, $city, $userCode){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        business_profiles
+                                        SET
+                                        bus_name = :bus_name,
+                                        bus_intro = :bus_intro,
+                                        city_id = :city_id
+                                        Where
+                                        user_code = :user_code");
+        $statement->execute([
+            'bus_name' => $businessName,
+            'bus_intro' => $intro,
+            'city_id' => $city,
+            'user_code' => $userCode
+        ]);
+
+        updateUserFirstname($businessName, $userCode);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    // category
+
+    function selectCategories(){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        categories
+                                        Order By
+                                        cat_name
+                                        ASC");
+        $statement->execute();
+
+        return $statement;
+
+    }
+
+    // posts
+
+    function getPostStatusSKin($status){
+
+        if ($status == "active") {
+            $res = "success";
+        } else {
+            $res = "danger";
+        }
+        
+        return $res;
+    }
+
+    function selectPosts($userCode){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        posts
+                                        Where
+                                        user_code = :user_code
+                                        Order By
+                                        post_created
+                                        DESC");
+        $statement->execute([
+            'user_code' => $userCode
+        ]);
+
+        return $statement;
+
+    }
+
+    function selectPostsRecent(){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        posts
+                                        Order By
+                                        post_id
+                                        DESC
+                                        LIMIT 10");
+        $statement->execute();
+
+        return $statement;
+
+    }
+
+    function countPostsAll(){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        post_id 
+                                        FROM
+                                        posts");
+        $statement->execute();
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function countPosts($userCode){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        post_id 
+                                        FROM
+                                        posts
+                                        Where
+                                        user_code = :user_code
+                                        Order By
+                                        post_created
+                                        DESC");
+        $statement->execute([
+            'user_code' => $userCode
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function countPostActive($userCode){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        post_id 
+                                        FROM
+                                        posts
+                                        Where
+                                        user_code = :user_code
+                                        AND
+                                        post_status = :post_status
+                                        Order By
+                                        post_created
+                                        DESC");
+        $statement->execute([
+            'user_code' => $userCode,
+            'post_status' => 'active'
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function createPost($userCode, $category, $title, $description, $salary_from, $salary_to, $type, $based, $location, $tags){
+
+        $statement=dataLink()->prepare("INSERT INTO
+                                        posts
+                                        (
+                                            user_code, 
+                                            post_category, 
+                                            post_title, 
+                                            post_description, 
+                                            post_salary_from, 
+                                            post_salary_to, 
+                                            post_type, 
+                                            post_based, 
+                                            city_id, 
+                                            post_tags, 
+                                            post_status, 
+                                            post_created, 
+                                            post_updated
+                                        )
+                                        Values
+                                        (
+                                            :user_code, 
+                                            :post_category, 
+                                            :post_title, 
+                                            :post_description, 
+                                            :post_salary_from, 
+                                            :post_salary_to, 
+                                            :post_type, 
+                                            :post_based, 
+                                            :city_id, 
+                                            :post_tags, 
+                                            :post_status, 
+                                            NOW(), 
+                                            NOW()
+                                        )");
+        $statement->execute([
+            'user_code' => $userCode, 
+            'post_category' => $category, 
+            'post_title' => $title, 
+            'post_description' => $description, 
+            'post_salary_from' => $salary_from, 
+            'post_salary_to' => $salary_to, 
+            'post_type' => $type, 
+            'post_based' => $based, 
+            'city_id' => $location, 
+            'post_tags' => $tags, 
+            'post_status' => 'active'
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    function updatePost($postId, $category, $title, $description, $salary_from, $salary_to, $type, $based, $location, $tags){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        posts
+                                        SET
+                                        post_category = :post_category, 
+                                        post_title = :post_title, 
+                                        post_description = :post_description, 
+                                        post_salary_from = :post_salary_from, 
+                                        post_salary_to = :post_salary_to, 
+                                        post_type = :post_type, 
+                                        post_based = :post_based, 
+                                        city_id = :city_id, 
+                                        post_tags = :post_tags, 
+                                        post_updated = NOW()
+                                        Where
+                                        post_id = :post_id");
+        $statement->execute([
+            'post_id' => $postId, 
+            'post_category' => $category, 
+            'post_title' => $title, 
+            'post_description' => $description, 
+            'post_salary_from' => $salary_from, 
+            'post_salary_to' => $salary_to, 
+            'post_type' => $type, 
+            'post_based' => $based, 
+            'city_id' => $location, 
+            'post_tags' => $tags
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    function removePost($postId){
+
+        $statement=dataLink()->prepare("DELETE FROM
+                                        posts
+                                        Where
+                                        post_id = :post_id");
+        $statement->execute([
+            'post_id' => $postId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    function selectPostById($postId){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        posts
+                                        Where
+                                        post_id = :post_id");
+        $statement->execute([
+            'post_id' => $postId
+        ]);
+
+        return $statement;
+
+    }
+
+    function getPostCategory($postId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        post_category
+                                        FROM
+                                        posts
+                                        Where
+                                        post_id = :post_id");
+        $statement->execute([
+            'post_id' => $postId
+        ]);
+
+        $res=$statement->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($res)) {
+            return $res['post_category'];
+        } else {
+            return null;
+        }
+        
+    }
+
+    function countApplicants($postId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        app_id
+                                        FROM
+                                        applicants
+                                        Where
+                                        post_id = :post_id");
+        $statement->execute([
+            'post_id' => $postId
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function countSubmissions($userCode){
+
+        $statement=dataLink()->prepare("SELECT
+                                        app_id
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_applicant = :app_applicant");
+        $statement->execute([
+            'app_applicant' => $userCode
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function selectSubmissions($userCode){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        *
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_applicant = :app_applicant
+                                        Order By
+                                        app_id
+                                        DESC");
+        $statement->execute([
+            'app_applicant' => $userCode
+        ]);
+
+        return $statement;
+
+    }
+
+    function countApplicantsByBusiness($userCode){
+
+        $statement=dataLink()->prepare("SELECT
+                                        app_id
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_business = :app_business");
+        $statement->execute([
+            'app_business' => $userCode
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function countApplicantsHiredByBusiness($userCode){
+
+        $statement=dataLink()->prepare("SELECT
+                                        app_id
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_business = :app_business
+                                        AND
+                                        app_status = :app_status");
+        $statement->execute([
+            'app_business' => $userCode,
+            'app_status' => 'hired'
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function selectApplicantsByPost($postId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        applicants
+                                        Where
+                                        post_id = :post_id
+                                        Order By
+                                        app_created
+                                        ASC");
+        $statement->execute([
+            'post_id' => $postId
+        ]);
+
+        return $statement;
+
+    }
+
+    function selectApplicantsByBusiness($userCode){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_business = :app_business
+                                        Order By
+                                        app_created
+                                        DESC
+                                        LIMIT 5");
+        $statement->execute([
+            'app_business' => $userCode
+        ]);
+
+        return $statement;
+
+    }
+
+    function applyBtnStatus($userCode, $postId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        app_id
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_applicant = :app_applicant
+                                        AND
+                                        post_id = :post_id");
+        $statement->execute([
+            'app_applicant' => $userCode,
+            'post_id' => $postId
+        ]);
+
+        $count=$statement->rowCount();
+
+        if (empty($count)) {
+            return "";
+        } else {
+            return "disabled";
+        }
+
+    }
+
+    function applyBtnStatusLabel($userCode, $postId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        app_id
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_applicant = :app_applicant
+                                        AND
+                                        post_id = :post_id");
+        $statement->execute([
+            'app_applicant' => $userCode,
+            'post_id' => $postId
+        ]);
+
+        $count=$statement->rowCount();
+
+        if (empty($count)) {
+            return "Apply Now";
+        } else {
+            return "Applied";
+        }
+
+    }
+
+    function createApplicantion($postId, $applicant, $business, $document){
+
+        $statement=dataLink()->prepare("INSERT INTO
+                                        applicants
+                                        (
+                                            post_id, 
+                                            app_business, 
+                                            app_applicant, 
+                                            app_document, 
+                                            app_status, 
+                                            app_created,
+                                            app_updated
+                                        )
+                                        VALUES
+                                        (
+                                            :post_id, 
+                                            :app_business, 
+                                            :app_applicant, 
+                                            :app_document, 
+                                            :app_status, 
+                                            NOW(),
+                                            NOW()
+                                        )");
+        $statement->execute([
+            'post_id' => $postId,
+            'app_business' => $business,
+            'app_applicant' => $applicant,
+            'app_document' => $document,
+            'app_status' => 'pending'
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    function getApplicantDocument($userCode, $postId){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        app_document
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_applicant = :app_applicant
+                                        AND
+                                        post_id = :post_id");
+        $statement->execute([
+            'app_applicant' => $userCode,
+            'post_id' => $postId
+        ]);
+
+        $res=$statement->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($res)) {
+            return $res['app_document'];
+        } else {
+            return null;
+        }
+
+    }
+
+    function updateApplicantStatus($status, $appId){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        applicants
+                                        SET
+                                        app_status = :app_status
+                                        Where
+                                        app_id = :app_id");
+        $statement->execute([
+            'app_status' => $status,
+            'app_id' => $appId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 ?>

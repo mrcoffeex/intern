@@ -130,55 +130,5 @@ $(document).ready(function () {
             });
         }, 1000);
     });
-
-    //tagify
-    var locations = document.getElementById('locations');
-    var locationsTag = new Tagify(locations);
-    var skills = document.getElementById('skills');
-    var skillsTag = new Tagify(skills);
-  
-    $('#skillsBtn').click(function() {
-            
-        $(this).text("Updating skills ...");
-        $(this).prop("disabled", true);
-        
-        var skillsHelpText = $('#skillsHelpText');
-        skillsHelpText.text('');
-
-        clearTimeout(timer);
-        
-        timer = setTimeout(function() {
-
-            var tags = skillsTag.value.reduce(function(result, tag) {
-                return result.concat(tag.value);
-            }, []);
-            var stringTags = tags.join(', ');
-
-            console.log(stringTags);
-
-            $.ajax({
-                url: 'autoUpdateSkills.php',
-                method: 'POST',
-                data: { skills: stringTags },
-                success: function(response) {
-                    skillsHelpText.text('Changes saved');
-                    skillsHelpText.css("color", "green");
-                    $('#skillsBtn').text("Update Skills");
-                    $('#skillsBtn').prop("disabled", false);
-                },
-                error: function(xhr, status, error) {
-                    skillsHelpText.text('Error updating data :' + error);
-                    skillsHelpText.css("color", "red");
-                    $('#skillsBtn').text("Update Skills");
-                    $('#skillsBtn').prop("disabled", false);
-                }
-            });
-            
-        }, 1000);
-    });
-
-    $('#salaryMinimum').change(function(){
-        $('#salaryMinimumValue').html($('#salaryMinimum').val());
-    });
         
 });

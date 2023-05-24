@@ -5,6 +5,8 @@
 <script src="../../skydash/vendors/owl-carousel-2/owl.carousel.min.js"></script>
 <script src="../../skydash/vendors/dropify/dropify.min.js"></script>
 <script src="../../skydash/vendors/tinymce/tinymce.min.js"></script>
+<script src="../../skydash/vendors/typeahead.js/typeahead.bundle.min.js"></script>
+<script src="../../skydash/vendors/select2/select2.min.js"></script>
 <script src="../../skydash/js/off-canvas.js"></script>
 <script src="../../skydash/js/hoverable-collapse.js"></script>
 <script src="../../skydash/js/template.js"></script>
@@ -24,8 +26,7 @@
 <script src="../../skydash/js/dropify.js"></script>
 
 <script src="../../skydash/js/select2.js"></script>
-<script src="../../skydash/vendors/select2/select2.min.js"></script>
-<script src="../../skydash/js/editorDemo.js"></script>
+<script src="../../skydash/js/typeahead.js"></script>
 
 <script>
     //custom js here
@@ -43,6 +44,19 @@
 		formObj.innerHTML = "processing ...";
 		return true;  
 
+	}
+
+	function showPassword(elem) {
+                                                                
+		var x = document.getElementById(elem);
+
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+
+		return true;
 	}
     
     //toastr custom options

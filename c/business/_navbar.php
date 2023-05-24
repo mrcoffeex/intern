@@ -22,12 +22,12 @@
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-              <img src="../../skydash/images/faces/face28.jpg" alt="profile"/>
+              <img src="<?= previewImage($userProfileImg, '../../images/profile_default.png', '../../imagebank/') ?>" alt="profile"/>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
+              <a href="accountSettings" class="dropdown-item">
                 <i class="ti-settings text-primary"></i>
-                Settings
+                Account Settings
               </a>
               <a href="logout" class="dropdown-item">
                 <i class="ti-power-off text-primary"></i>

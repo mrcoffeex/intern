@@ -7,10 +7,10 @@
             <nav class="mx-auto site-navigation">
                 <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
                     <li><a href="./" class="nav-link active">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="blog.html">InternShips</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#login">InternShips</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contact</a></li>
                     <li class="d-lg-none"><a href="#" data-toggle="modal"  data-target="#login">Log In</a></li>
                     <li class="d-lg-none has-children">
                         <a href="#">Register</a>

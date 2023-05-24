@@ -4,9 +4,6 @@
 
     $title = "Profile";
 
-    $selectProfile = selectProfile($userCode);
-    $profile=$selectProfile->fetch(PDO::FETCH_ASSOC);
-
 ?>
 
 <!doctype html>
@@ -155,20 +152,36 @@
                             </div>
 
                             <h5><span class="text-primary">Skills</span></h5>
+                            
+                            <form action="updateSkills" method="post" onsubmit="btnLoader(this.skillsBtn)">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <select class="js-example-basic-multiple w-100" multiple="multiple" name="skills[]" id="skills">
+                                                <?php  
+                                                    $tagsArray = explode(',', $profile['profile_skills']);
+                                                    foreach ($tagsArray as $tags) {
+                                                        echo '<option value="'.$tags.'" selected>'.$tags.'</option>';
+                                                    }
+                                                ?>
 
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea name="skills" id="skills" rows="3" placeholder="sample1, sample2, sample3" maxlengh="255"><?= dataVerify($profile['profile_skills'], 'Encoding, Computer Troubleshooting, Content Writing') ?></textarea>
-                                        <small id="skillsHelpText" class="form-text"></small>
+                                                <?php  
+                                                    $getSKills=selectSkills();
+                                                    while ($skill=$getSKills->fetch(PDO::FETCH_ASSOC)) {
+                                                ?>
+                                                <option value="<?= $skill['skill_name'] ?>"><?= $skill['skill_name'] ?></option>
+                                                <?php } ?>
+                                            </select>
+                                            <small id="skillsHelpText" class="form-text"></small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button type="submit" id="skillsBtn" class="btn btn-primary">Update Skills</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <button type="submit" id="skillsBtn" class="btn btn-primary">Update Skills</button>
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

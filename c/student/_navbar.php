@@ -9,6 +9,7 @@
                     <li><a href="./" class="nav-link <?= setActive("index") ?>">Home</a></li>
                     <li><a href="internships" class="nav-link <?= setActive("internships") ?>">InternShips</a></li>
                     <li><a href="profile" class="nav-link <?= setActive("profile") ?>">Profile</a></li>
+                    <li><a href="submissions" class="nav-link <?= setActive("submissions") ?>">Submissions <span class="badge badge-primary text-white"><?= countSubmissions($userCode) ?></span></a></li>
                     <li class="d-lg-none has-children">
                         <a href="#"><?= $userFullname ?></a>
                         <ul class="dropdown">

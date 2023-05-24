@@ -10,19 +10,13 @@
 
         if (empty($currentPassword) || empty($newPassword)) {
 
-            if (md5($currentPassword) == $row['user_password']) {
-
-                //proceed
-                $request = updateUserAccount($userEmail, $row['user_password'], $userId);
-        
-                if ($request == true) {
-                    header("location: accountSettings?note=updated");
-                } else {
-                    header("location: accountSettings?note=error");
-                }
-
-            }else{
-                header("location: accountSettings?note=mismatch");
+            //proceed
+            $request = updateUserAccount($userEmail, $row['user_password'], $userId);
+    
+            if ($request == true) {
+                header("location: accountSettings?note=updated");
+            } else {
+                header("location: accountSettings?note=error");
             }
 
         } else {
