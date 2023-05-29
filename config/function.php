@@ -1273,6 +1273,8 @@
 
     }
 
+    // experiences
+
     function createExp($position, $company, $expFrom, $expTo, $expCity, $jobDesc, $userCode){
 
         $statement=dataLink()->prepare("INSERT INTO
@@ -1337,6 +1339,25 @@
         
     }
 
+    function selectStudentExp($userCode){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        experiences
+                                        Where
+                                        user_code = :user_code
+                                        Order By
+                                        exp_from
+                                        DESC");
+        $statement->execute([
+            'user_code' => $userCode
+        ]);
+
+        return $statement;
+
+    }
+
     // filters
 
     function createFilters($userCode){
@@ -1393,27 +1414,6 @@
                                         filters
                                         Where
                                         user_code = :user_code");
-        $statement->execute([
-            'user_code' => $userCode
-        ]);
-
-        return $statement;
-
-    }
-
-    // experience
-
-    function selectStudentExp($userCode){
-
-        $statement=dataLink()->prepare("SELECT
-                                        *
-                                        FROM
-                                        experiences
-                                        Where
-                                        user_code = :user_code
-                                        Order By
-                                        exp_from
-                                        DESC");
         $statement->execute([
             'user_code' => $userCode
         ]);
@@ -2002,7 +2002,15 @@
             'post_id' => $postId
         ]);
 
-        if ($statement) {
+        $statement2=dataLink()->prepare("DELETE FROM
+                                        applicants
+                                        Where
+                                        post_id = :post_id");
+        $statement2->execute([
+            'post_id' => $postId
+        ]);
+
+        if ($statement && $statement2) {
             return true;
         } else {
             return false;
@@ -2048,6 +2056,26 @@
         
     }
 
+    function updatePostViews($postId){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        posts
+                                        SET
+                                        post_views = post_views + 1
+                                        Where
+                                        post_id = :post_id");
+        $statement->execute([
+            'post_id' => $postId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     function countApplicants($postId){
 
         $statement=dataLink()->prepare("SELECT
@@ -2058,6 +2086,24 @@
                                         post_id = :post_id");
         $statement->execute([
             'post_id' => $postId
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function countApplicantsHired(){
+
+        $statement=dataLink()->prepare("SELECT
+                                        app_id
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_status = :app_status");
+        $statement->execute([
+            'app_status' => 'hired'
         ]);
 
         $count=$statement->rowCount();
@@ -2081,6 +2127,22 @@
         $count=$statement->rowCount();
 
         return $count;
+
+    }
+
+    function selectSubmission($appId){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        *
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_id = :app_id");
+        $statement->execute([
+            'app_id' => $appId
+        ]);
+
+        return $statement;
 
     }
 
@@ -2142,7 +2204,7 @@
 
     }
 
-    function selectApplicantsByPost($postId){
+    function selectApplicantsByPost($postId, $userCode){
 
         $statement=dataLink()->prepare("SELECT
                                         *
@@ -2150,11 +2212,14 @@
                                         applicants
                                         Where
                                         post_id = :post_id
+                                        AND
+                                        app_business = :app_business
                                         Order By
                                         app_created
-                                        ASC");
+                                        DESC");
         $statement->execute([
-            'post_id' => $postId
+            'post_id' => $postId,
+            'app_business' => $userCode
         ]);
 
         return $statement;
@@ -2231,7 +2296,7 @@
 
     }
 
-    function createApplicantion($postId, $applicant, $business, $document){
+    function createApplication($postId, $applicant, $business, $document){
 
         $statement=dataLink()->prepare("INSERT INTO
                                         applicants
@@ -2295,6 +2360,31 @@
 
     }
 
+    function getApplicantCertificate($userCode, $postId){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        app_certificate
+                                        FROM
+                                        applicants
+                                        Where
+                                        app_applicant = :app_applicant
+                                        AND
+                                        post_id = :post_id");
+        $statement->execute([
+            'app_applicant' => $userCode,
+            'post_id' => $postId
+        ]);
+
+        $res=$statement->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($res)) {
+            return $res['app_certificate'];
+        } else {
+            return null;
+        }
+
+    }
+
     function updateApplicantStatus($status, $appId){
 
         $statement=dataLink()->prepare("UPDATE
@@ -2305,6 +2395,52 @@
                                         app_id = :app_id");
         $statement->execute([
             'app_status' => $status,
+            'app_id' => $appId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    function updateApplicantTasksHours($appId, $addHours, $schoolHours, $tasks){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        applicants
+                                        SET
+                                        app_school_hours = :app_school_hours,
+                                        app_hours = app_hours + :app_hours,
+                                        app_task = :app_task
+                                        Where
+                                        app_id = :app_id");
+        $statement->execute([
+            'app_school_hours' => $schoolHours,
+            'app_hours' => $addHours,
+            'app_task' => $tasks,
+            'app_id' => $appId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    function updateCertificate($appId, $certificate){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        applicants
+                                        SET
+                                        app_certificate = :app_certificate
+                                        Where
+                                        app_id = :app_id");
+        $statement->execute([
+            'app_certificate' => $certificate,
             'app_id' => $appId
         ]);
 

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2023 at 07:23 AM
+-- Generation Time: May 29, 2023 at 04:57 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.1.17
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,60 @@ SET time_zone = "+00:00";
 --
 -- Database: `intern_builders_core`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applicants`
+--
+
+CREATE TABLE `applicants` (
+  `app_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `app_business` varchar(30) NOT NULL,
+  `app_applicant` varchar(30) NOT NULL,
+  `app_document` text NOT NULL,
+  `app_certificate` text NOT NULL,
+  `app_hired` datetime NOT NULL,
+  `app_task` text NOT NULL,
+  `app_school_hours` double NOT NULL,
+  `app_hours` double NOT NULL,
+  `app_status` varchar(20) NOT NULL,
+  `app_created` datetime NOT NULL,
+  `app_updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `applicants`
+--
+
+INSERT INTO `applicants` (`app_id`, `post_id`, `app_business`, `app_applicant`, `app_document`, `app_certificate`, `app_hired`, `app_task`, `app_school_hours`, `app_hours`, `app_status`, `app_created`, `app_updated`) VALUES
+(2, 2, '20230522114429aRlPZcVd', '20230518183525FpDmFLtE', '20230524092103_sample resume.docx', '', '2023-05-27 16:32:05', '<ul>\r\n<li>sample1</li>\r\n<li>sample2</li>\r\n<li>sample3</li>\r\n<li>sample4</li>\r\n<li>sample5</li>\r\n</ul>', 480, 8, 'hired', '2023-05-24 09:21:03', '2023-05-24 09:21:03'),
+(3, 2, '20230522114429aRlPZcVd', '20230528060129RmoxmzNs', '20230528062232_sample resume.docx', '20230528080517_document.png', '0000-00-00 00:00:00', '', 0, 0, 'pending', '2023-05-28 06:22:33', '2023-05-28 06:22:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `business_profiles`
+--
+
+CREATE TABLE `business_profiles` (
+  `bus_id` int(11) NOT NULL,
+  `user_code` varchar(30) NOT NULL,
+  `bus_name` varchar(100) NOT NULL,
+  `bus_tags` text NOT NULL,
+  `bus_intro` text NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `bus_created` datetime NOT NULL,
+  `bus_updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `business_profiles`
+--
+
+INSERT INTO `business_profiles` (`bus_id`, `user_code`, `bus_name`, `bus_tags`, `bus_intro`, `city_id`, `bus_created`, `bus_updated`) VALUES
+(3, '20230522114429aRlPZcVd', 'KrazyApps PH', '', '<p>KrazyApps PH is a leading software development company specializing in creating innovative and user-friendly mobile applications. Our talented team of tech enthusiasts combines creativity with functionality to deliver cutting-edge solutions across various platforms. We prioritize customer satisfaction, forging long-term partnerships by providing tailored products that exceed expectations. With a focus on research and development, we stay ahead of emerging technologies, integrating AR, VR, and AI to create captivating experiences. Committed to excellence, KrazyApps PH is poised to lead the way in mobile app development.</p>', 4, '2023-05-22 11:44:29', '2023-05-22 11:44:29');
 
 -- --------------------------------------------------------
 
@@ -769,13 +823,6 @@ CREATE TABLE `filters` (
   `filter_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `filters`
---
-
-INSERT INTO `filters` (`fitler_id`, `user_code`, `filter_category`, `filter_locations`, `filter_fulltime`, `filter_parttime`, `filter_office_based`, `filter_home_based`, `filter_salary`, `filter_updated`) VALUES
-(1, '20230518183525FpDmFLtE', '', 'Davao City,Cebu City,Manila,Quezon,Tarlac', 'checked', '', 'checked', '', 20000, '2023-05-18 18:47:30');
-
 -- --------------------------------------------------------
 
 --
@@ -823,7 +870,64 @@ INSERT INTO `notifications` (`notif_id`, `notif_type`, `notif_text`, `notif_crea
 (27, 'auth', 'Logout - keanemay2020@gmail.com', '2023-05-18 17:48:01'),
 (28, 'create', 'new applicant - user', '2023-05-18 18:35:50'),
 (29, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-05-18 18:46:12'),
-(30, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-18 18:47:38');
+(30, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-18 18:47:38'),
+(31, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-05-22 07:30:47'),
+(32, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-22 07:30:53'),
+(33, 'auth', 'Logout - keanemays2020@gmail.com', '2023-05-22 08:55:18'),
+(34, 'create', 'new business applicant - user', '2023-05-22 11:25:10'),
+(35, 'create', 'new business applicant - user', '2023-05-22 11:36:27'),
+(36, 'create', 'new business applicant - user', '2023-05-22 11:39:40'),
+(37, 'create', 'new business applicant - user', '2023-05-22 11:41:26'),
+(38, 'create', 'new business applicant - user', '2023-05-22 11:44:32'),
+(39, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-22 12:06:14'),
+(40, 'auth', 'Logout - ', '2023-05-22 13:49:52'),
+(41, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-22 13:50:13'),
+(42, 'auth', 'Logout - krazyappsph@gmail.com', '2023-05-22 13:55:54'),
+(43, 'attempt', 'Login Attempt - krazyappsph@gmail.com', '2023-05-22 13:56:18'),
+(44, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-22 13:56:23'),
+(45, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-23 12:24:51'),
+(46, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-24 01:17:31'),
+(47, 'auth', 'Logout - krazyappsph@gmail.com', '2023-05-24 05:01:00'),
+(48, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-05-24 05:01:11'),
+(49, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-05-24 05:01:17'),
+(50, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-05-24 05:01:26'),
+(51, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-05-24 05:01:30'),
+(52, 'auth', 'Login - keanemays2020@gmail.com', '2023-05-24 05:01:49'),
+(53, 'auth', 'Logout - keanemays2020@gmail.com', '2023-05-24 05:17:35'),
+(54, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-24 05:17:42'),
+(55, 'auth', 'Logout - krazyappsph@gmail.com', '2023-05-24 05:24:40'),
+(56, 'auth', 'Login - keanemays2020@gmail.com', '2023-05-24 05:25:33'),
+(57, 'auth', 'Logout - keanemays2020@gmail.com', '2023-05-24 10:44:21'),
+(58, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-24 10:48:47'),
+(59, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-05-24 12:12:53'),
+(60, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-05-24 12:12:57'),
+(61, 'auth', 'Login - keanemays2020@gmail.com', '2023-05-24 12:13:05'),
+(62, 'auth', 'Logout - keanemay2020@gmail.com', '2023-05-24 12:14:52'),
+(63, 'attempt', 'Login Attempt - krazyappsph@gmail.com', '2023-05-24 12:16:46'),
+(64, 'attempt', 'Login Attempt - krazyappsph@gmail.com', '2023-05-24 12:16:50'),
+(65, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-24 12:17:00'),
+(66, 'auth', 'Logout - krazyappsph@gmail.com', '2023-05-24 12:18:47'),
+(67, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-24 12:18:56'),
+(68, 'auth', 'Logout - krazyappsph@gmail.com', '2023-05-24 12:26:08'),
+(69, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-27 10:27:44'),
+(70, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-27 10:36:31'),
+(71, 'auth', 'Logout - keanemay2020@gmail.com', '2023-05-28 05:12:37'),
+(72, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-28 05:12:46'),
+(73, 'attempt', 'Login Attempt - player.mir100@gmail.com', '2023-05-28 06:01:08'),
+(74, 'create', 'new applicant - user', '2023-05-28 06:01:33'),
+(75, 'auth', 'Login - player.mir100@gmail.com', '2023-05-28 06:05:59'),
+(76, 'auth', 'Login - player.mir100@gmail.com', '2023-05-28 07:32:38'),
+(77, 'auth', 'Logout - krazyappsph@gmail.com', '2023-05-28 08:13:48'),
+(78, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-28 08:14:03'),
+(79, 'auth', 'Logout - keanemay2020@gmail.com', '2023-05-28 08:14:14'),
+(80, 'auth', 'Login - player.mir100@gmail.com', '2023-05-28 08:14:28'),
+(81, 'auth', 'Logout - player.mir100@gmail.com', '2023-05-28 08:23:35'),
+(82, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-28 08:23:43'),
+(83, 'auth', 'Logout - keanemay2020@gmail.com', '2023-05-28 08:37:13'),
+(84, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-28 08:37:20'),
+(85, 'auth', 'Logout - krazyappsph@gmail.com', '2023-05-28 09:25:29'),
+(86, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-28 09:40:26'),
+(87, 'auth', 'Logout - keanemay2020@gmail.com', '2023-05-28 09:44:09');
 
 -- --------------------------------------------------------
 
@@ -858,7 +962,46 @@ INSERT INTO `otps` (`otp_id`, `otp_num`, `user_code`, `otp_status`, `otp_created
 (12, '721535', '20230508131002STMPvhRA', 1, '2023-05-17 22:08:36'),
 (13, '965434', '20230518183525FpDmFLtE', 1, '2023-05-18 18:35:26'),
 (14, '677177', '20230518183525FpDmFLtE', 1, '2023-05-18 18:40:39'),
-(15, '859832', '20230518183525FpDmFLtE', 1, '2023-05-18 18:46:33');
+(15, '859832', '20230518183525FpDmFLtE', 1, '2023-05-18 18:46:33'),
+(16, '954472', '20230522112506RTKGnuKf', 1, '2023-05-22 11:25:06'),
+(17, '619773', '20230522113624xMjgLxIn', 1, '2023-05-22 11:36:24'),
+(18, '100050', '20230522113936kfGnQveU', 1, '2023-05-22 11:39:36'),
+(19, '918140', '20230522114123wuAIKvfD', 1, '2023-05-22 11:41:23'),
+(20, '211847', '20230522114429aRlPZcVd', 1, '2023-05-22 11:44:29'),
+(21, '378542', '20230528060129RmoxmzNs', 1, '2023-05-28 06:01:29');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `posts`
+--
+
+CREATE TABLE `posts` (
+  `post_id` int(11) NOT NULL,
+  `user_code` varchar(30) NOT NULL,
+  `post_category` varchar(100) NOT NULL,
+  `post_title` varchar(255) NOT NULL,
+  `post_description` text NOT NULL,
+  `post_salary_from` double NOT NULL,
+  `post_salary_to` double NOT NULL,
+  `post_type` varchar(20) NOT NULL,
+  `post_based` varchar(20) NOT NULL,
+  `city_id` int(11) NOT NULL,
+  `post_tags` varchar(255) NOT NULL,
+  `post_status` varchar(20) NOT NULL,
+  `post_views` int(11) NOT NULL,
+  `post_created` datetime NOT NULL,
+  `post_updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `posts`
+--
+
+INSERT INTO `posts` (`post_id`, `user_code`, `post_category`, `post_title`, `post_description`, `post_salary_from`, `post_salary_to`, `post_type`, `post_based`, `city_id`, `post_tags`, `post_status`, `post_views`, `post_created`, `post_updated`) VALUES
+(2, '20230522114429aRlPZcVd', 'Administrative Assistant', 'asdadasdasdsadas asdasdasdasdasd', '<p>asdasdasdasd asdasdasdasd</p>\r\n<ul>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>dfsdfsdfsdf</li>\r\n</ul>', 15000, 25000, 'Full-Time', 'Office-Based', 14, 'ActionScript,Ada,Adobe Audition,Adobe Lightroom', 'active', 6, '2023-05-24 01:59:38', '2023-05-24 05:24:28'),
+(3, '20230522114429aRlPZcVd', 'Agronomist', 'sample title', '<p>Skills</p>\r\n<ul>\r\n<li>sample</li>\r\n<li>sample</li>\r\n<li>sample</li>\r\n<li>sample</li>\r\n</ul>', 15000, 25000, 'Full-Time', 'Office-Based', 11, 'Ada,Adobe Creative Cloud,PHP,SQL Server Management Studio', 'active', 1, '2023-05-24 02:53:03', '2023-05-24 02:53:03'),
+(4, '20230522114429aRlPZcVd', 'Business Analyst', 'Out Company is actively seeking a skilled and experienced Business Analyst to join our dynamic team', '<p><strong style=\"margin: 0px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">Lorem Ipsum</strong><span style=\"font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span></p>', 15000, 25000, 'Full-Time', 'Office-Based', 4, 'Ada,Adobe Lightroom,Analytical skills,ASP.NET MVC', 'active', 0, '2023-05-24 05:23:57', '2023-05-24 05:23:57');
 
 -- --------------------------------------------------------
 
@@ -876,8 +1019,8 @@ CREATE TABLE `profiles` (
   `city_id` int(11) NOT NULL,
   `profile_gender` varchar(6) NOT NULL,
   `profile_contact` varchar(10) NOT NULL,
-  `profile_about_me` varchar(255) NOT NULL,
-  `profile_skills` varchar(255) NOT NULL,
+  `profile_about_me` text NOT NULL,
+  `profile_skills` text NOT NULL,
   `profile_created` datetime NOT NULL,
   `profile_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -887,7 +1030,8 @@ CREATE TABLE `profiles` (
 --
 
 INSERT INTO `profiles` (`profile_id`, `user_code`, `profile_course`, `school_id`, `profile_country`, `profile_address`, `city_id`, `profile_gender`, `profile_contact`, `profile_about_me`, `profile_skills`, `profile_created`, `profile_updated`) VALUES
-(2, '20230518183525FpDmFLtE', 'BS Information Technology', 65, 'Philippines', '1095, Datoc Compound', 45, 'Male', '9121610673', 'hello there we are the malevoelent i am your love a if you want to be as', 'Encoding, Computer Troubleshooting, Content Writing, php', '2023-05-18 18:47:30', '2023-05-18 18:47:30');
+(2, '20230518183525FpDmFLtE', 'BS Information Technology', 65, 'Philippines', '1095, Datoc Compound', 45, 'Male', '9121610673', 'hello there we are the malevoelent i am your love a if you want to be as', 'Encoding, Computer Troubleshooting, Content Writing, php,Adaptability', '2023-05-18 18:47:30', '2023-05-18 18:47:30'),
+(5, '20230528060129RmoxmzNs', 'BS Information Technology', 18, 'Philippines', 'Brgy 1-A, Matina', 44, 'Female', '9914347411', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 'HTML/CSS,JavaScript,Laravel,PHP,SQL Server Management Studio', '2023-05-28 06:05:43', '2023-05-28 06:13:59');
 
 -- --------------------------------------------------------
 
@@ -1324,6 +1468,7 @@ CREATE TABLE `users` (
   `user_status` int(1) NOT NULL,
   `user_verified` int(1) NOT NULL,
   `user_profile_img` text NOT NULL,
+  `school_id` int(11) NOT NULL,
   `user_created` datetime NOT NULL,
   `user_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=COMPACT;
@@ -1332,13 +1477,27 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_uid`, `user_code`, `user_fname`, `user_lname`, `user_email`, `user_password`, `user_type`, `user_status`, `user_verified`, `user_profile_img`, `user_created`, `user_updated`) VALUES
-(1, '786z5sdfgz7856gdgds576', 'devmaster', '', 'kjohn0319@gmail.com', 'ea439fbdaa955099ec9ad4a96a3a81bd', 0, 0, 0, '20230214112541_330637137_6181408395227293_2564895463636309527_n.png', '2022-08-04 00:00:00', '2022-10-05 16:09:15'),
-(32, '20230518183525FpDmFLtE', 'Keane', 'May', 'keanemay2020@gmail.com', 'cfe80a7823a1db46774e9b6f2ba55685', 3, 0, 1, '20230519013015_profile_default.png', '2023-05-18 18:35:25', '2023-05-18 18:35:25');
+INSERT INTO `users` (`user_uid`, `user_code`, `user_fname`, `user_lname`, `user_email`, `user_password`, `user_type`, `user_status`, `user_verified`, `user_profile_img`, `school_id`, `user_created`, `user_updated`) VALUES
+(1, '786z5sdfgz7856gdgds576', 'devmaster', '', 'kjohn0319@gmail.com', 'ea439fbdaa955099ec9ad4a96a3a81bd', 0, 0, 0, '20230214112541_330637137_6181408395227293_2564895463636309527_n.png', 0, '2022-08-04 00:00:00', '2022-10-05 16:09:15'),
+(32, '20230518183525FpDmFLtE', 'Keane', 'May', 'keanemay2020@gmail.com', 'cfe80a7823a1db46774e9b6f2ba55685', 3, 0, 1, '20230519013015_profile_default.png', 0, '2023-05-18 18:35:25', '2023-05-24 12:14:26'),
+(37, '20230522114429aRlPZcVd', 'KrazyApps PH', '', 'krazyappsph@gmail.com', 'ea439fbdaa955099ec9ad4a96a3a81bd', 2, 0, 1, '20230524110611_gusto ko lang naman mag FN.jpg', 0, '2023-05-22 11:44:29', '2023-05-24 11:06:11'),
+(38, '20230528060129RmoxmzNs', 'Shaira', 'Mariz', 'player.mir100@gmail.com', 'cfe80a7823a1db46774e9b6f2ba55685', 3, 0, 1, '', 0, '2023-05-28 06:01:29', '2023-05-28 06:13:59');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `applicants`
+--
+ALTER TABLE `applicants`
+  ADD PRIMARY KEY (`app_id`);
+
+--
+-- Indexes for table `business_profiles`
+--
+ALTER TABLE `business_profiles`
+  ADD PRIMARY KEY (`bus_id`);
 
 --
 -- Indexes for table `categories`
@@ -1395,6 +1554,12 @@ ALTER TABLE `otps`
   ADD PRIMARY KEY (`otp_id`);
 
 --
+-- Indexes for table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`post_id`);
+
+--
 -- Indexes for table `profiles`
 --
 ALTER TABLE `profiles`
@@ -1433,6 +1598,18 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `applicants`
+--
+ALTER TABLE `applicants`
+  MODIFY `app_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `business_profiles`
+--
+ALTER TABLE `business_profiles`
+  MODIFY `bus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1474,25 +1651,31 @@ ALTER TABLE `experiences`
 -- AUTO_INCREMENT for table `filters`
 --
 ALTER TABLE `filters`
-  MODIFY `fitler_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `fitler_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notif_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `notif_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `otps`
 --
 ALTER TABLE `otps`
-  MODIFY `otp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `otp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `project`
@@ -1522,7 +1705,7 @@ ALTER TABLE `skills`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `user_uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

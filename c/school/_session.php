@@ -6,7 +6,7 @@
 
 	if(!isset($_SESSION['hotkopi_session_id'])){
         header("location: ../../");
-    }else if ($_SESSION['hotkopi_session_type'] != 3) {
+    }else if ($_SESSION['hotkopi_session_type'] != 1) {
         header("location: ../../");
     }
 
@@ -35,25 +35,5 @@
     //dates
     $datenow = date("Y-m-d H:i:s");
     $onlydate = date("Y-m-d");
-    
-    $getProfile=selectProfile($userCode);
-    $profile=$getProfile->fetch(PDO::FETCH_ASSOC);
 
-    if (
-        empty($userProfileImg) || 
-        empty($profile['profile_course']) || 
-        empty($profile['school_id']) || 
-        empty($profile['profile_country']) || 
-        empty($profile['profile_address']) ||  
-        empty($profile['city_id']) ||  
-        empty($profile['profile_gender']) ||  
-        empty($profile['profile_contact']) ||  
-        empty($profile['profile_about_me']) ||  
-        empty($profile['profile_skills'])
-        ) {
-        $profileStatusAlert = '<span class="badge badge-danger" title="complete your profile ..."><i class="icon-warning"></i></span>';
-    } else {
-        $profileStatusAlert = "";
-    }
-    
 ?>

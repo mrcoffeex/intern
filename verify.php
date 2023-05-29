@@ -67,16 +67,11 @@
 
                         <div class="position-relative p-2 text-center">
                             <h5>Please enter your verification code</h5>
-                            <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2"> 
-                                <input class="m-1 text-center form-control rounded text-bold" type="text" name="first" id="first" maxlength="1" autofocus /> 
-                                <input class="m-1 text-center form-control rounded text-bold" type="text" name="second" id="second" maxlength="1" /> 
-                                <input class="m-1 text-center form-control rounded text-bold" type="text" name="third" id="third" maxlength="1" /> 
-                                <input class="m-1 text-center form-control rounded text-bold" type="text" name="fourth" id="fourth" maxlength="1" /> 
-                                <input class="m-1 text-center form-control rounded text-bold" type="text" name="fifth" id="fifth" maxlength="1" /> 
-                                <input class="m-1 text-center form-control rounded text-bold" type="text" name="sixth" id="sixth" maxlength="1" /> 
+                            <div class="form-group">
+                                <input type="text" name="otp" id="otp" class="form-control text-center" maxlength="6" autofocus required>
                             </div>
-                            <div class="mt-4"> 
-                                <button type="submit" id="submitOTP" class="btn btn-primary px-4 validate">Submit</button> 
+                            <div class="form-group mt-3"> 
+                                <button type="submit" id="submitOTP" class="btn btn-primary btn-block px-4 validate">Submit</button> 
                             </div>
                         </div>
 
@@ -94,7 +89,7 @@
     <?php include '_scripts.php'; ?>
     <?php include '_alerts.php'; ?>
 
-    <script src="js/verification.js"></script>
+    <!-- <script src="js/verification.js"></script> -->
      
   </body>
 </html>

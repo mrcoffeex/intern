@@ -44,6 +44,8 @@
                                     ON
                                     posts.user_code = business_profiles.user_code
                                     Where
+                                    FIND_IN_SET(post_tags, :post_tags) > 0 
+                                    OR 
                                     " . $keywordsRequest . "
                                     (
                                         " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
@@ -51,7 +53,9 @@
                                     Order By 
                                     post_views
                                     DESC");
-    $countResults->execute();
+    $countResults->execute([
+        'post_tags' => $profile['profile_skills']
+    ]);
     $countRes=$countResults->rowCount();
         
     $getPaginate=dataLink()->prepare("SELECT COUNT(post_id) From posts
@@ -60,6 +64,8 @@
                                     ON
                                     posts.user_code = business_profiles.user_code
                                     Where
+                                    FIND_IN_SET(post_tags, :post_tags) > 0 
+                                    OR 
                                     " . $keywordsRequest . "
                                     (
                                         " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
@@ -67,7 +73,9 @@
                                     Order By 
                                     post_views
                                     DESC");
-    $getPaginate->execute();
+    $getPaginate->execute([
+        'post_tags' => $profile['profile_skills']
+    ]);
     $paginates=$getPaginate->fetch(PDO::FETCH_BOTH);
 
     $page_rows = 10; // limit every page
@@ -98,6 +106,8 @@
                                     ON
                                     posts.user_code = business_profiles.user_code
                                     Where
+                                    FIND_IN_SET(post_tags, :post_tags) > 0 
+                                    OR 
                                     " . $keywordsRequest . "
                                     (
                                         " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
@@ -106,7 +116,9 @@
                                     post_views
                                     DESC
                                     $limit");
-    $paginate->execute();
+    $paginate->execute([
+        'post_tags' => $profile['profile_skills']
+    ]);
     
     $paginationCtrls = '';
 

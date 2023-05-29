@@ -7,6 +7,9 @@
     $getPost=selectPostById($postId);
     $post=$getPost->fetch(PDO::FETCH_ASSOC);
 
+    //add post views
+    updatePostViews($postId);
+
     $title = $post['post_category'];
     
 ?>

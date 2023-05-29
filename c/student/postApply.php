@@ -15,7 +15,7 @@
             header("location: post?toekn=" . my_rand_str(30) . "&postId=$postId&note=invalid_upload");
         } else {
             
-            $request = createApplicantion($postId, $userCode, $post['user_code'], $fileUpload);
+            $request = createApplication($postId, $userCode, $post['user_code'], $fileUpload);
 
             if ($request == true) {
                 header("location: post?toekn=" . my_rand_str(30) . "&postId=$postId&note=applied");

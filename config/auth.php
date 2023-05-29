@@ -36,7 +36,7 @@
 							break;
 						case '1':
 							createLog("Login", $userEmail, "auth");
-							header("location: ../c/qa/");
+							header("location: ../c/school/");
 							break;
 						case '2':
 							createLog("Login", $userEmail, "auth");

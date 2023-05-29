@@ -7,16 +7,9 @@
         header("location: 404");
     }else{
 
-        if (isset($_POST['first'])) {
-        
-            $first = clean_string($_POST['first']);
-            $second = clean_string($_POST['second']);
-            $third = clean_string($_POST['third']);
-            $fourth = clean_string($_POST['fourth']);
-            $fifth = clean_string($_POST['fifth']);
-            $sixth = clean_string($_POST['sixth']);
+        if (isset($_POST['otp'])) {
     
-            $otp = $first . $second . $third . $fourth . $fifth . $sixth;
+            $otp = clean_string($_POST['otp']);
     
             $request = verifyOTP($ucode, $otp);
     

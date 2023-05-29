@@ -34,7 +34,7 @@
         <div class="row align-items-center justify-content-center">
           <div class="col-md-12">
             <div class="mb-5 text-center">
-              <h1 class="text-white font-weight-bold text-capitalize">the ultimate destination for inters</h1>
+              <h1 class="text-white font-weight-bold text-capitalize">the ultimate destination for interns</h1>
               <p>Our platform is designed to simplify the process for you</p>
             </div>
             <form class="search-jobs-form">
@@ -98,7 +98,7 @@
 
           <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
             <div class="d-flex align-items-center justify-content-center mb-2">
-              <strong class="number" data-number="120">0</strong>
+              <strong class="number" data-number="<?= countApplicantsHired() ?>">0</strong>
             </div>
             <span class="caption">Jobs Filled</span>
           </div>
@@ -180,8 +180,8 @@
           <div class="col-12 text-center mt-4 mb-5">
             <div class="row justify-content-center">
               <div class="col-md-7">
-                <h2 class="section-title mb-2">Business We've Helped</h2>
-                <p class="lead">we take pride in our track record of successfully assisting a diverse range of businesses across various industries. Here are some examples of the businesses we have helped.</p>
+                <h2 class="section-title mb-2">Reviews</h2>
+                <p class="lead">We take pride in our track record of successfully assisting a diverse range of businesses across various industries. Here are some examples of the businesses we have helped.</p>
               </div>
             </div>
             

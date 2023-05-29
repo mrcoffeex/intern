@@ -9,7 +9,7 @@
                 header("location: c/core/");
                 break;
             case '1':
-                header("location: c/qa/");
+                header("location: c/school/");
                 break;
             case '2':
                 header("location: c/business/");

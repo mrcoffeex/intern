@@ -18,7 +18,7 @@
         $city = $profile['city_id'];
         $type = "Full-TIme";
         $based = "Office-Based";
-        $salaryMinimum = "20000";
+        $salaryMinimum = "0";
 
     }
 
@@ -105,10 +105,7 @@
                                 </div>
                                 <div class="form-group mt-2">
                                     <label for="">Desired minimum monthly salary <span class="text-primary">PHP <span id="salaryMinimumValue"><?= $salaryMinimum ?></span></span></label>
-                                    <input type="range" class="form-control" name="salaryMinimum" id="salaryMinimum" min="10000" max="100000" step="5000" value="<?= $salaryMinimum ?>" required>
-                                </div>
-                                <div class="form-group float-right">
-                                    <button type="button" class="btn btn-default text-primary">Clear all</button>
+                                    <input type="range" class="form-control" name="salaryMinimum" id="salaryMinimum" min="0" max="100000" step="5000" value="<?= $salaryMinimum ?>" required>
                                 </div>
                             </div>
                         </div>
@@ -122,9 +119,7 @@
 
                     <div class="card mb-2">
                         <div class="card-body">
-                            <a href="post?token=<?= my_rand_str(30) ?>&postId=<?= $post['post_id'] ?>" target="_NEW" class="text-decoration-none text-dark">
-                                <h5 class="text-bold"><?= $post['post_category'] ?></h5>
-                            </a>
+                            <h5 class="text-bold"><?= $post['post_category'] ?></h5>
                             <h6 class="text-bold mb-2"><?= $post['bus_name'] ?></h6>
 
                             <p class="text-dark"><i class="icon-map-marker"></i> <?= getCityName($post['city_id']) ?></p>
@@ -154,6 +149,7 @@
                             <span class="badge badge-secondary"><?= $tags ?></span>
 
                             <?php } ?>
+                            <a href="post?token=<?= my_rand_str(30) ?>&postId=<?= $post['post_id'] ?>" target="_NEW" class="stretched-link" title="click to view ..."></a>
                         </div>
                     </div>
 

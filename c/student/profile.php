@@ -144,7 +144,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea class="form-control" name="aboutMe" id="aboutMe" rows="5" placeholder="tell me about yourself ..." maxlengh="255"><?= $profile['profile_about_me'] ?></textarea>
+                                        <textarea class="form-control" name="aboutMe" id="aboutMe" rows="5" placeholder="tell me about yourself ..." maxlength="255"><?= $profile['profile_about_me'] ?></textarea>
                                         <small id="aboutMeHelpText" class="form-text float-left"></small>
                                         <small id="aboutMeCharCount" class="form-text float-right"><?= strlen($profile['profile_about_me']) . "/255" ?></small>
                                     </div>
@@ -357,7 +357,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+63</span>
                                         </div>
-                                        <input type="text" class="form-control" name="contact" id="contact" maxlength="10" value="9121610673">
+                                        <input type="text" class="form-control" name="contact" id="contact" maxlength="10">
                                     </div>
                                 </div>
                             </div>

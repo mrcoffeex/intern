@@ -7,16 +7,16 @@
             <nav class="mx-auto site-navigation">
                 <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
                     <li><a href="./" class="nav-link active">Home</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="about">About</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#login">InternShips</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="support">Support</a></li>
                     <li class="d-lg-none"><a href="#" data-toggle="modal"  data-target="#login">Log In</a></li>
                     <li class="d-lg-none has-children">
                         <a href="#">Register</a>
                         <ul class="dropdown">
-                            <li><a href="student">As Student</a></li>
-                            <li><a href="business">As Business</a></li>
+                            <li><a href="student">Student</a></li>
+                            <li><a href="business">Business</a></li>
+                            <li><a href="school">School</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -31,9 +31,11 @@
                             Register <i class="icon-chevron-down"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a href="student" class="text-decoration-none text-dark ml-3">As Student</a></li>
+                            <li><a href="student" class="text-decoration-none text-dark ml-3">Student</a></li>
                             <div class="dropdown-divider"></div>
-                            <li><a href="business" class="text-decoration-none text-dark ml-3">As Business</a></li>
+                            <li><a href="business" class="text-decoration-none text-dark ml-3">Business</a></li>
+                            <div class="dropdown-divider"></div>
+                            <li><a href="school" class="text-decoration-none text-dark ml-3">School</a></li>
                         </ul>
                     </div>
                 </div>
