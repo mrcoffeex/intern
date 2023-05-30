@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2023 at 04:57 PM
+-- Generation Time: May 30, 2023 at 03:00 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.1.17
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,8 +48,8 @@ CREATE TABLE `applicants` (
 --
 
 INSERT INTO `applicants` (`app_id`, `post_id`, `app_business`, `app_applicant`, `app_document`, `app_certificate`, `app_hired`, `app_task`, `app_school_hours`, `app_hours`, `app_status`, `app_created`, `app_updated`) VALUES
-(2, 2, '20230522114429aRlPZcVd', '20230518183525FpDmFLtE', '20230524092103_sample resume.docx', '', '2023-05-27 16:32:05', '<ul>\r\n<li>sample1</li>\r\n<li>sample2</li>\r\n<li>sample3</li>\r\n<li>sample4</li>\r\n<li>sample5</li>\r\n</ul>', 480, 8, 'hired', '2023-05-24 09:21:03', '2023-05-24 09:21:03'),
-(3, 2, '20230522114429aRlPZcVd', '20230528060129RmoxmzNs', '20230528062232_sample resume.docx', '20230528080517_document.png', '0000-00-00 00:00:00', '', 0, 0, 'pending', '2023-05-28 06:22:33', '2023-05-28 06:22:33');
+(2, 2, '20230522114429aRlPZcVd', '20230518183525FpDmFLtE', '20230524092103_sample resume.docx', '20230530085616_0-1.png', '2023-05-27 16:32:05', '<ul>\r\n<li>sample1</li>\r\n<li>sample2</li>\r\n<li>sample3</li>\r\n<li>sample4</li>\r\n<li>sample5</li>\r\n</ul>', 480, 416, 'hired', '2023-05-24 09:21:03', '2023-05-24 09:21:03'),
+(3, 2, '20230522114429aRlPZcVd', '20230528060129RmoxmzNs', '20230528062232_sample resume.docx', '20230528080517_document.png', '0000-00-00 00:00:00', '', 0, 0, 'hired', '2023-05-28 06:22:33', '2023-05-28 06:22:33');
 
 -- --------------------------------------------------------
 
@@ -73,7 +73,8 @@ CREATE TABLE `business_profiles` (
 --
 
 INSERT INTO `business_profiles` (`bus_id`, `user_code`, `bus_name`, `bus_tags`, `bus_intro`, `city_id`, `bus_created`, `bus_updated`) VALUES
-(3, '20230522114429aRlPZcVd', 'KrazyApps PH', '', '<p>KrazyApps PH is a leading software development company specializing in creating innovative and user-friendly mobile applications. Our talented team of tech enthusiasts combines creativity with functionality to deliver cutting-edge solutions across various platforms. We prioritize customer satisfaction, forging long-term partnerships by providing tailored products that exceed expectations. With a focus on research and development, we stay ahead of emerging technologies, integrating AR, VR, and AI to create captivating experiences. Committed to excellence, KrazyApps PH is poised to lead the way in mobile app development.</p>', 4, '2023-05-22 11:44:29', '2023-05-22 11:44:29');
+(3, '20230522114429aRlPZcVd', 'KrazyApps PH', '', '<p>KrazyApps PH is a leading software development company specializing in creating innovative and user-friendly mobile applications. Our talented team of tech enthusiasts combines creativity with functionality to deliver cutting-edge solutions across various platforms. We prioritize customer satisfaction, forging long-term partnerships by providing tailored products that exceed expectations. With a focus on research and development, we stay ahead of emerging technologies, integrating AR, VR, and AI to create captivating experiences. Committed to excellence, KrazyApps PH is poised to lead the way in mobile app development.</p>', 4, '2023-05-22 11:44:29', '2023-05-22 11:44:29'),
+(4, '20230530075506yggzdmZT', 'Software Xi', '', '<p>Software Xi is a leading software development company delivering innovative solutions for businesses. Our skilled team develops customized software to streamline operations, enhance productivity, and drive business growth. With expertise in web and mobile app development, cloud computing, and AI, we provide reliable and user-friendly solutions. Customer satisfaction is our priority, and we offer exceptional support throughout the development lifecycle. Partner with Software Xi to transform your ideas into reality and thrive in the digital landscape. Contact us today for a consultation.</p>', 44, '2023-05-30 07:55:06', '2023-05-30 07:55:06');
 
 -- --------------------------------------------------------
 
@@ -927,7 +928,36 @@ INSERT INTO `notifications` (`notif_id`, `notif_type`, `notif_text`, `notif_crea
 (84, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-28 08:37:20'),
 (85, 'auth', 'Logout - krazyappsph@gmail.com', '2023-05-28 09:25:29'),
 (86, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-28 09:40:26'),
-(87, 'auth', 'Logout - keanemay2020@gmail.com', '2023-05-28 09:44:09');
+(87, 'auth', 'Logout - keanemay2020@gmail.com', '2023-05-28 09:44:09'),
+(88, 'create', 'new school applicant - user', '2023-05-29 23:47:04'),
+(89, 'auth', 'Login - nonaki2293@introace.com', '2023-05-29 23:47:46'),
+(90, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-30 04:32:22'),
+(91, 'auth', 'Logout - nonaki2293@introace.com', '2023-05-30 06:02:43'),
+(92, 'attempt', 'Login Attempt - kjohn0319@gmail.com', '2023-05-30 06:02:53'),
+(93, 'auth', 'Login - kjohn0319@gmail.com', '2023-05-30 06:03:10'),
+(94, 'auth', 'Logout - kjohn0319@gmail.com', '2023-05-30 07:02:58'),
+(95, 'attempt', 'Login Attempt - nonaki2293@introace.com', '2023-05-30 07:03:15'),
+(96, 'auth', 'Login - nonaki2293@introace.com', '2023-05-30 07:03:19'),
+(97, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-30 07:34:56'),
+(98, 'auth', 'Logout - nonaki2293@introace.com', '2023-05-30 07:52:22'),
+(99, 'create', 'new business applicant - user', '2023-05-30 07:55:27'),
+(100, 'auth', 'Login - tuzoloda@lyft.live', '2023-05-30 07:56:00'),
+(101, 'auth', 'Logout - tuzoloda@lyft.live', '2023-05-30 08:03:55'),
+(102, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-30 08:07:46'),
+(103, 'auth', 'Logout - keanemay2020@gmail.com', '2023-05-30 08:14:54'),
+(104, 'auth', 'Login - kjohn0319@gmail.com', '2023-05-30 08:15:04'),
+(105, 'auth', 'Logout - kjohn0319@gmail.com', '2023-05-30 08:29:06'),
+(106, 'create', 'new school applicant - user', '2023-05-30 08:34:21'),
+(107, 'auth', 'Login - n36dlmm2yq@kzccv.com', '2023-05-30 08:34:54'),
+(108, 'auth', 'Login - kjohn0319@gmail.com', '2023-05-30 08:39:42'),
+(109, 'auth', 'Logout - n36dlmm2yq@kzccv.com', '2023-05-30 08:40:48'),
+(110, 'attempt', 'Login Attempt - nonaki2293@introace.com', '2023-05-30 08:40:55'),
+(111, 'auth', 'Login - nonaki2293@introace.com', '2023-05-30 08:40:59'),
+(112, 'auth', 'Logout - kjohn0319@gmail.com', '2023-05-30 08:41:08'),
+(113, 'auth', 'Login - keanemay2020@gmail.com', '2023-05-30 08:41:16'),
+(114, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-30 08:42:05'),
+(115, 'auth', 'Logout - krazyappsph@gmail.com', '2023-05-30 08:48:37'),
+(116, 'auth', 'Login - krazyappsph@gmail.com', '2023-05-30 08:48:45');
 
 -- --------------------------------------------------------
 
@@ -968,7 +998,10 @@ INSERT INTO `otps` (`otp_id`, `otp_num`, `user_code`, `otp_status`, `otp_created
 (18, '100050', '20230522113936kfGnQveU', 1, '2023-05-22 11:39:36'),
 (19, '918140', '20230522114123wuAIKvfD', 1, '2023-05-22 11:41:23'),
 (20, '211847', '20230522114429aRlPZcVd', 1, '2023-05-22 11:44:29'),
-(21, '378542', '20230528060129RmoxmzNs', 1, '2023-05-28 06:01:29');
+(21, '378542', '20230528060129RmoxmzNs', 1, '2023-05-28 06:01:29'),
+(22, '535621', '20230529234643ZYyxiXxi', 1, '2023-05-29 23:46:43'),
+(23, '380727', '20230530075506yggzdmZT', 1, '2023-05-30 07:55:06'),
+(24, '643298', '20230530083357SxwzhFJD', 1, '2023-05-30 08:33:57');
 
 -- --------------------------------------------------------
 
@@ -999,9 +1032,10 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `user_code`, `post_category`, `post_title`, `post_description`, `post_salary_from`, `post_salary_to`, `post_type`, `post_based`, `city_id`, `post_tags`, `post_status`, `post_views`, `post_created`, `post_updated`) VALUES
-(2, '20230522114429aRlPZcVd', 'Administrative Assistant', 'asdadasdasdsadas asdasdasdasdasd', '<p>asdasdasdasd asdasdasdasd</p>\r\n<ul>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>dfsdfsdfsdf</li>\r\n</ul>', 15000, 25000, 'Full-Time', 'Office-Based', 14, 'ActionScript,Ada,Adobe Audition,Adobe Lightroom', 'active', 6, '2023-05-24 01:59:38', '2023-05-24 05:24:28'),
+(2, '20230522114429aRlPZcVd', 'Administrative Assistant', 'asdadasdasdsadas asdasdasdasdasd', '<p>asdasdasdasd asdasdasdasd</p>\r\n<ul>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>dfsdfsdfsdf</li>\r\n</ul>', 15000, 25000, 'Full-Time', 'Office-Based', 14, 'ActionScript,Ada,Adobe Audition,Adobe Lightroom', 'active', 8, '2023-05-24 01:59:38', '2023-05-24 05:24:28'),
 (3, '20230522114429aRlPZcVd', 'Agronomist', 'sample title', '<p>Skills</p>\r\n<ul>\r\n<li>sample</li>\r\n<li>sample</li>\r\n<li>sample</li>\r\n<li>sample</li>\r\n</ul>', 15000, 25000, 'Full-Time', 'Office-Based', 11, 'Ada,Adobe Creative Cloud,PHP,SQL Server Management Studio', 'active', 1, '2023-05-24 02:53:03', '2023-05-24 02:53:03'),
-(4, '20230522114429aRlPZcVd', 'Business Analyst', 'Out Company is actively seeking a skilled and experienced Business Analyst to join our dynamic team', '<p><strong style=\"margin: 0px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">Lorem Ipsum</strong><span style=\"font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span></p>', 15000, 25000, 'Full-Time', 'Office-Based', 4, 'Ada,Adobe Lightroom,Analytical skills,ASP.NET MVC', 'active', 0, '2023-05-24 05:23:57', '2023-05-24 05:23:57');
+(4, '20230522114429aRlPZcVd', 'Business Analyst', 'Out Company is actively seeking a skilled and experienced Business Analyst to join our dynamic team', '<p><strong style=\"margin: 0px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">Lorem Ipsum</strong><span style=\"font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span></p>', 15000, 25000, 'Full-Time', 'Office-Based', 4, 'Ada,Adobe Lightroom,Analytical skills,ASP.NET MVC', 'active', 0, '2023-05-24 05:23:57', '2023-05-24 05:23:57'),
+(5, '20230530075506yggzdmZT', 'Web Designer', 'Web Designer Full-Time', '<p>Job Description:</p>\r\n<p style=\"text-align: justify;\">We are seeking a talented and creative Web Designer to join our team at [Company Name]. As a Web Designer, you will be responsible for creating visually appealing and user-friendly websites that align with our clients\' needs and brand guidelines. Your primary focus will be on designing intuitive interfaces, implementing responsive design principles, and optimizing website performance.</p>\r\n<p style=\"text-align: justify;\">Responsibilities:</p>\r\n<ul>\r\n<li style=\"text-align: justify;\">Collaborate with clients and internal teams to understand project requirements and objectives.</li>\r\n<li style=\"text-align: justify;\">Create wireframes, prototypes, and visual designs for websites and web applications.</li>\r\n<li style=\"text-align: justify;\">Design and implement responsive layouts that provide an optimal user experience across devices.</li>\r\n<li style=\"text-align: justify;\">Develop and maintain design standards, guidelines, and best practices.</li>\r\n<li style=\"text-align: justify;\">Collaborate with developers to ensure seamless integration of design elements.</li>\r\n<li style=\"text-align: justify;\">Conduct usability testing and gather feedback to continuously improve designs.</li>\r\n<li style=\"text-align: justify;\">Stay updated with industry trends, emerging technologies, and design tools.</li>\r\n</ul>\r\n<p>Join our dynamic team and contribute to the creation of captivating web experiences. To apply, please submit your resume, portfolio, and any relevant work samples to [contact email/website]. We look forward to reviewing your application and discussing how your skills can enhance our design capabilities.</p>', 0, 10000, 'Full-Time', 'Office-Based', 44, 'HTML/CSS,JavaScript,Laravel,Play Framework', 'active', 2, '2023-05-30 08:03:14', '2023-05-30 08:03:14');
 
 -- --------------------------------------------------------
 
@@ -1021,6 +1055,7 @@ CREATE TABLE `profiles` (
   `profile_contact` varchar(10) NOT NULL,
   `profile_about_me` text NOT NULL,
   `profile_skills` text NOT NULL,
+  `profile_verified` int(1) NOT NULL,
   `profile_created` datetime NOT NULL,
   `profile_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -1029,9 +1064,9 @@ CREATE TABLE `profiles` (
 -- Dumping data for table `profiles`
 --
 
-INSERT INTO `profiles` (`profile_id`, `user_code`, `profile_course`, `school_id`, `profile_country`, `profile_address`, `city_id`, `profile_gender`, `profile_contact`, `profile_about_me`, `profile_skills`, `profile_created`, `profile_updated`) VALUES
-(2, '20230518183525FpDmFLtE', 'BS Information Technology', 65, 'Philippines', '1095, Datoc Compound', 45, 'Male', '9121610673', 'hello there we are the malevoelent i am your love a if you want to be as', 'Encoding, Computer Troubleshooting, Content Writing, php,Adaptability', '2023-05-18 18:47:30', '2023-05-18 18:47:30'),
-(5, '20230528060129RmoxmzNs', 'BS Information Technology', 18, 'Philippines', 'Brgy 1-A, Matina', 44, 'Female', '9914347411', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 'HTML/CSS,JavaScript,Laravel,PHP,SQL Server Management Studio', '2023-05-28 06:05:43', '2023-05-28 06:13:59');
+INSERT INTO `profiles` (`profile_id`, `user_code`, `profile_course`, `school_id`, `profile_country`, `profile_address`, `city_id`, `profile_gender`, `profile_contact`, `profile_about_me`, `profile_skills`, `profile_verified`, `profile_created`, `profile_updated`) VALUES
+(2, '20230518183525FpDmFLtE', 'BS Information Technology', 65, 'Philippines', '1095, Datoc Compound', 45, 'Male', '9121610673', 'hello there we are the malevoelent i am your love a if you want to be as', ' php,Adobe Photoshop,HTML/CSS,PL/SQL', 1, '2023-05-18 18:47:30', '2023-05-18 18:47:30'),
+(5, '20230528060129RmoxmzNs', 'BS Information Technology', 18, 'Philippines', 'Brgy 1-A, Matina', 44, 'Female', '9914347411', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 'HTML/CSS,JavaScript,Laravel,PHP,SQL Server Management Studio', 0, '2023-05-28 06:05:43', '2023-05-28 06:13:59');
 
 -- --------------------------------------------------------
 
@@ -1052,6 +1087,32 @@ CREATE TABLE `project` (
 
 INSERT INTO `project` (`project_id`, `project_name`, `project_address`, `project_created`) VALUES
 (1, 'InternBuilders', 'Digos City', '2023-04-24 11:27:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requirements`
+--
+
+CREATE TABLE `requirements` (
+  `require_id` int(11) NOT NULL,
+  `user_code` varchar(30) NOT NULL,
+  `school_id` int(11) NOT NULL,
+  `require_position` varchar(100) NOT NULL,
+  `require_attachment1` text NOT NULL,
+  `require_attachment2` text NOT NULL,
+  `require_status` varchar(10) NOT NULL,
+  `require_created` datetime NOT NULL,
+  `require_updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `requirements`
+--
+
+INSERT INTO `requirements` (`require_id`, `user_code`, `school_id`, `require_position`, `require_attachment1`, `require_attachment2`, `require_status`, `require_created`, `require_updated`) VALUES
+(1, '20230529234643ZYyxiXxi', 65, 'Faculty', '20230530053757_um.jpg', '20230530053757_um2.jpg', 'approved', '2023-05-30 05:37:57', '2023-05-30 05:37:57'),
+(2, '20230530083357SxwzhFJD', 12, 'Faculty', '20230530083919_um2.jpg', '20230530083919_um.jpg', 'approved', '2023-05-30 08:39:19', '2023-05-30 08:39:19');
 
 -- --------------------------------------------------------
 
@@ -1478,10 +1539,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_uid`, `user_code`, `user_fname`, `user_lname`, `user_email`, `user_password`, `user_type`, `user_status`, `user_verified`, `user_profile_img`, `school_id`, `user_created`, `user_updated`) VALUES
-(1, '786z5sdfgz7856gdgds576', 'devmaster', '', 'kjohn0319@gmail.com', 'ea439fbdaa955099ec9ad4a96a3a81bd', 0, 0, 0, '20230214112541_330637137_6181408395227293_2564895463636309527_n.png', 0, '2022-08-04 00:00:00', '2022-10-05 16:09:15'),
+(1, '786z5sdfgz7856gdgds576', 'devmaster', '', 'kjohn0319@gmail.com', 'ea439fbdaa955099ec9ad4a96a3a81bd', 0, 0, 1, '', 0, '2022-08-04 00:00:00', '2022-10-05 16:09:15'),
 (32, '20230518183525FpDmFLtE', 'Keane', 'May', 'keanemay2020@gmail.com', 'cfe80a7823a1db46774e9b6f2ba55685', 3, 0, 1, '20230519013015_profile_default.png', 0, '2023-05-18 18:35:25', '2023-05-24 12:14:26'),
 (37, '20230522114429aRlPZcVd', 'KrazyApps PH', '', 'krazyappsph@gmail.com', 'ea439fbdaa955099ec9ad4a96a3a81bd', 2, 0, 1, '20230524110611_gusto ko lang naman mag FN.jpg', 0, '2023-05-22 11:44:29', '2023-05-24 11:06:11'),
-(38, '20230528060129RmoxmzNs', 'Shaira', 'Mariz', 'player.mir100@gmail.com', 'cfe80a7823a1db46774e9b6f2ba55685', 3, 0, 1, '', 0, '2023-05-28 06:01:29', '2023-05-28 06:13:59');
+(38, '20230528060129RmoxmzNs', 'Shaira', 'Mariz', 'player.mir100@gmail.com', 'cfe80a7823a1db46774e9b6f2ba55685', 3, 0, 1, '', 0, '2023-05-28 06:01:29', '2023-05-28 06:13:59'),
+(39, '20230529234643ZYyxiXxi', 'Peter', 'Johnson', 'nonaki2293@introace.com', 'cfe80a7823a1db46774e9b6f2ba55685', 1, 0, 1, '', 65, '2023-05-29 23:46:43', '2023-05-29 23:46:43'),
+(40, '20230530075506yggzdmZT', 'Software Xi', '', 'tuzoloda@lyft.live', 'cfe80a7823a1db46774e9b6f2ba55685', 2, 0, 1, '', 0, '2023-05-30 07:55:06', '2023-05-30 07:55:06'),
+(41, '20230530083357SxwzhFJD', 'Peter', 'Simon', 'n36dlmm2yq@kzccv.com', 'cfe80a7823a1db46774e9b6f2ba55685', 1, 0, 1, '', 12, '2023-05-30 08:33:57', '2023-05-30 08:33:57');
 
 --
 -- Indexes for dumped tables
@@ -1572,6 +1636,12 @@ ALTER TABLE `project`
   ADD PRIMARY KEY (`project_id`);
 
 --
+-- Indexes for table `requirements`
+--
+ALTER TABLE `requirements`
+  ADD PRIMARY KEY (`require_id`);
+
+--
 -- Indexes for table `schools`
 --
 ALTER TABLE `schools`
@@ -1609,7 +1679,7 @@ ALTER TABLE `applicants`
 -- AUTO_INCREMENT for table `business_profiles`
 --
 ALTER TABLE `business_profiles`
-  MODIFY `bus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `bus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1657,19 +1727,19 @@ ALTER TABLE `filters`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notif_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `notif_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT for table `otps`
 --
 ALTER TABLE `otps`
-  MODIFY `otp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `otp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `profiles`
@@ -1682,6 +1752,12 @@ ALTER TABLE `profiles`
 --
 ALTER TABLE `project`
   MODIFY `project_id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `requirements`
+--
+ALTER TABLE `requirements`
+  MODIFY `require_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `schools`
@@ -1705,7 +1781,7 @@ ALTER TABLE `skills`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `user_uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
