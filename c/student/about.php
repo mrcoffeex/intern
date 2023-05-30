@@ -2,7 +2,7 @@
     require '../../config/includes.php';
     require '_session.php';
 
-    $title = "Register | Student";
+    $title = "About";
 ?>
 
 <!doctype html>
@@ -42,7 +42,7 @@
             <br><br>
             Our Commitment:
             </p>
-            <ol>
+            <ol class="text-justify text-black">
                 <li>
                     Quality Internships: We partner with renowned companies and organizations across various industries to offer high-quality internship placements. We ensure that each internship aligns with the intern's interests, skills, and career goals. By providing challenging and rewarding experiences, we aim to foster personal and professional growth.
                 </li>
@@ -59,7 +59,7 @@
                     Continued Support: Our commitment to interns extends beyond the duration of their internships. We remain engaged with our alumni, providing ongoing support, career guidance, and access to job opportunities. We take pride in witnessing our interns evolve into successful professionals and serve as ambassadors for the InternBuilders community.
                 </li>
             </ol>
-            <p class="text-justify mt-4">
+            <p class="text-justify text-black mt-4">
                 Join InternBuilders:
                 <br><br>
                 Whether you're a student looking for hands-on experience or a graduate seeking to launch your career, InternBuilders offers a platform for you to gain practical skills, make lasting connections, and unlock your potential. We are passionate about empowering the next generation of professionals and shaping a brighter future.

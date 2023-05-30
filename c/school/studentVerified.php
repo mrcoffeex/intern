@@ -2,7 +2,7 @@
     require '../../config/includes.php';
     require '_session.php';
 
-    $title = "Hello! " . $userFullname . " of " . $schoolName;
+    $title = "Verified Students";
 ?>
 
 <!DOCTYPE html>
@@ -42,16 +42,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3 mb-4 stretch-card transparent">
-                                    <div class="card card-light-danger">
-                                        <div class="card-body">
-                                        <p class="fs-6 mb-2">Unverified Students</p>
-                                        <p class="fw-bold mb-2">
-                                            <span class="fs-3"><?= countUnVerifiedStudentsBySchool($schoolId) ?></span> counts
-                                        </p>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -60,7 +50,7 @@
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <p class="card-title"><i class="ti-user"></i> Recent Hired Students</p>
+                                    <p class="card-title"><i class="ti-check"></i> Verified List</p>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover">
                                             <thead>
@@ -78,7 +68,7 @@
                                             </thead>
                                             <tbody>
                                                 <?php  
-                                                    $getRecent=selectRecentHiredStudents($schoolId, 20);
+                                                    $getRecent=selectVerifiedStudent($schoolId);
                                                     while ($recent=$getRecent->fetch(PDO::FETCH_ASSOC)) {
 
                                                         if ($recent['app_hired'] == "0000-00-00 00:00:00") {

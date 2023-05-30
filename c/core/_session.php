@@ -6,7 +6,7 @@
 
 	if(!isset($_SESSION['hotkopi_session_id'])){
         header("location: ../../");
-    }else if ($_SESSION['hotkopi_session_type'] != 1) {
+    }else if ($_SESSION['hotkopi_session_type'] != 0) {
         header("location: ../../");
     }
 
@@ -31,13 +31,6 @@
     $userId = $row['user_uid'];
     $userCode = $row['user_code'];
     $userProfileImg = $row['user_profile_img'];
-    $schoolId = $row['school_id'];
-
-    if (empty($schoolId)) {
-        $schoolName = "( no school )";
-    } else {
-        $schoolName = getSchoolName($schoolId);
-    }
     
 
     //dates

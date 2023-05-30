@@ -40,10 +40,32 @@
                         toastr.error('Either username or password is incorrect');
                     </script>
                 ";
-            } else if ($note == "suspended") {
+            } else if ($note == "approved") {
                 echo "
                     <script>
-                        toastr.error('Either username or password is incorrect');
+                        toastr.success('Request approved');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
+        // accountSettings
+
+        if ($currpage == "accountSettings") {
+            
+            if ($note == "mismatch") {
+                echo "
+                    <script>
+                        toastr.error('Current password do not match');
+                    </script>
+                ";
+            } else if ($note == "updated") {
+                echo "
+                    <script>
+                        toastr.success('Changes saved');
                     </script>
                 ";
             } else {
@@ -77,83 +99,13 @@
             } else if ($note == "char_exceed") {
                 echo "
                     <script>
-                        toastr.error('Email must be NOT greater than 30 characters');
+                        toastr.error('Email must be NOT greater than 50 characters');
                     </script>
                 ";
-            } else {
-                echo "";
-            }
-
-        }
-
-        // verify
-        
-        if ($currpage == "verify") {
-            
-            if ($note == "otp_fail") {
+            } else if ($note == "pass_exceed") {
                 echo "
                     <script>
-                        toastr.error('Verification code do not match');
-                    </script>
-                ";
-            } else if ($note == "unverified") {
-                echo "
-                    <script>
-                        toastr.error('Please verify your email first');
-                    </script>
-                ";
-            } else if ($note == "sent") {
-                echo "
-                    <script>
-                        toastr.success('Email sent');
-                    </script>
-                ";
-            } else {
-                echo "";
-            }
-
-        }
-
-        // student
-        
-        if ($currpage == "student") {
-            
-            if ($note == "duplicate_email") {
-                echo "
-                    <script>
-                        toastr.error('Duplicate email address');
-                    </script>
-                ";
-            } else {
-                echo "";
-            }
-
-        }
-
-        // business
-        
-        if ($currpage == "business") {
-            
-            if ($note == "duplicate_email") {
-                echo "
-                    <script>
-                        toastr.error('Duplicate email address');
-                    </script>
-                ";
-            } else {
-                echo "";
-            }
-
-        }
-
-        // school
-        
-        if ($currpage == "school") {
-            
-            if ($note == "duplicate_email") {
-                echo "
-                    <script>
-                        toastr.error('Duplicate email address');
+                        toastr.error('Password must be NOT greater than 16 characters');
                     </script>
                 ";
             } else {

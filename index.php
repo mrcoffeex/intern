@@ -122,7 +122,7 @@
 
         <div class="row mb-5 justify-content-center">
           <div class="col-md-7 text-center">
-            <h2 class="section-title mb-2"><?= countPostsAll() ?> Job Listed</h2>
+            <h2 class="section-title mb-2"><?= countPostsAll() ?> Jobs Listed</h2>
           </div>
         </div>
         
@@ -133,7 +133,7 @@
             ?>
         
           <li class="job-listing d-block d-sm-flex pb-3 pb-smi-0 align-items-center">
-            <a href="post?token=<?= my_rand_str(30) ?>&postId=<?= $post['post_id'] ?>"></a>
+            <a href="#" data-toggle="modal" data-target="#login"></a>
             <div class="job-listing-logo">
               <img src="<?= previewImage(getUserImg($post['user_code']), "images/blank.png", "imagebank/") ?>" alt="business image ..." class="profile-img">
             </div>

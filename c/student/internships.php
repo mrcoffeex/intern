@@ -10,7 +10,7 @@
         $city = clean_int($_POST['city']);
         $type = clean_string($_POST['type']);
         @$based = clean_string($_POST['based']) ? clean_string($_POST['based']) : 'Office-Based';
-        @$salaryMinimum = clean_float($_POST['salaryMinimum']) ? clean_float($_POST['salaryMinimum']) : '20000';
+        @$salaryMinimum = clean_float($_POST['salaryMinimum']) ? clean_float($_POST['salaryMinimum']) : '0';
         
     } else {
 

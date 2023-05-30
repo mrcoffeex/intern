@@ -12,7 +12,7 @@
             <div class="input-group">
               <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
                 <span class="input-group-text" id="search">
-                  <?= $schoolName ?>
+                  Administrator's Account
                 </span>
               </div>
             </div>

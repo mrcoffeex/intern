@@ -242,7 +242,7 @@
     function previewImage($image, $default, $directory){
 
         if (empty($image)) {
-            $res = $res = $default;
+            $res = $default;
         }else{
             $res = $directory . "" . $image;
         }
@@ -528,7 +528,7 @@
 
             $final_filename = date("YmdHis")."_".$file_name;
 
-            $extensions= array("jpeg","jpg","png");
+            $extensions= array("jpeg","jpg","png","jfif");
 
             if(in_array($file_extension, $extensions)=== false){
                 $errors[]="extension not allowed, please choose a JPEG or PNG file.";
@@ -708,9 +708,13 @@
 
     function user_type($usertype){
         if ($usertype == 0) {
-            $res = "dev";
+            $res = "Admin";
         }else if ($usertype == 1) {
-            $res = "user";
+            $res = "School";
+        }else if ($usertype == 2) {
+            $res = "Business";
+        }else if ($usertype == 3) {
+            $res = "Student";
         }else{
             $res = "unknown";
         }
@@ -1009,6 +1013,35 @@
     }
 
     // school
+
+    function countSchools(){
+
+        $statement=dataLink()->prepare("SELECT
+                                        school_id
+                                        FROM
+                                        schools");
+        $statement->execute();
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function selectSchools(){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        schools
+                                        Order By
+                                        school_name
+                                        ASC");
+        $statement->execute();
+
+        return $statement;
+
+    }
 
     function getSchoolName($schoolId){
 
@@ -2445,6 +2478,289 @@
         ]);
 
         if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    // students
+
+    function countStudents(){
+
+        $statement=dataLink()->prepare("SELECT
+                                        profile_id
+                                        FROM
+                                        profiles");
+        $statement->execute();
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function countVerifiedStudentsBySchool($schoolId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        profile_id
+                                        FROM
+                                        profiles
+                                        Where
+                                        school_id = :school_id
+                                        AND
+                                        profile_verified = :profile_verified");
+        $statement->execute([
+            'school_id' => $schoolId,
+            'profile_verified' => 1
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function countUnVerifiedStudentsBySchool($schoolId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        profile_id
+                                        FROM
+                                        profiles
+                                        Where
+                                        school_id = :school_id
+                                        AND
+                                        profile_verified = :profile_verified");
+        $statement->execute([
+            'school_id' => $schoolId,
+            'profile_verified' => 0
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function selectRecentHiredStudents($schoolId, $inputLImit){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        applicants
+                                        LEFT JOIN
+                                        profiles
+                                        ON
+                                        applicants.app_applicant = profiles.user_code
+                                        Where
+                                        school_id = :school_id
+                                        AND
+                                        app_status = :app_status
+                                        ORDER BY
+                                        profile_created
+                                        DESC
+                                        LIMIT :input_limit");
+        $statement->execute([
+            'school_id' => $schoolId,
+            'app_status' => 'hired',
+            'input_limit' => $inputLImit
+        ]);
+
+        return $statement;
+
+    }
+
+    function selectVerifiedStudent($schoolId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        applicants
+                                        LEFT JOIN
+                                        profiles
+                                        ON
+                                        applicants.app_applicant = profiles.user_code
+                                        Where
+                                        school_id = :school_id
+                                        AND
+                                        profile_verified = :profile_verified
+                                        ORDER BY
+                                        profile_created
+                                        DESC");
+        $statement->execute([
+            'school_id' => $schoolId,
+            'profile_verified' => 1
+        ]);
+
+        return $statement;
+
+    }
+
+    function selectUnverifiedStudent($schoolId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        applicants
+                                        LEFT JOIN
+                                        profiles
+                                        ON
+                                        applicants.app_applicant = profiles.user_code
+                                        Where
+                                        school_id = :school_id
+                                        AND
+                                        profile_verified = :profile_verified
+                                        ORDER BY
+                                        profile_created
+                                        DESC");
+        $statement->execute([
+            'school_id' => $schoolId,
+            'profile_verified' => 0
+        ]);
+
+        return $statement;
+
+    }
+
+    function studentVerification($status){
+
+        if ($status == 0) {
+            $res = '<i class="ti-close"></i>';
+        } else {
+            $res = '<i class="ti-check"></i>';
+        }
+        
+        return $res;
+    }
+
+    function studentVerificationSkin($status){
+
+        if ($status == 0) {
+            $res = "danger";
+        } else {
+            $res = "info";
+        }
+        
+        return $res;
+    }
+
+    // requirements
+
+    function selectRequirement($userCode){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        requirements
+                                        Where
+                                        user_code = :user_code");
+        $statement->execute([
+            'user_code' => $userCode
+        ]);
+
+        return $statement;
+
+    }
+
+    function selectRequirementById($reqId){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        requirements
+                                        Where
+                                        require_id = :require_id");
+        $statement->execute([
+            'require_id' => $reqId
+        ]);
+
+        return $statement;
+
+    }
+
+    function selectRequirements(){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        requirements
+                                        Order By
+                                        require_created
+                                        DESC");
+        $statement->execute();
+
+        return $statement;
+
+    }
+
+    function createRequirements($userCode, $schoolId, $position, $attachment1, $attachment2){
+
+        $statement=dataLink()->prepare("INSERT INTO 
+                                        requirements
+                                        (
+                                            user_code, 
+                                            school_id, 
+                                            require_position, 
+                                            require_attachment1, 
+                                            require_attachment2, 
+                                            require_status, 
+                                            require_created, 
+                                            require_updated
+                                        )
+                                        Values
+                                        (
+                                            :user_code, 
+                                            :school_id, 
+                                            :require_position, 
+                                            :require_attachment1, 
+                                            :require_attachment2, 
+                                            :require_status, 
+                                            NOW(), 
+                                            NOW()
+                                        )");
+        $statement->execute([
+            'user_code' => $userCode, 
+            'school_id' => $schoolId, 
+            'require_position' => $position, 
+            'require_attachment1' => $attachment1, 
+            'require_attachment2' => $attachment2, 
+            'require_status' => 'pending'
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    function approveRequirements($reqId, $userCode, $schoolId){
+
+        $statement1=dataLink()->prepare("UPDATE
+                                        requirements
+                                        SET
+                                        require_status = :require_status
+                                        Where
+                                        require_id = :require_id");
+        $statement1->execute([
+            'require_status' => 'approved',
+            'require_id' => $reqId
+        ]);
+
+        $statement2=dataLink()->prepare("UPDATE
+                                        users
+                                        SET
+                                        school_id = :school_id
+                                        Where
+                                        user_code = :user_code");
+        $statement2->execute([
+            'school_id' => $schoolId,
+            'user_code' => $userCode
+        ]);
+
+        if ($statement1 && $statement2) {
             return true;
         } else {
             return false;

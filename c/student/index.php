@@ -120,7 +120,7 @@
 
         <div class="row mb-5 justify-content-center">
           <div class="col-md-7 text-center">
-            <h2 class="section-title mb-2"><?= countPostsAll() ?> Job Listed</h2>
+            <h2 class="section-title mb-2"><?= countPostsAll() ?> Jobs Listed</h2>
           </div>
         </div>
         

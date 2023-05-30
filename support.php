@@ -1,7 +1,7 @@
 <?php  
     require 'config/includes.php';
 
-    $title = "Register | Student";
+    $title = "Support";
 ?>
 
 <!doctype html>
@@ -37,10 +37,10 @@
             <p class="text-justify text-black mb-4">
             We understand that sometimes things can go wrong with technology, and we're here to help. Our technical support team is available to assist you with any issues you may encounter while using our website or applications. Please review the information below to learn more about our technical support services.
             </p>
-            <p class="text-justify mb-4">
+            <p class="text-justify text-black mb-4">
             If you need technical assistance, you can contact our support team via email or phone. Our support hours are Monday to Friday, 9:00 AM to 5:00 PM Pacific Standard Time. Please be sure to provide as much detail as possible about the issue you're experiencing, including any error messages or screenshots.
             </p>
-            <p style="font-weight: bold;">
+            <p class="text-bold text-black">
                 Email:&nbsp;
                 <span class="text-primary">interbuilders@gmail.com</span>&nbsp;
                 Cel #:&nbsp;

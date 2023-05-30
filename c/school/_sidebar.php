@@ -7,15 +7,15 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="me">
-                <i class="ti-briefcase menu-icon"></i>
-                <span class="menu-title"><?= $userFullname ?></span>
+            <a class="nav-link" href="studentVerified">
+                <i class="ti-check menu-icon"></i>
+                <span class="menu-title">Verified Students</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="posts">
-                <i class="ti-view-list-alt menu-icon"></i>
-                <span class="menu-title">Job Posts</span>
+            <a class="nav-link" href="studentUnverified">
+                <i class="ti-close menu-icon"></i>
+                <span class="menu-title">Unverified Students</span>
             </a>
         </li>
 

@@ -36,70 +36,67 @@
                 <h2 class="mb-4 text-capitalize">sign up your school @ <span class="text-primary"><?= $projectName ?></span></h2>
             </div>
           <div class="col-md-6">
-            <form class="p-4 border rounded card-shadow equal-height" enctype="multipart/form-data" method="POST" action="businessRegister" onsubmit="btnLoader(this.regBusinessBtn)">
+            <form class="p-4 border rounded card-shadow equal-height" enctype="multipart/form-data" method="POST" action="schoolRegister" onsubmit="btnLoader(this.regSchoolBtn)">
 
-                <div class="row form-group">
-                    <div class="col-md-12 mb-3 mb-md-0">
-                        <label class="text-black" for="studentFname">Business Name</label>
+            <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="text-black" for="fname">First Name</label>
                         <input 
                         type="text" 
-                        name="businessName" 
-                        id="businessName" 
-                        class="form-control" 
-                        placeholder="ex. Krazy Apps PH"
+                        name="schoolFname" 
+                        id="schoolFname" 
+                        class="form-control text-capitalize" 
+                        placeholder="John"
                         autofocus required>
-                        <small id="businessNameHelp" class="form-text"></small>
+                        <small id="fnameHelpText" class="form-text"></small>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-md-12 mb-3 mb-md-0">
-                        <label class="text-black" for="city">City</label>
-                        <select name="city" id="city" class="form-control">
-                            <option value=""></option>
-                            <?php  
-                                $getCities = selectCities();
-                                while ($city=$getCities->fetch(PDO::FETCH_ASSOC)) {
-                            ?>
-                            <option value="<?= $city['city_id'] ?>"><?= $city['city_name'] ?></option>
-                            <?php } ?>
-                        </select>
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label class="text-black" for="fname">Last Name</label>
+                        <input 
+                        type="text" 
+                        name="schoolLname" 
+                        id="schoolLname" 
+                        class="form-control text-capitalize" 
+                        placeholder="Doe" 
+                        required>
+                        <small id="lnameHelpText" class="form-text"></small>
                     </div>
                 </div>
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
-                  <label class="text-black" for="businessEmail">Email</label>
+                  <label class="text-black" for="fname">Email</label>
                   <input 
                   type="email" 
-                  name="businessEmail" 
-                  id="businessEmail" 
+                  name="schoolEmail" 
+                  id="schoolEmail" 
                   class="form-control" 
                   placeholder="Email address" 
                   maxlength="100" 
                   required>
-                  <small id="businessEmailHelp" class="form-text"></small>
+                  <small id="emailHelp" class="form-text"></small>
                 </div>
               </div>
-              <div class="row form-group mb-1">
-                <div class="col-md-12">
-                  <label class="text-black" for="businessPassword">Password</label>
+              <div class="row form-group mb-4">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  <label class="text-black" for="fname">Password</label>
                   <div class="input-group">
-                    <input 
-                    type="password" 
-                    class="form-control" 
-                    id="businessPassword" 
-                    name="businessPassword" 
-                    placeholder="Password" 
-                    maxlength="20" 
-                    required>
-                    <div class="input-group-append">
-                        <button class="btn btn-dark" type="button" id="togglePasswordButton">
-                            <i class="icon-eye" id="eyeIcon"></i>
-                        </button>
-                    </div>
+                        <input 
+                        type="password" 
+                        class="form-control" 
+                        id="schoolPassword" 
+                        name="schoolPassword" 
+                        placeholder="Password" 
+                        maxlength="20" 
+                        required>
+                        <div class="input-group-append">
+                            <button class="btn btn-dark" type="button" id="togglePasswordButton">
+                                <i class="icon-eye" id="eyeIcon"></i>
+                            </button>
+                        </div>
                   </div>
                 </div>
                 <div class="col-md-12 mb-3 mb-md-0">
-                    <small id="businessPasswordHelp" class="form-text"></small>
+                    <small id="passwordHelp" class="form-text"></small>
                 </div>
               </div>
 
@@ -108,7 +105,7 @@
                   <p>
                     <small>
                       By signing up, you agree to our 
-                      <a href="#" data-bs-toggle="modal" data-bs-target="#terms">Terms and Conditions</a>.
+                      <a href="terms" data-bs-toggle="modal" data-bs-target="#terms">Terms and Conditions</a>.
                     </small>
                   </p>
                 </div>
@@ -116,7 +113,7 @@
 
               <div class="row form-group">
                 <div class="col-md-12 text-center">
-                  <button type="submit" id="regBusinessBtn" class="btn btn-primary">Join Now</button>
+                  <button type="submit" id="regSchoolBtn" class="btn btn-primary">Sign Up</button>
                 </div>
               </div>
 
@@ -133,7 +130,7 @@
 
             <div class="col-md-6">
                 <div class="p-0 border rounded card-shadow equal-height">
-                    <img src="images/join_us.png" class="img-fluid" alt="join us ...">
+                    <img src="images/school.png" class="img-fluid" alt="join us ...">
                 </div>
             </div>
         </div>
@@ -147,7 +144,7 @@
     <?php include '_scripts.php'; ?>
     <?php include '_alerts.php'; ?>
 
-    <script src="js/validateRegBusiness.js"></script>
+    <script src="js/validateRegSchool.js"></script>
      
   </body>
 </html>

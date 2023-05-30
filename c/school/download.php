@@ -2,10 +2,10 @@
 	require '../../config/includes.php';
     require '_session.php';
 
-    $ucode = clean_string($_GET['ucode']);
 	$postId = clean_int($_GET['postId']);
+	$ucode = clean_string($_GET['ucode']);
 	
-    $downloadFIle = getApplicantDocument($ucode, $postId);
+    $downloadFIle = getApplicantCertificate($ucode, $postId);
 
 	$fileurl = '../../filebank/'.$downloadFIle;
 	header("Content-type:application/pdf");
