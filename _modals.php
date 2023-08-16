@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group text-center">
-                                New to InternBuilders? Register <a href="student">Student</a> / <a href="company">Company</a> / <a href="school">School</a>
+                                New to InternBuilders? Register <a href="student">Student</a> / <a href="business">Business</a> / <a href="school">School</a>
                             </div>
                         </div>
                     </div>

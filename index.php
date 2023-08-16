@@ -122,38 +122,36 @@
 
         <div class="row mb-5 justify-content-center">
           <div class="col-md-7 text-center">
-            <h2 class="section-title mb-2"><?= countPostsAll() ?> Jobs Listed</h2>
+            <h2 class="section-title mb-2">Latest jobs on <?= $projectName ?></h2>
           </div>
         </div>
         
-        <ul class="job-listings mb-5">
+        <div class="row mb-4">
             <?php  
                 $getPosts=selectPostsRecent();
                 while ($post=$getPosts->fetch(PDO::FETCH_ASSOC)) {
             ?>
-        
-          <li class="job-listing d-block d-sm-flex pb-3 pb-smi-0 align-items-center">
-            <a href="#" data-toggle="modal" data-target="#login"></a>
-            <div class="job-listing-logo">
-              <img src="<?= previewImage(getUserImg($post['user_code']), "images/blank.png", "imagebank/") ?>" alt="business image ..." class="profile-img">
-            </div>
+              
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-body">
+                    <p class="m-0 text-bold text-dark"><?= $post['post_category'] ?></p>
+                    <p class="business-text m-0"><?= getBusinessName($post['user_code']) ?></p>
 
-            <div class="job-listing-about d-sm-flex custom-width w-100 justfy-content-between mx-4">
-              <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
-                <h2><?= $post['post_category'] ?></h2>
-                <strong><?= getBusinessName($post['user_code']) ?></strong>
+                    <hr>
+
+                    <p class="small-text m-2"><span class="icon-room"></span> <?= getCityName($post['city_id']) ?></p>
+                    <p class="small-text m-2"><span class="icon-money"></span> <?= $post['post_salary_from'] . " - " . $post['post_salary_to'] ?></p>
+                    <p class="small-text m-2"><span class="icon-calendar-o"></span> <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?></p>
+
+                    <a href="#" data-toggle="modal" data-target="#login" class="small-text float-right text-primary mt-4">View details >></a>
+                  </div>
+                </div>
               </div>
-              <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
-                <span class="icon-room"></span> <?= getCityName($post['city_id']) ?>
-              </div>
-              <div class="job-listing-meta">
-                <span class="badge badge-danger"><?= $post['post_type'] ?></span>
-              </div>
-            </div>
-          </li>
+
             <?php } ?>
 
-        </ul>
+        </div>
 
       </div>
     </section>

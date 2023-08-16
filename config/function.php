@@ -1864,7 +1864,7 @@
                                         Order By
                                         post_id
                                         DESC
-                                        LIMIT 10");
+                                        LIMIT 8");
         $statement->execute();
 
         return $statement;

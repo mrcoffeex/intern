@@ -40,3 +40,17 @@
     content: "";
     background-color: rgba(0,0,0,0);
 }
+
+.small-text{
+    font-size: 12px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #484848;
+}
+
+.business-text{
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #484848;
+}
