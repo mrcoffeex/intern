@@ -9,12 +9,14 @@
             <div class="col-6 col-md-4 mb-4 mb-md-0">
                 <h3>Search Trending</h3>
                 <ul class="list-unstyled">
-                    <li><span class="badge badge-primary">Web Design</span></li>
-                    <li><span class="badge badge-primary">Graphic Design</span></li>
-                    <li><span class="badge badge-primary">Web Developers</span></li>
-                    <li><span class="badge badge-primary">Python</span></li>
-                    <li><span class="badge badge-primary">HTML5</span></li>
-                    <li><span class="badge badge-primary">CSS3</span></li>
+                    <li>
+                        <span class="badge badge-primary">Web Design</span> 
+                        <span class="badge badge-primary">Graphic Design</span> 
+                        <span class="badge badge-primary">Web Developers</span> 
+                        <span class="badge badge-primary">Python</span> 
+                        <span class="badge badge-primary">HTML5</span> 
+                        <span class="badge badge-primary">CSS3</span>
+                    </li>
                 </ul>
             </div>
             <div class="col-6 col-md-4 mb-4 mb-md-0">

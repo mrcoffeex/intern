@@ -8,19 +8,19 @@
     }
 
     if (!empty($type)) {
-        $typeRequest = " OR post_type = '$type' ";
+        $typeRequest = " AND post_type = '$type' ";
     } else {
         $typeRequest = "";
     }
 
     if (!empty($based)) {
-        $basedRequest = " OR post_based = '$based' ";
+        $basedRequest = " AND post_based = '$based' ";
     } else {
         $basedRequest = "";
     }
 
     if (!empty($salaryMinimum)) {
-        $salaryMinimumRequest = " OR post_salary_from <= '$salaryMinimum' AND post_salary_to >= '$salaryMinimum' ";
+        $salaryMinimumRequest = " AND post_salary_from <= '$salaryMinimum' AND post_salary_to >= '$salaryMinimum' ";
     } else {
         $salaryMinimumRequest = "";
     }
@@ -38,44 +38,78 @@
         $keywordsRequest = "";
     }
 
-    $countResults=dataLink()->prepare("SELECT * From posts
-                                    LEFT JOIN
-                                    business_profiles
-                                    ON
-                                    posts.user_code = business_profiles.user_code
-                                    Where
-                                    FIND_IN_SET(post_tags, :post_tags) > 0 
-                                    OR 
-                                    " . $keywordsRequest . "
-                                    (
-                                        " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
-                                    )
-                                    Order By 
-                                    post_views
-                                    DESC");
-    $countResults->execute([
-        'post_tags' => $profile['profile_skills']
-    ]);
+    $string = $profile['profile_skills'];
+    $tagsArray = explode(",", $string);
+    $tagsArray = array_map('trim', $tagsArray);
+    $conditions = array();
+
+    foreach ($tagsArray as $tag) {
+        $conditions[] = "post_tags LIKE '%" . clean_string($tag) . "%'";
+    }
+
+    if (empty($type) && empty($based) && empty($salaryMinimum)) {
+        $countResults=dataLink()->prepare("SELECT * From posts
+                                        LEFT JOIN
+                                        business_profiles
+                                        ON
+                                        posts.user_code = business_profiles.user_code
+                                        Where
+                                        " . implode(" OR ", $conditions) . "
+                                        Order By 
+                                        post_views
+                                        DESC");
+        $countResults->execute();
+
+        $getPaginate=dataLink()->prepare("SELECT COUNT(post_id) From posts
+                                        LEFT JOIN
+                                        business_profiles
+                                        ON
+                                        posts.user_code = business_profiles.user_code
+                                        Where
+                                        " . implode(" OR ", $conditions) . "
+                                        Order By 
+                                        post_views
+                                        DESC");
+        $getPaginate->execute();
+    } else {
+        $countResults=dataLink()->prepare("SELECT * From posts
+                                        LEFT JOIN
+                                        business_profiles
+                                        ON
+                                        posts.user_code = business_profiles.user_code
+                                        Where
+                                        " . implode(" OR ", $conditions) . "
+                                        AND 
+                                        " . $keywordsRequest . "
+                                        (
+                                            " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
+                                        )
+                                        Order By 
+                                        post_views
+                                        DESC");
+        $countResults->execute();
+
+        $getPaginate=dataLink()->prepare("SELECT COUNT(post_id) From posts
+                                        LEFT JOIN
+                                        business_profiles
+                                        ON
+                                        posts.user_code = business_profiles.user_code
+                                        Where
+                                        " . implode(" OR ", $conditions) . "
+                                        AND 
+                                        " . $keywordsRequest . "
+                                        (
+                                            " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
+                                        )
+                                        Order By 
+                                        post_views
+                                        DESC");
+        $getPaginate->execute();
+    }
+
     $countRes=$countResults->rowCount();
         
-    $getPaginate=dataLink()->prepare("SELECT COUNT(post_id) From posts
-                                    LEFT JOIN
-                                    business_profiles
-                                    ON
-                                    posts.user_code = business_profiles.user_code
-                                    Where
-                                    FIND_IN_SET(post_tags, :post_tags) > 0 
-                                    OR 
-                                    " . $keywordsRequest . "
-                                    (
-                                        " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
-                                    )
-                                    Order By 
-                                    post_views
-                                    DESC");
-    $getPaginate->execute([
-        'post_tags' => $profile['profile_skills']
-    ]);
+    
     $paginates=$getPaginate->fetch(PDO::FETCH_BOTH);
 
     $page_rows = 10; // limit every page
@@ -99,26 +133,42 @@
     }
     
     $limit = 'LIMIT ' .($pagenum - 1) * $page_rows .',' .$page_rows;
+
+    if (empty($type) && empty($based) && empty($salaryMinimum)) {
+        $paginate=dataLink()->prepare("SELECT * From posts
+                                        LEFT JOIN
+                                        business_profiles
+                                        ON
+                                        posts.user_code = business_profiles.user_code
+                                        Where
+                                        " . implode(" OR ", $conditions) . "
+                                        Order By 
+                                        post_views
+                                        DESC
+                                        $limit");
+        $paginate->execute();
+    } else {
+        $paginate=dataLink()->prepare("SELECT * From posts
+                                        LEFT JOIN
+                                        business_profiles
+                                        ON
+                                        posts.user_code = business_profiles.user_code
+                                        Where
+                                        " . implode(" OR ", $conditions) . "
+                                        AND 
+                                        " . $keywordsRequest . "
+                                        (
+                                            " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
+                                        )
+                                        Order By 
+                                        post_views
+                                        DESC
+                                        $limit");
+        $paginate->execute();
+    }
     
-    $paginate=dataLink()->prepare("SELECT * From posts
-                                    LEFT JOIN
-                                    business_profiles
-                                    ON
-                                    posts.user_code = business_profiles.user_code
-                                    Where
-                                    FIND_IN_SET(post_tags, :post_tags) > 0 
-                                    OR 
-                                    " . $keywordsRequest . "
-                                    (
-                                        " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
-                                    )
-                                    Order By 
-                                    post_views
-                                    DESC
-                                    $limit");
-    $paginate->execute([
-        'post_tags' => $profile['profile_skills']
-    ]);
+    
+    
     
     $paginationCtrls = '';
 

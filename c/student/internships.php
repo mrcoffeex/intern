@@ -4,20 +4,26 @@
 
     $title = "InternShips";
 
-    if (isset($_POST['keywords'])) {
+    if (isset($_POST['city'])) {
 
         $keywords = clean_string($_POST['keywords']);
         $city = clean_int($_POST['city']);
         $type = clean_string($_POST['type']);
-        @$based = clean_string($_POST['based']) ? clean_string($_POST['based']) : 'Office-Based';
+        @$based = clean_string($_POST['based']);
         @$salaryMinimum = clean_float($_POST['salaryMinimum']) ? clean_float($_POST['salaryMinimum']) : '0';
         
     } else {
 
+        // $keywords = "";
+        // $city = $profile['city_id'];
+        // $type = "Full-TIme";
+        // $based = "Office-Based";
+        // $salaryMinimum = "0";
+
         $keywords = "";
         $city = $profile['city_id'];
-        $type = "Full-TIme";
-        $based = "Office-Based";
+        $type = "";
+        $based = "";
         $salaryMinimum = "0";
 
     }
@@ -89,7 +95,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="col-sm-12 p-0">Job Type</label>
-                                    <select class="form-control" name="type" id="type" required>
+                                    <select class="form-control" name="type" id="type" >
                                         <option><?= $type ?></option>
                                         <option>Full-TIme</option>
                                         <option>Part-TIme</option>
@@ -97,7 +103,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="" class="col-sm-12 p-0">Job Based</label>
-                                    <select class="form-control" name="based" id="based" required>
+                                    <select class="form-control" name="based" id="based" >
                                         <option><?= $based ?></option>
                                         <option>Office-Based</option>
                                         <option>Home-Based</option>
@@ -122,7 +128,7 @@
                             <h5 class="text-bold"><?= $post['post_category'] ?></h5>
                             <h6 class="text-bold mb-2"><?= $post['bus_name'] ?></h6>
 
-                            <p class="text-dark"><i class="icon-map-marker"></i> <?= getCityName($post['city_id']) ?></p>
+                            <p class="text-dark small-text"><i class="icon-map-marker"></i> <?= getCityName($post['city_id']) ?></p>
 
                             <div class="row">
                                 <div class="col-sm-4 text-center">

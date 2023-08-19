@@ -55,7 +55,7 @@
                             <h5 class="text-bold"><?= $post['post_category'] ?></h5>
                             <h6 class="text-bold mb-2"><?= getBusinessName($post['user_code']) ?></h6>
 
-                            <p class="text-dark"><i class="icon-map-marker"></i> <?= getCityName($post['city_id']) ?></p>
+                            <p class="text-dark small-text"><i class="icon-map-marker"></i> <?= getCityName($post['city_id']) ?></p>
 
                             <div class="row mb-4">
                                 <div class="col-sm-4 text-center">

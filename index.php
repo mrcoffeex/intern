@@ -196,28 +196,22 @@
         
           <div class="container">
             <div class="row">
-              <div class="col-lg-6 align-self-center text-center text-lg-left">
+              <div class="col-lg-12 align-self-center text-center">
                 <blockquote>
                   <p>&ldquo;We have supported numerous startups by providing strategic guidance, conducting market research, and assisting with business planning and development. Our tailored solutions have helped these startups establish a strong foundation and navigate their initial stages of growth.&rdquo;</p>
                   <p><cite> &mdash; Corey Woods, @Dribbble</cite></p>
                 </blockquote>
-              </div>
-              <div class="col-lg-6 align-self-end text-center text-lg-right">
-                <img src="images/person_transparent_2.png" alt="Image" class="img-fluid mb-0">
               </div>
             </div>
           </div>
 
           <div class="container">
             <div class="row">
-              <div class="col-lg-6 align-self-center text-center text-lg-left">
+              <div class="col-lg-12 align-self-center text-center">
                 <blockquote>
                   <p>&ldquo;We have partnered with retail and e-commerce businesses to optimize their online presence, improve customer experience, and implement effective digital marketing strategies. Through our expertise, these businesses have achieved increased brand visibility, enhanced customer engagement, and improved sales performance.&rdquo;</p>
                   <p><cite> &mdash; Chris Peters, @Google</cite></p>
                 </blockquote>
-              </div>
-              <div class="col-lg-6 align-self-end text-center text-lg-right">
-                <img src="images/person_transparent.png" alt="Image" class="img-fluid mb-0">
               </div>
             </div>
           </div>
