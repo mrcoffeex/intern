@@ -404,7 +404,7 @@
 body {
   font-weight: 400;
   font-size: 1rem;
-  line-height: 1.7;
+  line-height: 1.5;
   position: relative; }
   body:after {
     content: "";
@@ -457,12 +457,12 @@ h1, h2, h3, h4 {
   .home-section p {
     font-size: 1.2rem;
     color: rgba(255, 255, 255, 0.6); }
-  .home-section .search-jobs-form .form-control, .home-section .search-jobs-form .btn-lg {
+  /* .home-section .search-jobs-form .form-control, .home-section .search-jobs-form .btn-lg {
     height: calc(2em + 1rem + 2px);
     padding: 0.5rem 1rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: 0.3rem; }
+    border-radius: 0.3rem; } */
   .home-section .search-jobs-form .btn-search > span {
     font-size: 1rem;
     position: relative; }
@@ -833,8 +833,8 @@ h1, h2, h3, h4 {
   color: #ced4da; }
 
 .section-hero, .section-hero > .container > .row {
-  height: 100vh;
-  min-height: 900px; }
+  height: 50vh;
+  min-height: 500px; }
 
 .section-hero.inner-page, .section-hero.inner-page > .container > .row {
   height: auto;

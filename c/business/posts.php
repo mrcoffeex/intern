@@ -73,7 +73,7 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered">
+                                                <table class="table table-hover">
                                                     <thead>
                                                         <tr class="table-dark">
                                                             <th>Date</th>
@@ -96,7 +96,7 @@
                                                             <td><?= proper_date($post['post_created']) ?></td>
                                                             <td class="text-center">
                                                                 <a href="postView?token=<?= my_rand_str(30) ?>&postId=<?= $post['post_id'] ?>" target="_NEW">
-                                                                    <button type="button" class="btn btn-dark text-white">
+                                                                    <button type="button" class="btn btn-dark btn-sm text-white">
                                                                         <i class="ti-user"></i> <?= countApplicants($post['post_id']) ?>
                                                                     </button>
                                                                 </a>
@@ -117,12 +117,12 @@
                                                             </td>
                                                             <td class="text-center">
                                                                 <a href="postEdit?token=<?= my_rand_str(30) ?>&postId=<?= $post['post_id'] ?>" target="_NEW">
-                                                                    <button type="button" class="btn btn-info text-white">Edit</button>
+                                                                    <button type="button" class="btn btn-info btn-sm text-white">Edit</button>
                                                                 </a>
                                                                 &nbsp;
                                                                 <button 
                                                                 type="button" 
-                                                                class="btn btn-danger text-white" 
+                                                                class="btn btn-danger btn-sm text-white" 
                                                                 data-bs-toggle="modal" 
                                                                 data-bs-target="#remove_<?= $post['post_id'] ?>">Remove</button>
                                                             </td>

@@ -33,61 +33,76 @@
 
     <section class="site-section pt-5">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row">
 
                 <div class="col-lg-12">
+                    <p class="text-black"><?= countSubmissions($userCode) ?> Submissions</p>
+                </div>
 
-                    <div class="card mb-2">
-                        <div class="card-body">
-                            <p class="card-title"><?= countSubmissions($userCode) ?> Submissions</p>
-                            <div class="table-responsive">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Business</th>
-                                            <th>Category</th>
-                                            <th class="text-center">Applied</th>
-                                            <th class="text-center">Hired</th>
-                                            <th class="text-center">Status</th>
-                                            <th class="text-center">Opt</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php  
-                                            $getSubmissions=selectSubmissions($userCode);
-                                            while ($sub=$getSubmissions->fetch(PDO::FETCH_ASSOC)) {
+                <?php  
+                    $getSubmissions=selectSubmissions($userCode);
+                    while ($sub=$getSubmissions->fetch(PDO::FETCH_ASSOC)) {
 
-                                                if ($sub['app_hired'] == "0000-00-00 00:00:00") {
-                                                    $hired = "";
-                                                    $hireLink = "#";
-                                                    $viewBtnStatus = "disabled";
+                        if ($sub['app_hired'] == "0000-00-00 00:00:00") {
+                            $hired = "";
+                            $hireLink = "#";
+                            $viewBtnStatus = "disabled";
+                            $icon = "icon-times-circle";
+                            $iconTitle = "pending";
+                        } else {
+                            $hired = proper_date($sub['app_hired']);
+                            $hireLink = "submissionView?token=" . my_rand_str(30) . "&appId=" . $sub['app_id'];
+                            $viewBtnStatus = "";
+                            $icon = "icon-check-circle";
+                            $iconTitle = "hired";
+                        }
+                        
+                ?>
+
+                <div class="col-md-6">
+                    <div class="card card-flex mb-2">
+                        <div class="card-body card-body-flex bg-primary text-white" style="border-radius: 3px;">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h4 class="text-bold text-white">
+                                        <?= getBusinessName($sub['app_business']) ?> <span class="<?= $icon ?>" title="<?= $iconTitle ?>"></span>
+                                    </h4>
+                                    <p>
+                                        Status: <?= $iconTitle ?> <br>
+                                        Position: <?= getPostCategory($sub['post_id']) ?> <br>
+                                        <?= getPostTitle($sub['post_id']) ?> <br>
+                                    </p>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <h1 class="text-bold text-white m-0 p-0"><?= $sub['app_hours'] ?></h1>
+                                    <p class="m-0 p-0">out of <?= $sub['app_school_hours'] ?> hours rendered</p>
+                                    <p>
+                                        <span class="badge badge-dark">
+                                        <?php 
+                                            if (empty($sub['app_school_hours']) && empty($sub['app_hours'])) {
+                                                echo "incomplete";
+                                            } else {
+                                                if ($sub['app_hours'] >= $sub['app_school_hours']) {
+                                                    echo "completed";
                                                 } else {
-                                                    $hired = proper_date($sub['app_hired']);
-                                                    $hireLink = "submissionView?token=" . my_rand_str(30) . "&appId=" . $sub['app_id'];
-                                                    $viewBtnStatus = "";
+                                                    echo "incomplete";
                                                 }
-                                                
+                                            }
                                         ?>
-                                        <tr>
-                                            <td><?= getBusinessName($sub['app_business']) ?></td>
-                                            <td><?= getPostCategory($sub['post_id']) ?></td>
-                                            <td class="text-center"><?= proper_date($sub['app_created']) ?></td>
-                                            <td class="text-center"><?= $hired ?></td>
-                                            <td class="text-center"><span class="badge badge-secondary"><?= $sub['app_status'] ?></span></td>
-                                            <td class="text-center">
-                                                <a href="<?= $hireLink ?>">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#info_<?= $sub['app_id'] ?>" <?= $viewBtnStatus ?> >View</button>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <?php } ?>
-                                    </tbody>
-                                </table>
+                                        </span>
+                                    </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <a href="<?= $hireLink ?>">
+                                        <button type="button" class="btn btn-outline-white btn-sm btn-block">View</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+                
+                <?php } ?>
             </div>
         </div>
     </section>

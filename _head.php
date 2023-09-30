@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="css/toastr.css">
     <link rel="stylesheet" href="css/custom.css">
 
+    <link rel="stylesheet" href="skydash/vendors/select2/select2.min.css">
+    <link rel="stylesheet" href="skydash/vendors/select2-bootstrap-theme/select2-bootstrap.min.css">
+
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/style.css">    
 </head>

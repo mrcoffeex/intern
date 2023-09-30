@@ -7,7 +7,6 @@
             <nav class="mx-auto site-navigation">
                 <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
                     <li><a href="./" class="nav-link <?= setActive("index") ?>">Home</a></li>
-                    <li><a href="internships" class="nav-link <?= setActive("internships") ?>">InternShips</a></li>
                     <li><a href="profile" class="nav-link <?= setActive("profile") ?>">Profile <?= $profileStatusAlert ?></a></li>
                     <li><a href="submissions" class="nav-link <?= setActive("submissions") ?>">Submissions <span class="badge badge-primary text-white"><?= countSubmissions($userCode) ?></span></a></li>
                     <li class="d-lg-none has-children">

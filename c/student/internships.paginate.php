@@ -2,7 +2,7 @@
     //pagination
 
     if (!empty($city)) {
-        $cityRequest = " posts.city_id = '$city' ";
+        $cityRequest = "AND posts.city_id = '$city' ";
     } else {
         $cityRequest = "";
     }
@@ -33,7 +33,7 @@
                                     post_description,
                                     bus_name
                                 ) 
-                            LIKE '%$keywords%' AND ";
+                            LIKE '%$keywords%' ";
     } else {
         $keywordsRequest = "";
     }
@@ -47,7 +47,7 @@
         $conditions[] = "post_tags LIKE '%" . clean_string($tag) . "%'";
     }
 
-    if (empty($type) && empty($based) && empty($salaryMinimum)) {
+    if (empty($keywords) && empty($type) && empty($based) && empty($salaryMinimum)) {
         $countResults=dataLink()->prepare("SELECT * From posts
                                         LEFT JOIN
                                         business_profiles
@@ -78,12 +78,7 @@
                                         ON
                                         posts.user_code = business_profiles.user_code
                                         Where
-                                        " . implode(" OR ", $conditions) . "
-                                        AND 
-                                        " . $keywordsRequest . "
-                                        (
-                                            " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
-                                        )
+                                        " . $keywordsRequest . $cityRequest . $typeRequest . $basedRequest . $salaryMinimumRequest . " 
                                         Order By 
                                         post_views
                                         DESC");
@@ -95,12 +90,7 @@
                                         ON
                                         posts.user_code = business_profiles.user_code
                                         Where
-                                        " . implode(" OR ", $conditions) . "
-                                        AND 
-                                        " . $keywordsRequest . "
-                                        (
-                                            " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
-                                        )
+                                        " . $keywordsRequest . $cityRequest . $typeRequest . $basedRequest . $salaryMinimumRequest . " 
                                         Order By 
                                         post_views
                                         DESC");
@@ -134,7 +124,7 @@
     
     $limit = 'LIMIT ' .($pagenum - 1) * $page_rows .',' .$page_rows;
 
-    if (empty($type) && empty($based) && empty($salaryMinimum)) {
+    if (empty($keywords) && empty($type) && empty($based) && empty($salaryMinimum)) {
         $paginate=dataLink()->prepare("SELECT * From posts
                                         LEFT JOIN
                                         business_profiles
@@ -154,12 +144,7 @@
                                         ON
                                         posts.user_code = business_profiles.user_code
                                         Where
-                                        " . implode(" OR ", $conditions) . "
-                                        AND 
-                                        " . $keywordsRequest . "
-                                        (
-                                            " . $cityRequest . " " . $typeRequest . " " . $basedRequest . " " . $salaryMinimumRequest . " 
-                                        )
+                                        " . $keywordsRequest . $cityRequest . $typeRequest . $basedRequest . $salaryMinimumRequest . " 
                                         Order By 
                                         post_views
                                         DESC
@@ -167,19 +152,28 @@
         $paginate->execute();
     }
     
-    
-    
-    
     $paginationCtrls = '';
 
     if($last != 1){
         if ($pagenum > 1) {
             $previous = $pagenum - 1;
-            $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?pn='.$previous.
+            $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].
+            '?pn='.$previous.
+            '&city='.$city.
+            '&type='.$type.
+            '&based='.$based.
+            '&salaryMinimum='.$salaryMinimum.
+            '&keywords='.$keywords.
             '" ><i class="icon-chevron-left"></i></a></li>';
             for($i = $pagenum-4; $i < $pagenum; $i++){
                 if($i > 0){
-                    $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?pn='.$i.
+                    $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].
+                    '?pn='.$i.
+                    '&city='.$city.
+                    '&type='.$type.
+                    '&based='.$based.
+                    '&salaryMinimum='.$salaryMinimum.
+                    '&keywords='.$keywords.
                     '" >'.$i.'</a></li>';
                 }
             }
@@ -187,7 +181,13 @@
 
         $paginationCtrls .= '<li class="page-item active"><a class="page-link">'.$pagenum.'</a></li>';
         for($i = $pagenum+1; $i <= $last; $i++){
-            $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?pn='.$i.
+            $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].
+            '?pn='.$i.
+            '&city='.$city.
+            '&type='.$type.
+            '&based='.$based.
+            '&salaryMinimum='.$salaryMinimum.
+            '&keywords='.$keywords.
             '" >'.$i.'</a></li>';
             if($i >= $pagenum+4){
                 break;
@@ -196,7 +196,13 @@
 
         if ($pagenum != $last) {
             $next = $pagenum + 1;
-            $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].'?pn='.$next.
+            $paginationCtrls .= '<li class="page-item"><a class="page-link" href="'.$_SERVER['PHP_SELF'].
+            '?pn='.$next.
+            '&city='.$city.
+            '&type='.$type.
+            '&based='.$based.
+            '&salaryMinimum='.$salaryMinimum.
+            '&keywords='.$keywords.
             '" ><i class="icon-chevron-right"></i></a></li>';
         }
     }

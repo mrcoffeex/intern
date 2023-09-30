@@ -50,7 +50,7 @@
                                     <div class="row">
                                         <h4 class="card-title mb-3"><span class="text-info"><?= countApplicants($postId) ?></span> Applicants</h4>
                                         <div class="table-responsive">
-                                            <table class="table table-bordered">
+                                            <table class="table table-hover">
                                                 <thead>
                                                     <tr class="table-dark">
                                                         <th class="text-center">Hired</th>
@@ -95,19 +95,19 @@
                                                             </a>
                                                         </td>
                                                         <td class="text-center">
-                                                            <button type="button" class="btn btn-primary text-white" title="click to view tasks ..." data-bs-toggle="modal" data-bs-target="#task_<?= $applicant['app_id'] ?>">
+                                                            <button type="button" class="btn btn-primary btn-sm text-white" title="click to view tasks ..." data-bs-toggle="modal" data-bs-target="#task_<?= $applicant['app_id'] ?>">
                                                                 <i class="ti-time"></i>
                                                             </button>
                                                         </td>
                                                         <td class="text-center">
                                                             <a href="download?token=<?= my_rand_str(30) ?>&ucode=<?= $applicant['app_applicant'] ?>&postId=<?= $postId ?>">
-                                                                <button type="button" class="btn btn-info text-white">
+                                                                <button type="button" class="btn btn-info btn-sm text-white">
                                                                     <i class="ti-download"></i>
                                                                 </button>
                                                             </a>
                                                         </td>
                                                         <td class="text-center">
-                                                            <button type="button" class="btn btn-success text-white" title="click to change status to received ..." data-bs-toggle="modal" data-bs-target="#rec_<?= $applicant['app_id'] ?>">
+                                                            <button type="button" class="btn btn-success btn-sm text-white" title="click to change status to received ..." data-bs-toggle="modal" data-bs-target="#rec_<?= $applicant['app_id'] ?>">
                                                                 <i class="ti-check"></i>
                                                             </button>
                                                         </td>
@@ -237,7 +237,7 @@
                                         <p><?= $post['post_type'] . " | " . $post['post_based'] ?></p>
                                         <p class="text-secondary">Posted <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?></p>
 
-                                        <p class="text-bold"><?= $post['post_title'] ?></p>
+                                        <p class="text-bold mt-4"><?= $post['post_title'] ?></p>
                                         <div><?= $post['post_description'] ?></div>
                                     </div>
                                 </div>

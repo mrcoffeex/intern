@@ -20,8 +20,8 @@
 }
 
 .profile-img{
-    width: 150px;
-    height: 150px;
+    width: 125px;
+    height: 125px;
 }
 
 .equal-height {
@@ -53,4 +53,26 @@
     line-height: 1.5;
     font-weight: 400;
     color: #484848;
+}
+
+.icon-lg{
+    font-size: 30px;
+}
+
+.border-radius-none{
+    border-radius: 0px!important;
+}
+
+.bs-searchbox .dropdown-menu .inner .no-results {
+    display: none;
+}
+
+.card-flex {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-body-flex {
+    flex-grow: 1;
 }

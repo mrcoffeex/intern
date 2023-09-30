@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row mb-5">
             <div class="col-6 col-md-4 mb-4 mb-md-0">
-                <h3>Search Trending</h3>
+                <h3>Search Trends</h3>
                 <ul class="list-unstyled">
                     <li>
                         <span class="badge badge-primary">Web Design</span> 

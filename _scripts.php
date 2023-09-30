@@ -5,6 +5,7 @@
 <script src="js/stickyfill.min.js"></script>
 <script src="js/jquery.fancybox.min.js"></script>
 <script src="js/jquery.easing.1.3.js"></script>
+<script src="skydash/vendors/select2/select2.min.js"></script>
 
 <script src="js/jquery.waypoints.min.js"></script>
 <script src="js/jquery.animateNumber.min.js"></script>
@@ -14,6 +15,7 @@
 
 <script src="js/toastr.min.js"></script>
 <script src="js/custom.js"></script>
+<script src="skydash/js/select2.js"></script>
 
 <script>
 

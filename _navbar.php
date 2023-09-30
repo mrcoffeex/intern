@@ -1,3 +1,18 @@
+<?php  
+    $navPage = str_replace('.php', '', basename($_SERVER['PHP_SELF']));
+
+    function highlightNav($current, $value){
+
+        if ($current == $value) {
+            $res = "nav-link active";
+        } else {
+            $res = "";
+        }
+        
+        return $res;
+    }
+?>
+
 <header class="site-navbar mt-3">
     <div class="container-fluid">
         <div class="row align-items-center">
@@ -6,10 +21,9 @@
 
             <nav class="mx-auto site-navigation">
                 <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
-                    <li><a href="./" class="nav-link active">Home</a></li>
-                    <li><a href="about">About</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#login">InternShips</a></li>
-                    <li><a href="support">Support</a></li>
+                    <li><a href="./" class="<?= highlightNav($navPage, "") . highlightNav($navPage, "index") ?>">Home</a></li>
+                    <li><a href="about" class="<?= highlightNav($navPage, "about") ?>">About</a></li>
+                    <li><a href="support" class="<?= highlightNav($navPage, "support") ?>">Support</a></li>
                     <li class="d-lg-none"><a href="#" data-toggle="modal"  data-target="#login">Log In</a></li>
                     <li class="d-lg-none has-children">
                         <a href="#">Register</a>

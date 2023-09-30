@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2023 at 08:08 AM
+-- Generation Time: Sep 30, 2023 at 02:49 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -48,8 +48,9 @@ CREATE TABLE `applicants` (
 --
 
 INSERT INTO `applicants` (`app_id`, `post_id`, `app_business`, `app_applicant`, `app_document`, `app_certificate`, `app_hired`, `app_task`, `app_school_hours`, `app_hours`, `app_status`, `app_created`, `app_updated`) VALUES
-(2, 2, '20230522114429aRlPZcVd', '20230518183525FpDmFLtE', '20230524092103_sample resume.docx', '20230530085616_0-1.png', '2023-05-27 16:32:05', '<ul>\r\n<li>sample1</li>\r\n<li>sample2</li>\r\n<li>sample3</li>\r\n<li>sample4</li>\r\n<li>sample5</li>\r\n</ul>', 480, 416, 'hired', '2023-05-24 09:21:03', '2023-05-24 09:21:03'),
-(3, 2, '20230522114429aRlPZcVd', '20230528060129RmoxmzNs', '20230528062232_sample resume.docx', '20230528080517_document.png', '0000-00-00 00:00:00', '', 0, 0, 'hired', '2023-05-28 06:22:33', '2023-05-28 06:22:33');
+(2, 2, '20230522114429aRlPZcVd', '20230518183525FpDmFLtE', '20230524092103_sample resume.docx', '20230530085616_0-1.png', '2023-05-27 16:32:05', '<p>Programming</p>\r\n<ol>\r\n<li>make a mini calculator</li>\r\n<li>make a tic tac toe</li>\r\n</ol>\r\n<p>Design</p>\r\n<ol>\r\n<li>Make a Poster</li>\r\n<li>Make a Birthday Tarpaulin</li>\r\n</ol>', 480, 416, 'hired', '2023-05-24 09:21:03', '2023-05-24 09:21:03'),
+(3, 2, '20230522114429aRlPZcVd', '20230528060129RmoxmzNs', '20230528062232_sample resume.docx', '20230528080517_document.png', '0000-00-00 00:00:00', '', 0, 5, 'hired', '2023-05-28 06:22:33', '2023-05-28 06:22:33'),
+(4, 5, '20230530075506yggzdmZT', '20230518183525FpDmFLtE', '20230919175858_Resume 2022.pdf', '', '2023-09-19 18:21:12', '<ul>\r\n<li>make a calculator software</li>\r\n<li>make a&nbsp; mini payroll system</li>\r\n<li>make a dtr system</li>\r\n</ul>', 480, 8, 'hired', '2023-09-19 17:58:58', '2023-09-19 17:58:58');
 
 -- --------------------------------------------------------
 
@@ -789,6 +790,29 @@ INSERT INTO `courses` (`course_id`, `course_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `emailrequests`
+--
+
+CREATE TABLE `emailrequests` (
+  `req_id` int(11) NOT NULL,
+  `req_ticket` varchar(10) NOT NULL,
+  `req_email` varchar(100) NOT NULL,
+  `req_message` text NOT NULL,
+  `req_read` int(1) NOT NULL,
+  `req_created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `emailrequests`
+--
+
+INSERT INTO `emailrequests` (`req_id`, `req_ticket`, `req_email`, `req_message`, `req_read`, `req_created`) VALUES
+(1, 'BiCtrUjQ82', 'kjohn0319@gmail.com', 'This is a sample email request by a user.', 0, '2023-09-20 16:25:02'),
+(2, 'jIcKQWU3sE', 'kjohn0319@gmail.com', 'ksdfkjsdhdfs sdf sdfsdfsdfsdf sdfsdfsd fsdf sdf sdf', 0, '2023-09-20 20:08:31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `experiences`
 --
 
@@ -804,6 +828,13 @@ CREATE TABLE `experiences` (
   `exp_created` datetime NOT NULL,
   `exp_updated` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `experiences`
+--
+
+INSERT INTO `experiences` (`exp_id`, `user_code`, `exp_position`, `exp_company`, `exp_from`, `exp_to`, `exp_city`, `exp_job_desc`, `exp_created`, `exp_updated`) VALUES
+(5, '20230518183525FpDmFLtE', 'Junior Programmer', 'none', '2023-06-01', '2023-07-31', 'Davao City', 'asdasdasd sad', '2023-09-20 20:32:42', '2023-09-20 20:32:42');
 
 -- --------------------------------------------------------
 
@@ -965,7 +996,42 @@ INSERT INTO `notifications` (`notif_id`, `notif_type`, `notif_text`, `notif_crea
 (121, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-08-18 22:23:16'),
 (122, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-08-18 22:26:43'),
 (123, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-08-18 22:39:50'),
-(124, 'auth', 'Login - keanemay2020@gmail.com', '2023-08-18 22:40:58');
+(124, 'auth', 'Login - keanemay2020@gmail.com', '2023-08-18 22:40:58'),
+(125, 'auth', 'Login - keanemay2020@gmail.com', '2023-08-28 22:06:50'),
+(126, 'auth', 'Logout - keanemay2020@gmail.com', '2023-08-28 22:22:12'),
+(127, 'attempt', 'Login Attempt - krazyappsph@gmail.com', '2023-08-29 03:01:27'),
+(128, 'attempt', 'Login Attempt - krazyappsph@gmail.com', '2023-08-29 03:01:33'),
+(129, 'auth', 'Login - krazyappsph@gmail.com', '2023-08-29 03:01:36'),
+(130, 'auth', 'Logout - krazyappsph@gmail.com', '2023-08-29 03:35:31'),
+(131, 'auth', 'Login - krazyappsph@gmail.com', '2023-08-29 03:35:38'),
+(132, 'auth', 'Logout - krazyappsph@gmail.com', '2023-08-29 03:42:24'),
+(133, 'auth', 'Login - keanemay2020@gmail.com', '2023-08-31 16:17:11'),
+(134, 'auth', 'Logout - keanemay2020@gmail.com', '2023-08-31 17:10:22'),
+(135, 'auth', 'Login - keanemay2020@gmail.com', '2023-08-31 17:12:51'),
+(136, 'auth', 'Login - keanemay2020@gmail.com', '2023-09-19 15:18:09'),
+(137, 'auth', 'Logout - keanemay2020@gmail.com', '2023-09-19 18:15:10'),
+(138, 'attempt', 'Login Attempt - krazyappsph@gmail.com', '2023-09-19 18:15:48'),
+(139, 'auth', 'Login - krazyappsph@gmail.com', '2023-09-19 18:15:52'),
+(140, 'auth', 'Logout - krazyappsph@gmail.com', '2023-09-19 18:16:25'),
+(141, 'attempt', 'Login Attempt - nonaki2293@introace.com', '2023-09-19 18:17:15'),
+(142, 'auth', 'Login - nonaki2293@introace.com', '2023-09-19 18:17:23'),
+(143, 'auth', 'Logout - nonaki2293@introace.com', '2023-09-19 18:17:56'),
+(144, 'auth', 'Login - tuzoloda@lyft.live', '2023-09-19 18:18:07'),
+(145, 'auth', 'Logout - tuzoloda@lyft.live', '2023-09-19 18:23:27'),
+(146, 'attempt', 'Login Attempt - keanemay2020@gmail.com', '2023-09-19 18:23:33'),
+(147, 'auth', 'Login - keanemay2020@gmail.com', '2023-09-19 18:23:36'),
+(148, 'auth', 'Logout - keanemay2020@gmail.com', '2023-09-19 18:23:49'),
+(149, 'auth', 'Login - kjohn0319@gmail.com', '2023-09-19 18:24:00'),
+(150, 'auth', 'Login - kjohn0319@gmail.com', '2023-09-20 16:25:40'),
+(151, 'auth', 'Logout - kjohn0319@gmail.com', '2023-09-20 20:01:30'),
+(152, 'auth', 'Login - keanemay2020@gmail.com', '2023-09-20 20:12:49'),
+(153, 'auth', 'Login - krazyappsph@gmail.com', '2023-09-20 20:18:14'),
+(154, 'auth', 'Logout - keanemay2020@gmail.com', '2023-09-20 20:30:22'),
+(155, 'auth', 'Login - keanemay2020@gmail.com', '2023-09-20 20:32:14'),
+(156, 'auth', 'Logout - keanemay2020@gmail.com', '2023-09-20 20:33:25'),
+(157, 'auth', 'Login - kjohn0319@gmail.com', '2023-09-20 20:33:32'),
+(158, 'auth', 'Logout - kjohn0319@gmail.com', '2023-09-20 20:36:40'),
+(159, 'auth', 'Logout - krazyappsph@gmail.com', '2023-09-20 20:36:46');
 
 -- --------------------------------------------------------
 
@@ -1040,10 +1106,12 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`post_id`, `user_code`, `post_category`, `post_title`, `post_description`, `post_salary_from`, `post_salary_to`, `post_type`, `post_based`, `city_id`, `post_tags`, `post_status`, `post_views`, `post_created`, `post_updated`) VALUES
-(2, '20230522114429aRlPZcVd', 'Administrative Assistant', 'asdadasdasdsadas asdasdasdasdasd', '<p>asdasdasdasd asdasdasdasd</p>\r\n<ul>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>dfsdfsdfsdf</li>\r\n</ul>', 15000, 25000, 'Full-Time', 'Office-Based', 14, 'ActionScript,Ada,Adobe Audition,Adobe Lightroom', 'active', 9, '2023-05-24 01:59:38', '2023-05-24 05:24:28'),
-(3, '20230522114429aRlPZcVd', 'Agronomist', 'sample title', '<p>Skills</p>\r\n<ul>\r\n<li>sample</li>\r\n<li>sample</li>\r\n<li>sample</li>\r\n<li>sample</li>\r\n</ul>', 15000, 25000, 'Full-Time', 'Office-Based', 11, 'Ada,Adobe Creative Cloud,PHP,SQL Server Management Studio', 'active', 1, '2023-05-24 02:53:03', '2023-05-24 02:53:03'),
+(2, '20230522114429aRlPZcVd', 'Administrative Assistant', 'asdadasdasdsadas asdasdasdasdasd', '<p>asdasdasdasd asdasdasdasd</p>\r\n<ul>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>asdasd</li>\r\n<li>asdasdas</li>\r\n<li>dfsdfsdfsdf</li>\r\n</ul>', 15000, 25000, 'Full-Time', 'Office-Based', 14, 'ActionScript,Ada,Adobe Audition,Adobe Lightroom,PHP', 'active', 10, '2023-05-24 01:59:38', '2023-09-20 20:23:48'),
+(3, '20230522114429aRlPZcVd', 'Agronomist', 'sample title', '<p>Skills</p>\r\n<ul>\r\n<li>sample</li>\r\n<li>sample</li>\r\n<li>sample</li>\r\n<li>sample</li>\r\n</ul>', 15000, 25000, 'Full-Time', 'Office-Based', 11, 'Ada,Adobe Creative Cloud,PHP,SQL Server Management Studio', 'active', 2, '2023-05-24 02:53:03', '2023-05-24 02:53:03'),
 (4, '20230522114429aRlPZcVd', 'Business Analyst', 'Out Company is actively seeking a skilled and experienced Business Analyst to join our dynamic team', '<p><strong style=\"margin: 0px; padding: 0px; font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">Lorem Ipsum</strong><span style=\"font-family: \'Open Sans\', Arial, sans-serif; font-size: 14px; text-align: justify; background-color: #ffffff;\">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span></p>', 15000, 25000, 'Full-Time', 'Office-Based', 4, 'Ada,Adobe Lightroom,Analytical skills,ASP.NET MVC', 'active', 0, '2023-05-24 05:23:57', '2023-05-24 05:23:57'),
-(5, '20230530075506yggzdmZT', 'Web Designer', 'Web Designer Full-Time', '<p>Job Description:</p>\r\n<p style=\"text-align: justify;\">We are seeking a talented and creative Web Designer to join our team at [Company Name]. As a Web Designer, you will be responsible for creating visually appealing and user-friendly websites that align with our clients\' needs and brand guidelines. Your primary focus will be on designing intuitive interfaces, implementing responsive design principles, and optimizing website performance.</p>\r\n<p style=\"text-align: justify;\">Responsibilities:</p>\r\n<ul>\r\n<li style=\"text-align: justify;\">Collaborate with clients and internal teams to understand project requirements and objectives.</li>\r\n<li style=\"text-align: justify;\">Create wireframes, prototypes, and visual designs for websites and web applications.</li>\r\n<li style=\"text-align: justify;\">Design and implement responsive layouts that provide an optimal user experience across devices.</li>\r\n<li style=\"text-align: justify;\">Develop and maintain design standards, guidelines, and best practices.</li>\r\n<li style=\"text-align: justify;\">Collaborate with developers to ensure seamless integration of design elements.</li>\r\n<li style=\"text-align: justify;\">Conduct usability testing and gather feedback to continuously improve designs.</li>\r\n<li style=\"text-align: justify;\">Stay updated with industry trends, emerging technologies, and design tools.</li>\r\n</ul>\r\n<p>Join our dynamic team and contribute to the creation of captivating web experiences. To apply, please submit your resume, portfolio, and any relevant work samples to [contact email/website]. We look forward to reviewing your application and discussing how your skills can enhance our design capabilities.</p>', 0, 10000, 'Full-Time', 'Office-Based', 44, 'HTML/CSS,JavaScript,Laravel,Play Framework', 'active', 9, '2023-05-30 08:03:14', '2023-05-30 08:03:14');
+(5, '20230530075506yggzdmZT', 'Web Designer', 'Web Designer Full-Time', '<p>Job Description:</p>\r\n<p style=\"text-align: justify;\">We are seeking a talented and creative Web Designer to join our team at [Company Name]. As a Web Designer, you will be responsible for creating visually appealing and user-friendly websites that align with our clients\' needs and brand guidelines. Your primary focus will be on designing intuitive interfaces, implementing responsive design principles, and optimizing website performance.</p>\r\n<p style=\"text-align: justify;\">Responsibilities:</p>\r\n<ul>\r\n<li style=\"text-align: justify;\">Collaborate with clients and internal teams to understand project requirements and objectives.</li>\r\n<li style=\"text-align: justify;\">Create wireframes, prototypes, and visual designs for websites and web applications.</li>\r\n<li style=\"text-align: justify;\">Design and implement responsive layouts that provide an optimal user experience across devices.</li>\r\n<li style=\"text-align: justify;\">Develop and maintain design standards, guidelines, and best practices.</li>\r\n<li style=\"text-align: justify;\">Collaborate with developers to ensure seamless integration of design elements.</li>\r\n<li style=\"text-align: justify;\">Conduct usability testing and gather feedback to continuously improve designs.</li>\r\n<li style=\"text-align: justify;\">Stay updated with industry trends, emerging technologies, and design tools.</li>\r\n</ul>\r\n<p>Join our dynamic team and contribute to the creation of captivating web experiences. To apply, please submit your resume, portfolio, and any relevant work samples to [contact email/website]. We look forward to reviewing your application and discussing how your skills can enhance our design capabilities.</p>', 0, 10000, 'Full-Time', 'Office-Based', 44, 'HTML/CSS,JavaScript,Laravel,Play Framework', 'active', 13, '2023-05-30 08:03:14', '2023-05-30 08:03:14'),
+(6, '20230522114429aRlPZcVd', 'Web Content Manager', 'Are you a skilled and creative individual with a passion for digital storytelling and exceptional content management? We are seeking a dynamic Web Content Manager to join our team and take our online presence to the next level.', '<p>&nbsp;</p>\r\n<p class=\"MsoNormal\">About Us:</p>\r\n<p class=\"MsoNormal\">[Your Company Name] is a [Brief Description of Your Company, Industry, and Mission]. As a Web Content Manager, you will play a pivotal role in shaping our brand\'s digital narrative and enhancing user engagement across various online platforms.</p>\r\n<p class=\"MsoNormal\">Responsibilities:</p>\r\n<ul>\r\n<li class=\"MsoNormal\">&nbsp;Develop and execute a comprehensive content strategy that aligns with the company\'s goals and target audience.</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Manage, update, and optimize website content to ensure a seamless user experience and adherence to best SEO practices.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Create, edit, and curate engaging and informative written, visual, and multimedia content for the website and other digital channels.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Collaborate with cross-functional teams including design, marketing, and development to ensure content accuracy, consistency, and alignment with branding guidelines.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Monitor website analytics and user behavior to make data-driven decisions for content improvements.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Stay current with industry trends and emerging digital technologies to suggest innovative ideas for content presentation and engagement.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Implement content governance processes to maintain quality, relevance, and compliance.</p>\r\n</li>\r\n</ul>\r\n<p>&nbsp;</p>\r\n<p class=\"MsoNormal\">Qualifications:</p>\r\n<ul>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Bachelor\'s degree in Marketing, Communications, Journalism, or a related field (or equivalent work experience).</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Proven experience (X+ years) in web content management, digital marketing, or a related role.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Strong understanding of content management systems (CMS) and proficiency in HTML, CSS, and basic web development concepts.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Excellent writing, editing, and proofreading skills with a keen eye for detail.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Familiarity with SEO principles and content optimization strategies.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Experience with content analytics tools to track performance and measure impact.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Creative mindset with the ability to translate ideas into compelling digital content.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Strong organizational skills and the ability to manage multiple projects simultaneously.</p>\r\n</li>\r\n<li class=\"MsoNormal\">\r\n<p class=\"MsoNormal\">Collaborative team player with effective communication and interpersonal skills.</p>\r\n</li>\r\n</ul>\r\n<p>&nbsp;</p>', 0, 0, 'Full-Time', 'Office-Based', 44, 'Adobe Photoshop,HTML/CSS,PHP', 'active', 2, '2023-08-29 03:40:55', '2023-08-29 03:41:23'),
+(7, '20230522114429aRlPZcVd', 'Web Designer', 'Web Designer', '<p class=\"MsoNormal\"><strong>About Us</strong>:</p>\r\n<p class=\"MsoNormal\">We are a dynamic and forward-thinking [Your Company Name] looking for a talented Web Designer to join our creative team. If you\'re passionate about crafting visually stunning and user-friendly websites, we want you on board.</p>\r\n<p class=\"MsoNormal\">Key Responsibilities:</p>\r\n<ul>\r\n<li class=\"MsoNormal\">Design and develop responsive websites with a focus on user experience.</li>\r\n<li class=\"MsoNormal\">Collaborate with cross-functional teams to create engaging web interfaces.</li>\r\n<li class=\"MsoNormal\">Transform concepts and ideas into pixel-perfect designs.</li>\r\n<li class=\"MsoNormal\">Stay updated on industry trends and design best practices.</li>\r\n</ul>\r\n<p>&nbsp;</p>', 0, 0, 'Full-Time', 'Office-Based', 44, 'HTML/CSS,JavaScript', 'active', 0, '2023-09-20 20:29:35', '2023-09-20 20:29:35');
 
 -- --------------------------------------------------------
 
@@ -1073,7 +1141,7 @@ CREATE TABLE `profiles` (
 --
 
 INSERT INTO `profiles` (`profile_id`, `user_code`, `profile_course`, `school_id`, `profile_country`, `profile_address`, `city_id`, `profile_gender`, `profile_contact`, `profile_about_me`, `profile_skills`, `profile_verified`, `profile_created`, `profile_updated`) VALUES
-(2, '20230518183525FpDmFLtE', 'BS Information Technology', 65, 'Philippines', '1095, Datoc Compound', 45, 'Male', '9121610673', 'hello there we are the malevoelent i am your love a if you want to be as', ' php,Adobe Photoshop,HTML/CSS,PL/SQL,Adobe Lightroom', 1, '2023-05-18 18:47:30', '2023-05-18 18:47:30'),
+(2, '20230518183525FpDmFLtE', 'BS Information Technology', 65, 'Philippines', '1095, Datoc Compound', 44, 'Male', '9121610673', 'hello there w6e are the malevoelent i am your love a if you want to be as the astss', ' php,HTML/CSS,PL/SQL', 1, '2023-05-18 18:47:30', '2023-05-18 18:47:30'),
 (5, '20230528060129RmoxmzNs', 'BS Information Technology', 18, 'Philippines', 'Brgy 1-A, Matina', 44, 'Female', '9914347411', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 'HTML/CSS,JavaScript,Laravel,PHP,SQL Server Management Studio', 0, '2023-05-28 06:05:43', '2023-05-28 06:13:59');
 
 -- --------------------------------------------------------
@@ -1602,6 +1670,12 @@ ALTER TABLE `courses`
   ADD PRIMARY KEY (`course_id`);
 
 --
+-- Indexes for table `emailrequests`
+--
+ALTER TABLE `emailrequests`
+  ADD PRIMARY KEY (`req_id`);
+
+--
 -- Indexes for table `experiences`
 --
 ALTER TABLE `experiences`
@@ -1681,7 +1755,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `applicants`
 --
 ALTER TABLE `applicants`
-  MODIFY `app_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `app_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `business_profiles`
@@ -1720,10 +1794,16 @@ ALTER TABLE `courses`
   MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
+-- AUTO_INCREMENT for table `emailrequests`
+--
+ALTER TABLE `emailrequests`
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `experiences`
 --
 ALTER TABLE `experiences`
-  MODIFY `exp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `exp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `filters`
@@ -1735,7 +1815,7 @@ ALTER TABLE `filters`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notif_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `notif_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 
 --
 -- AUTO_INCREMENT for table `otps`
@@ -1747,7 +1827,7 @@ ALTER TABLE `otps`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `profiles`

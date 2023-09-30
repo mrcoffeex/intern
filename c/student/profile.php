@@ -31,161 +31,166 @@
     <!-- HOME -->
     <section class="section-hero overlay inner-page bg-image" style="background-image: url('../../images/hero_1.jpg');" id="home-section"></section>
 
-    <section class="site-section">
+    <section class="site-section pt-5">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-5">
-                    <form action="" method="post">
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12 text-center mb-2">
-                                        <img src="<?= displayImage($userProfileImg, '../../imagebank/', 'profile_default') ?>" class="profile-img">
-                                    </div>
-                                    <div class="col-md-12 text-center">
-                                        <h5 class="text-bold text-dark">
-                                            <?= $userFullname ?>
-                                        </h5>
-                                        <h6 class="text-bold">
-                                            <?= dataVerify($profile['profile_course'], 'No Course') ?>
-                                        </h6>
-                                        <h6>
-                                            <?= dataVerify(getSchoolName($profile['school_id']), 'No School') ?>
-                                        </h6>
-                                        <h6 class="text-primary mb-3">
-                                            <i class="icon-map-marker"></i> 
-                                            <?= dataVerify($profile['profile_country'], 'No Country') ?>
-                                        </h6>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <button 
-                                        type="button" 
-                                        class="btn btn-primary btn-block" 
-                                        data-toggle="modal" 
-                                        data-target="#intro">Edit Intro</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="mb-3">
-                                <span class="text-primary">Job Experience</span>
-                                <span class="float-right">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exp">
-                                        <i class="icon-plus" title="click to add ..."></i>
-                                    </button>
-                                </span>
-                            </h5>
-                            <?php  
-                                $selectExp=selectStudentExp($userCode);
-                                $count=$selectExp->rowCount();
-                                if (empty($count)) {
-                                    echo "<code>if you have any job experiences please add it here</code>";
-                                }
-                                while ($exp=$selectExp->fetch(PDO::FETCH_ASSOC)) {
-                            ?>
-                            <div class="card card-body mb-4">
-                                <h6 class="text-bold mb-0"><?= $exp['exp_position'] ?></h6>
-                                <p class="mb-0"><?= $exp['exp_company'] ?></p>
-                                <p class="mb-0"><i class="icon-map-marker"></i> <?= $exp['exp_city'] ?></p>
-                                <p class="mb-0"><span class="badge"><?= $exp['exp_from'] ?> - <?= $exp['exp_to'] ?> . <?= getTimeDiff($exp['exp_from'], $exp['exp_to']) ?></span></p>
-                                <p class="mb-0">Description: <?= $exp['exp_job_desc'] ?></p>
-                                <a href="expRemove?expId=<?= $exp['exp_id'] ?>" class="text-decoration-none">
-                                    <i class="icon-trash"></i> Remove
-                                </a>
-                            </div>
-                            <?php } ?>
-                        </div>
-                    </div>
+                <div class="col-lg-12 mb-3">
+                    <h1 class="text-center text-uppercase">My Profile</h1>
                 </div>
-
-                <div class="col-lg-7">
+                <div class="col-lg-12">
                     <div class="card mb-3">
-                        <div class="card-body">
-                            <h5>
-                                <span class="text-primary">Personal Information</span>
-                                <span class="float-right">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#personalInfo">
-                                        <i class="icon-pencil" title="click to edit ..."></i>
-                                    </button>
-                                </span>
-                            </h5>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <p class="mb-0">Permanent Address</p>
-                                        <code><?= dataVerify($profile['profile_address'], 'No Address') . " " . dataVerify(getCityName($profile['city_id']), 'No City') ?></code>
-                                    </div>
+                        <div class="card-body p-5">
+                            <div class="row mb-4">
+                                <div class="col-md-2 mb-2">
+                                    <img src="<?= displayImage($userProfileImg, '../../imagebank/', 'profile_default') ?>" class="profile-img">
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <p class="mb-0">Gender</p>
-                                        <code><?= dataVerify($profile['profile_gender'], 'please select your gender') ?></code>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <p class="mb-0">Mobile Number</p>
-                                        <code><?= dataVerify($profile['profile_contact'], 'please provide your mobile number') ?></code>
-                                    </div>
+                                <div class="col-md-10 mt-1">
+                                    <h2 class="text-bold text-dark">
+                                        <?= $userFullname ?> <small><a href="#" data-toggle="modal" data-target="#intro" class="text-decoration-none"><i class="icon-pencil"></i></a></small>
+                                    </h2>
+                                    <h6 class="text-bold">
+                                        <?= dataVerify($profile['profile_course'], 'No Course') ?>
+                                    </h6>
+                                    <h6>
+                                        <?= dataVerify(getSchoolName($profile['school_id']), 'No School') ?>
+                                    </h6>
+                                    <h6 class="text-primary mb-3">
+                                        <i class="icon-map-marker"></i> 
+                                        <?= dataVerify($profile['profile_country'], 'No Country') ?>
+                                    </h6>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5><span class="text-primary">About Me</span></h5>
+                            <hr>
 
-                            <div class="row">
-                                <div class="col-md-12">
+                            <div class="row mb-4 mt-4">
+                                <div class="col-md-3">
+                                    <p>About Me</p>
+                                </div>
+                                <div class="col-lg-9">
                                     <div class="form-group">
-                                        <textarea class="form-control" name="aboutMe" id="aboutMe" rows="5" placeholder="tell me about yourself ..." maxlength="255"><?= $profile['profile_about_me'] ?></textarea>
+                                        <textarea class="form-control border-radius-none" name="aboutMe" id="aboutMe" rows="3" placeholder="tell me about yourself ..." maxlength="255"><?= $profile['profile_about_me'] ?></textarea>
                                         <small id="aboutMeHelpText" class="form-text float-left"></small>
                                         <small id="aboutMeCharCount" class="form-text float-right"><?= strlen($profile['profile_about_me']) . "/255" ?></small>
                                     </div>
                                 </div>
                             </div>
 
-                            <h5><span class="text-primary">Skills</span></h5>
-                            
-                            <form action="updateSkills" method="post" onsubmit="btnLoader(this.skillsBtn)">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <select class="js-example-basic-multiple w-100" multiple="multiple" name="skills[]" id="skills">
-                                                <?php  
-                                                    $tagsArray = explode(',', $profile['profile_skills']);
-                                                    foreach ($tagsArray as $tags) {
-                                                        echo '<option value="'.$tags.'" selected>'.$tags.'</option>';
-                                                    }
-                                                ?>
+                            <hr>
 
-                                                <?php  
-                                                    $getSKills=selectSkills();
-                                                    while ($skill=$getSKills->fetch(PDO::FETCH_ASSOC)) {
-                                                ?>
-                                                <option value="<?= $skill['skill_name'] ?>"><?= $skill['skill_name'] ?></option>
-                                                <?php } ?>
-                                            </select>
-                                            <small id="skillsHelpText" class="form-text"></small>
+                            <div class="row mb-4 mt-4">
+                                <div class="col-md-3">
+                                    <p>Permanent Address</p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p class="text-dark"><?= dataVerify($profile['profile_address'], 'No Address') . " " . dataVerify(getCityName($profile['city_id']), 'No City') ?></p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4 mt-4">
+                                <div class="col-md-3">
+                                    <p>Gender</p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p class="text-dark"><?= dataVerify($profile['profile_gender'], 'please select your gender') ?></p>
+                                </div>
+                            </div>
+
+                            <div class="row mb-4 mt-4">
+                                <div class="col-md-3">
+                                    <p>Mobile #</p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p class="text-dark"><?= dataVerify($profile['profile_contact'], 'please provide your mobile number') ?></p>
+                                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#personalInfo">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row mb-4 mt-4">
+                                <div class="col-md-3">
+                                    <p>Skills</p>
+                                </div>
+                                <div class="col-lg-9">
+                                    <form action="updateSkills" method="post" onsubmit="btnLoader(this.skillsBtn)">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <select class="js-example-basic-multiple w-100" multiple="multiple" name="skills[]" id="skills">
+                                                        <?php  
+                                                            $tagsArray = explode(',', $profile['profile_skills']);
+                                                            foreach ($tagsArray as $tags) {
+                                                                echo '<option value="'.$tags.'" selected>'.$tags.'</option>';
+                                                            }
+                                                        ?>
+
+                                                        <?php  
+                                                            $getSKills=selectSkills();
+                                                            while ($skill=$getSKills->fetch(PDO::FETCH_ASSOC)) {
+                                                        ?>
+                                                        <option value="<?= $skill['skill_name'] ?>"><?= $skill['skill_name'] ?></option>
+                                                        <?php } ?>
+                                                    </select>
+                                                    <small id="skillsHelpText" class="form-text"></small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <button type="submit" id="skillsBtn" class="btn btn-outline-primary btn-sm">Update Skills</button>
+                                                </div>
+                                            </div>
                                         </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row mb-4 mt-4">
+                                <div class="col-md-3">
+                                    <p>
+                                        Job Experience 
+                                    </p>
+                                    
+                                </div>
+                                <div class="col-lg-9">
+                                    <?php  
+                                        $selectExp=selectStudentExp($userCode);
+                                        $count=$selectExp->rowCount();
+                                        if (empty($count)) {
+                                            echo "<code>if you have any job experiences please add it here</code>";
+                                        }
+                                        while ($exp=$selectExp->fetch(PDO::FETCH_ASSOC)) {
+                                    ?>
+                                    <div class="card card-body mb-1">
+                                        <h6 class="text-bold mb-0"><?= $exp['exp_position'] ?></h6>
+                                        <p class="mb-0"><?= $exp['exp_company'] ?></p>
+                                        <p class="mb-0"><i class="icon-map-marker"></i> <?= $exp['exp_city'] ?></p>
+                                        <p class="mb-0"><span class="badge"><?= $exp['exp_from'] ?> - <?= $exp['exp_to'] ?> . <?= getTimeDiff($exp['exp_from'], $exp['exp_to']) ?></span></p>
+                                        <p class="mb-0">Description: <?= $exp['exp_job_desc'] ?></p>
+                                        <a href="expRemove?expId=<?= $exp['exp_id'] ?>" class="text-decoration-none">
+                                            <i class="icon-trash"></i> Remove
+                                        </a>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <button type="submit" id="skillsBtn" class="btn btn-primary">Update Skills</button>
-                                        </div>
+                                    <?php } ?>
+
+                                    <br>
+
+                                    <div class="mt-1">
+                                        <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exp">
+                                            <i class="icon-plus" title="click to add ..."></i> Add
+                                        </button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+
+                            
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>

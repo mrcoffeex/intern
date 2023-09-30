@@ -72,11 +72,12 @@
                                 <div class="card-body">
                                     <p class="card-title"><i class="ti-user"></i> New Applicants</p>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered">
+                                        <table class="table table-hover">
                                             <thead>
                                                 <tr class="table-dark">
-                                                    <th class="text-center">Document</th>
+                                                    <th class="text-center">Post</th>
                                                     <th>Fullname</th>
+                                                    <th>Category</th>
                                                     <th class="text-center">Status</th>
                                                 </tr>
                                             </thead>
@@ -87,9 +88,9 @@
                                                 ?>
                                                 <tr>
                                                     <td class="text-center">
-                                                        <a href="download?token=<?= my_rand_str(30) ?>&ucode=<?= $applicant['app_applicant'] ?>&postId=<?= $postId ?>">
-                                                            <button type="button" class="btn btn-info text-white">
-                                                                <i class="ti-download"></i>
+                                                        <a href="postView?token=<?= my_rand_str(30) ?>&postId=<?= $applicant['post_id'] ?>">
+                                                            <button type="button" class="btn btn-primary btn-sm text-white">
+                                                                <i class="ti-eye"></i>
                                                             </button>
                                                         </a>
                                                     </td>
@@ -98,6 +99,7 @@
                                                             <?= getUserFullnameByCode($applicant['app_applicant']) ?>
                                                         </a>
                                                     </td>
+                                                    <td><?= getPostCategory($applicant['post_id']) ?></td>
                                                     <td class="text-center"><span class="badge badge-dark"><?= $applicant['app_status'] ?></span></td>
                                                 </tr>
                                                 <?php } ?>
@@ -119,12 +121,15 @@
 
                                                 $tagsArray = explode(',', $post['post_tags']);
                                         ?>
-                                            <div class="col-md-12">
-                                                <div class="alert alert-info" role="alert">
+                                            <div class="col-md-6">
+                                                <div class="alert alert-dark" role="alert">
                                                     <p class="text-bold mb-0">
                                                         <?= $post['post_category'] ?>
                                                     </p>
-                                                    <p class="mb-0"><?= $post['post_title'] ?></p>
+                                                    <p class="small-text m-2"><i class="ti-home"></i> <?= getCityName($post['city_id']) ?></p>
+                                                    <p class="small-text m-2"><i class="ti-money"></i> <?= $post['post_salary_from'] . " - " . $post['post_salary_to'] ?></p>
+                                                    <p class="small-text m-2"><i class="ti-calendar"></i> <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?></p>
+                                                    <br>
                                                     <small>Posted <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?></small>
                                                     <a href="postView?postId=<?= $post['post_id'] ?>" class="stretched-link" title="click to view ..." target="_NEW"></a>
                                                 </div>

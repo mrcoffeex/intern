@@ -61,12 +61,10 @@
                                                 <table class="table table-hover table-bordered">
                                                     <thead>
                                                         <tr class="table-dark">
-                                                            <th class="p-2 text-center">De / Activate</th>
                                                             <th class="p-2">#</th>
                                                             <th class="p-2">Name</th>
                                                             <th class="p-2">Username</th>
                                                             <th class="p-2">Role</th>
-                                                            <th class="p-2 text-center">Status</th>
                                                             <th class="p-2">Registered</th>
                                                             <th class="p-2 text-center">Edit</th>
                                                             <th class="p-2 text-center">Remove</th>
@@ -76,32 +74,18 @@
                                                         <?php 
                                                             while ($user=$paginate->fetch(PDO::FETCH_ASSOC)) {
                                                         ?>
-                                                        <tr>
-                                                            <td class="p-2 text-center">
-                                                                <button 
-                                                                    type="button" 
-                                                                    class="btn btn-warning btn-sm"
-                                                                    data-bs-toggle="modal" 
-                                                                    data-bs-target="#change_<?= $user['e4ps_user_id'] ?>">
-                                                                    <i class="ti-reload"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td class="p-2"><?= $user['e4ps_user_code']; ?></td>
-                                                            <td class="p-2"><?= $user['e4ps_full_name']; ?></td>
-                                                            <td class="p-2"><?= $user['e4ps_username']; ?></td>
-                                                            <td class="p-2"><?= user_type($user['e4ps_user_type']) ?></td>
-                                                            <td class="p-2 text-center">
-                                                                <span class="badge badge-<?= getUserStatusSkin($user['e4ps_user_status']) ?>">
-                                                                    <?= getUserStatus($user['e4ps_user_status']) ?>
-                                                                </span>
-                                                            </td>
-                                                            <td class="p-2"><?= proper_date($user['e4ps_user_created']) ?></td>
+                                                         <tr>
+                                                            <td class="p-2"><?= $user['user_code']; ?></td>
+                                                            <td class="p-2"><?= getUserFullnameByCode($user['user_code']); ?></td>
+                                                            <td class="p-2"><?= $user['user_email']; ?></td>
+                                                            <td class="p-2"><?= user_type($user['user_type']) ?></td>
+                                                            <td class="p-2"><?= proper_date($user['user_created']) ?></td>
                                                             <td class="p-2 text-center">
                                                                 <button 
                                                                     type="button" 
                                                                     class="btn btn-info btn-sm" 
                                                                     data-bs-toggle="modal" 
-                                                                    data-bs-target="#edit_<?= $user['e4ps_user_id'] ?>">
+                                                                    data-bs-target="#edit_<?= $user['user_uid'] ?>">
                                                                     <i class="ti-pencil"></i>
                                                                 </button>
                                                             </td>
@@ -110,12 +94,12 @@
                                                                     type="button" 
                                                                     class="btn btn-danger btn-sm"
                                                                     data-bs-toggle="modal" 
-                                                                    data-bs-target="#remove_<?= $user['e4ps_user_id'] ?>">
+                                                                    data-bs-target="#remove_<?= $user['user_uid'] ?>">
                                                                     <i class="ti-close"></i>
                                                                 </button>
                                                             </td>
                                                         </tr>
-
+                                                        
                                                         <!-- edit -->
                                                         <div class="modal fade" id="edit_<?= $user['e4ps_user_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">

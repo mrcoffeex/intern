@@ -161,6 +161,22 @@
             }
 
         }
+
+        // support
+        
+        if ($currpage == "support") {
+            
+            if ($note == "sent") {
+                echo "
+                    <script>
+                        toastr.success('Ticket has been sent');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
         
     }
 ?>
