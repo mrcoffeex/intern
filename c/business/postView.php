@@ -107,13 +107,17 @@
                                                             </a>
                                                         </td>
                                                         <td class="text-center">
-                                                            <button type="button" class="btn btn-success btn-sm text-white" title="click to change status to received ..." data-bs-toggle="modal" data-bs-target="#rec_<?= $applicant['app_id'] ?>">
+                                                            <button type="button" class="btn btn-success btn-sm text-white" title="click to change status to approved ..." data-bs-toggle="modal" data-bs-target="#app_<?= $applicant['app_id'] ?>">
                                                                 <i class="ti-check"></i>
+                                                            </button>
+                                                            &nbsp;
+                                                            <button type="button" class="btn btn-danger btn-sm text-white" title="click to change status to rejected ..." data-bs-toggle="modal" data-bs-target="#rej_<?= $applicant['app_id'] ?>">
+                                                                <i class="ti-close"></i>
                                                             </button>
                                                         </td>
                                                     </tr>
 
-                                                    <div class="modal fade" id="rec_<?= $applicant['app_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="app_<?= $applicant['app_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                                                         <div class="modal-dialog modal-sm" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -128,11 +132,38 @@
                                                                     action="updateApplicantStatus?appId=<?= $applicant['app_id'] ?>&postId=<?= $postId ?>" onsubmit="btnLoader(this.updateStatus)">
                                                                 <div class="modal-body">
                                                                     <p class="text-center">
-                                                                        Trying to mark hired this applicant <span class="text-success"><?= getUserFullnameByCode($applicant['app_applicant']) ?></span> ?
+                                                                        Trying to mark hired to this applicant <span class="text-success"><?= getUserFullnameByCode($applicant['app_applicant']) ?></span> ?
                                                                     </p>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="submit" id="updateStatus" class="btn btn-success btn-block text-white">Hired</button>
+                                                                </div>
+
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal fade" id="rej_<?= $applicant['app_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="ModalLabel"><i class="ti-close"></i> Mark rejected</h5>
+                                                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <form 
+                                                                    method="post" 
+                                                                    enctype="multipart/form-data" 
+                                                                    action="updateApplicantStatusRejected?appId=<?= $applicant['app_id'] ?>&postId=<?= $postId ?>" onsubmit="btnLoader(this.updateStatus)">
+                                                                <div class="modal-body">
+                                                                    <p class="text-center">
+                                                                        Trying to mark rejected to this applicant <span class="text-success"><?= getUserFullnameByCode($applicant['app_applicant']) ?></span> ?
+                                                                    </p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" id="updateStatus" class="btn btn-danger btn-block text-white">Rejected</button>
                                                                 </div>
 
                                                                 </form>
@@ -162,12 +193,12 @@
                                                                         <div class="col-md-12">
                                                                             <div class="form-group">
                                                                                 <label for="" class="text-primary">Add Hours</label>
-                                                                                <input type="number" name="addHours" min="0" step="0.01" class="form-control" autofocus required>
+                                                                                <input type="number" name="addHours" min="0" step="0.01" class="form-control" value="0" autofocus required>
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-12">
                                                                             <div class="form-group">
-                                                                                <label for="">Total Hours</label>
+                                                                                <label for="">Target Hours</label>
                                                                                 <input type="number" name="schoolHours" min="0" step="0.01" class="form-control" value="<?= $applicant['app_school_hours'] ?>" required>
                                                                             </div>
                                                                         </div>

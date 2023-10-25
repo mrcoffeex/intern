@@ -2,33 +2,26 @@
     require '../../config/includes.php';
     require '_session.php';
 
-    $page = clean_string($_GET['page']);
-    $searchText = clean_string($_GET['searchText']);
-
-    if ($page == "users") {
-        $pageRedirect = "users?rand=" . my_rand_str(30);
-    } else {
-        $pageRedirect = "user_search?rand=" . my_rand_str(30) . "&searchText=$searchText";
-    }
-
-    if (isset($_POST['name'])) {
+    if (isset($_POST['fname'])) {
         
         $usercode = clean_string(date("YmdHis")."".my_randoms(8));
-        $name = clean_string($_POST['name']);
+        $fname = clean_string($_POST['fname']);
+        $lname = clean_string($_POST['lname']);
         $email = clean_email($_POST['email']);
+        $password = clean_string(md5("12345678"));
 
         if (strlen($email) > 50) {
 
-            header("location: " . $pageRedirect . "&note=char_exceed");
+            header("location: users?note=char_exceed");
 
         } else {
 
-            $insertData = createUser($usercode, $name, $email, 0);
+            $insertData = createUser($usercode, $fname, $lname, $email, $password, 0);
 
             if ($insertData == true) {
-                header("location: " . $pageRedirect . "&note=user_added");
+                header("location: users?note=added");
             }else{
-                header("location: " . $pageRedirect . "&note=error");
+                header("location: users?note=error");
             }
             
         }

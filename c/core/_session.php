@@ -31,7 +31,6 @@
     $userId = $row['user_uid'];
     $userCode = $row['user_code'];
     $userProfileImg = $row['user_profile_img'];
-    
 
     //dates
     $datenow = date("Y-m-d H:i:s");

@@ -168,11 +168,13 @@
                                     <div class="card card-body mb-1">
                                         <h6 class="text-bold mb-0"><?= $exp['exp_position'] ?></h6>
                                         <p class="mb-0"><?= $exp['exp_company'] ?></p>
-                                        <p class="mb-0"><i class="icon-map-marker"></i> <?= $exp['exp_city'] ?></p>
-                                        <p class="mb-0"><span class="badge"><?= $exp['exp_from'] ?> - <?= $exp['exp_to'] ?> . <?= getTimeDiff($exp['exp_from'], $exp['exp_to']) ?></span></p>
-                                        <p class="mb-0">Description: <?= $exp['exp_job_desc'] ?></p>
-                                        <a href="expRemove?expId=<?= $exp['exp_id'] ?>" class="text-decoration-none">
-                                            <i class="icon-trash"></i> Remove
+                                        <p class="mb-0 text-lowercase"><code><i class="icon-map-marker"></i> <?= $exp['exp_city'] ?></code></p>
+                                        <p class="mb-0"><span class="badge badge-secondary"><?= proper_date($exp['exp_from']) ?> - <?= proper_date($exp['exp_to']) ?> . <?= getTimeDiff($exp['exp_from'], $exp['exp_to']) ?></span></p>
+                                        <p class="mb-0">Job Description: <i><?= $exp['exp_job_desc'] ?></i></p>
+                                        <a href="expRemove?expId=<?= $exp['exp_id'] ?>" class="text-decoration-none mt-2">
+                                            <button type="button" class="btn btn-outline-danger btn-sm btn-block">
+                                                <i class="icon-trash"></i> Remove
+                                            </button>
                                         </a>
                                     </div>
                                     <?php } ?>

@@ -3,6 +3,7 @@
     require '_session.php';
 
     $title = "Job Posts";
+    include 'posts.paginate.php';
 ?>
 
 <!DOCTYPE html>
@@ -61,15 +62,22 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <p class="card-title"><i class="ti-view-list-alt"></i> Recent Job Posts</p>
+                                        <div class="col-md-12">
+                                            <p class="card-title">
+                                                <i class="ti-view-list-alt"></i> Recent Job Posts
+                                                <a href="postCreateForm">
+                                                    <button type="button" class="btn btn-primary btn-sm text-white">
+                                                        Create Job Post
+                                                    </button>
+                                                </a>
+                                            </p>
                                         </div>
-                                        <div class="col-md-6 mb-3">
-                                            <a href="postCreateForm">
-                                                <button type="button" class="btn btn-info float-end text-white">
-                                                    Create Job Post
-                                                </button>
-                                            </a>
+                                        <div class="col-md-12">
+                                            <form action="_redirect" enctype="multipart/form-data" method="post">
+                                                <div class="form-group">
+                                                    <input type="text" name="postSearch" id="postSearch" class="form-control" placeholder="search here ..." autofocus required>
+                                                </div>
+                                            </form>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="table-responsive">
@@ -87,10 +95,15 @@
                                                     </thead>
                                                     <tbody>
                                                         <?php  
-                                                            $getPosts=selectPosts($userCode);
-                                                            while ($post=$getPosts->fetch(PDO::FETCH_ASSOC)) {
+                                                            while ($post=$paginate->fetch(PDO::FETCH_ASSOC)) {
 
                                                                 $tagsArray = explode(',', $post['post_tags']);
+
+                                                                if ($post['post_salary_from'] == 0 && $post['post_salary_to'] == 0) {
+                                                                    $salaryRate = "No Salary";
+                                                                } else {
+                                                                    $salaryRate = $post['post_salary_from'] . " - " . $post['post_salary_to'];
+                                                                }
                                                         ?>
                                                         <tr>
                                                             <td><?= proper_date($post['post_created']) ?></td>
@@ -102,7 +115,7 @@
                                                                 </a>
                                                             </td>
                                                             <td><?= $post['post_category'] ?></td>
-                                                            <td><?= $post['post_salary_from'] . " - " . $post['post_salary_to'] ?></td>
+                                                            <td><?= $salaryRate ?></td>
                                                             <td>
                                                                 <?php 
                                                                     foreach ($tagsArray as $tags) {
@@ -158,6 +171,13 @@
                                                         <?php } ?>
                                                     </tbody>
                                                 </table>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="float-right mt-4">
+                                                <ul class="pagination flex-wrap pagination-rounded">
+                                                    <?= $paginationCtrls; ?>
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>

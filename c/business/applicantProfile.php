@@ -8,6 +8,14 @@
     $applicant=$getApplicant->fetch(PDO::FETCH_ASSOC);
 
     $title = getUserFullnameByCode($ucode) . "'s profile";
+
+    if ($applicant['profile_verified'] == 1) {
+        $verified = "verified";
+        $verifiedIcon = "<span class='badge badge-primary'>verified</span>";
+    } else {
+        $verified = "unverified";
+        $verifiedIcon = "<span class='badge badge-danger'>unverified</span>";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +54,7 @@
                                             <img src="<?= previewImage(getUserImg($ucode), '../../images/profile_default.png', '../../imagebank/') ?>" class="profile-img mb-2" alt="">
 
                                             <h5 class="text-bold text-dark">
-                                                <?= getUserFullnameByCode($ucode) ?>
+                                                <?= getUserFullnameByCode($ucode) . " " . $verifiedIcon ?>
                                             </h5>
                                             <h6 class="text-bold">
                                                 <?= dataVerify($applicant['profile_course'], 'No Course') ?>

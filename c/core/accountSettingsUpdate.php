@@ -10,7 +10,7 @@
         $userEmail = clean_email($_POST['userEmail']);
 
         if (empty($_POST['userPassword'])) {
-            $userPassword = $row['e4ps_user_password'];
+            $userPassword = $row['user_password'];
         } else {
             $userPassword = clean_string(md5($_POST['userPassword']));
         }

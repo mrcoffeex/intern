@@ -44,7 +44,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="">Profile Image</label>
-                                                    <input type="file" class="dropify" accept="images/jpg, images/png" name="profileImg" required>
+                                                    <input type="file" class="dropify" accept="images/jpg, images/png" name="profileImg" >
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -56,7 +56,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>New Password <span class="text-primary">< leave empty if no changes ></span></label>
-                                                    <input type="password" name="userPassword" id="userPassword" class="form-control" minlength="6" maxlength="16" placeholder="******" value="" required>
+                                                    <input type="password" name="userPassword" id="userPassword" class="form-control" minlength="6" maxlength="16" placeholder="******" value="" >
                                                 </div>
                                                 <div class="form-check form-check-primary">
                                                     <label class="form-check-label">

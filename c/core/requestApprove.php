@@ -12,13 +12,13 @@
         $request = approveRequirements($reqId, $requirement['user_code'], $requirement['school_id']);
 
         if ($request == true) {
-            header("location: ./?note=approved");
+            header("location: requests?note=approved");
         } else {
-            header("location: ./?note=error");
+            header("location: requests?note=error");
         }
 
     }else{
-        header("location: ./?note=invalid");
+        header("location: requests?note=invalid");
     }
     
 ?>

@@ -87,7 +87,7 @@
                                                             ";
                                                         }
                                                 ?>
-                                                <tr class="table-<?= studentVerificationSkin($recent['profile_verified']) ?>">
+                                                <tr>
                                                     <td><?= getUserFullnameByCode($recent['user_code']) ?></td>
                                                     <td class="text-center"><?= studentVerification($recent['profile_verified']) ?></td>
                                                     <td class="text-center"><span class="badge badge-dark"><?= $recent['app_status'] ?></span></td>

@@ -43,25 +43,34 @@
                     $getSubmissions=selectSubmissions($userCode);
                     while ($sub=$getSubmissions->fetch(PDO::FETCH_ASSOC)) {
 
-                        if ($sub['app_hired'] == "0000-00-00 00:00:00") {
-                            $hired = "";
-                            $hireLink = "#";
-                            $viewBtnStatus = "disabled";
-                            $icon = "icon-times-circle";
-                            $iconTitle = "pending";
-                        } else {
+                        if ($sub['app_status'] == "hired") {
                             $hired = proper_date($sub['app_hired']);
                             $hireLink = "submissionView?token=" . my_rand_str(30) . "&appId=" . $sub['app_id'];
                             $viewBtnStatus = "";
                             $icon = "icon-check-circle";
                             $iconTitle = "hired";
+                            $panelBg = "bg-primary";
+                        } else if ($sub['app_status'] == "rejected") {
+                            $hired = "";
+                            $hireLink = "#";
+                            $viewBtnStatus = "disabled";
+                            $icon = "icon-times-circle";
+                            $iconTitle = "rejected";
+                            $panelBg = "bg-danger";
+                        } else {
+                            $hired = "";
+                            $hireLink = "#";
+                            $viewBtnStatus = "disabled";
+                            $icon = "icon-times-circle";
+                            $iconTitle = "pending";
+                            $panelBg = "bg-warning";
                         }
                         
                 ?>
 
                 <div class="col-md-6">
                     <div class="card card-flex mb-2">
-                        <div class="card-body card-body-flex bg-primary text-white" style="border-radius: 3px;">
+                        <div class="card-body card-body-flex <?= $panelBg ?> text-white" style="border-radius: 3px;">
                             <div class="row">
                                 <div class="col-md-8">
                                     <h4 class="text-bold text-white">
@@ -94,7 +103,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <a href="<?= $hireLink ?>">
-                                        <button type="button" class="btn btn-outline-white btn-sm btn-block">View</button>
+                                        <button type="button" class="btn btn-outline-white btn-sm btn-block <?= $viewBtnStatus ?>">View</button>
                                     </a>
                                 </div>
                             </div>

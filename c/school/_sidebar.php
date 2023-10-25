@@ -7,9 +7,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="studentVerified">
-                <i class="ti-check menu-icon"></i>
-                <span class="menu-title">Verified Students</span>
+            <a class="nav-link" href="students">
+                <i class="ti-user menu-icon"></i>
+                <span class="menu-title">Student List</span>
             </a>
         </li>
         <li class="nav-item">

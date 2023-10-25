@@ -74,6 +74,12 @@
             <?php  
                 $getPosts=selectPostsRecent();
                 while ($post=$getPosts->fetch(PDO::FETCH_ASSOC)) {
+
+                  if ($post['post_salary_from'] == 0 && $post['post_salary_to'] == 0) {
+                      $salaryRate = "No Salary";
+                  } else {
+                      $salaryRate = $post['post_salary_from'] . " - " . $post['post_salary_to'];
+                  }
             ?>
               
               <div class="col-md-4 mb-4">
@@ -86,7 +92,7 @@
 
                     <p class="small-text m-2"><span class="icon-room"></span> <?= getCityName($post['city_id']) ?></p>
                     <p class="small-text m-2"><span class="icon-timer"></span> <?= $post['post_type'] ?></p>
-                    <p class="small-text m-2"><span class="icon-money"></span> <?= $post['post_salary_from'] . " - " . $post['post_salary_to'] ?></p>
+                    <p class="small-text m-2"><span class="icon-money"></span> <?= $salaryRate ?></p>
                     <p class="small-text m-2"><span class="icon-calendar-o"></span> <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?></p>
                     <?php  
                         $tagsArray = explode(',', $post['post_tags']);

@@ -658,6 +658,17 @@
 
     // users
 
+    function getUserStatus($userStatus){
+
+        if ($userStatus == 0) {
+            $res = "Active";
+        } else {
+            $res = "Suspended";
+        }
+        
+        return $res;
+    }
+
     function selectUsers(){
 
         $statement=dataLink()->prepare("SELECT 
@@ -740,6 +751,48 @@
         return $res;
     }
 
+    function createUser($userCode, $fname, $lname, $userEmail, $userPassword, $userType){
+
+        $statement=dataLink()->prepare("INSERT INTO 
+                                        users
+                                        (
+                                            user_code,
+                                            user_fname,
+                                            user_lname,
+                                            user_email,
+                                            user_password,
+                                            user_type,
+                                            user_created,
+                                            user_updated
+                                        )
+                                        Values
+                                        (
+                                            :user_code,
+                                            :user_fname,
+                                            :user_lname,
+                                            :user_email,
+                                            :user_password,
+                                            :user_type,
+                                            NOW(),
+                                            NOW()
+                                        )");
+        $statement->execute([
+            'user_code' => $userCode,
+            'user_fname' => $fname,
+            'user_lname' => $lname,
+            'user_email' => $userEmail,
+            'user_password' => $userPassword,
+            'user_type' => $userType
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
     function createUserReg($userCode, $fname, $lname, $uEmail, $uPassword, $userType){
 
         $statement=dataLink()->prepare("INSERT INTO 
@@ -780,6 +833,27 @@
             return false;
         }
         
+    }
+
+    function updateUserStatus($userId, $role){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        users
+                                        SET
+                                        user_status = :user_status
+                                        Where
+                                        user_uid = :user_uid");
+        $statement->execute([
+            'user_status' => $role,
+            'user_uid' => $userId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+    
     }
 
     function updateUserAccount($userEmail, $userPassword, $userId){
@@ -1102,6 +1176,48 @@
             return $res['school_id'];
         } else {
             return null;
+        }
+
+    }
+
+    function removeSchool($schoolId){
+
+        $statement=dataLink()->prepare("DELETE
+                                        FROM
+                                        schools
+                                        Where
+                                        school_id = :school_id");
+        $statement->execute([
+            'school_id' => $schoolId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    function updateSchool($schoolName, $cityId, $schoolId){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        schools
+                                        SET
+                                        school_name = :school_name,
+                                        city_id = :city_id
+                                        Where
+                                        school_id = :school_id");
+        $statement->execute([
+            'school_name' => $schoolName,
+            'city_id' => $cityId,
+            'school_id' => $schoolId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
         }
 
     }
@@ -2142,6 +2258,25 @@
 
     }
 
+    function selectPostsRanking(){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        b.bus_id AS bus_id, b.bus_name AS bus_name, COUNT(p.post_id) AS post_count 
+                                        FROM 
+                                        business_profiles b 
+                                        LEFT JOIN 
+                                        posts p ON b.user_code = p.user_code 
+                                        GROUP BY 
+                                        b.bus_id, b.bus_name 
+                                        ORDER BY 
+                                        post_count 
+                                        DESC");
+        $statement->execute();
+
+        return $statement;
+
+    }
+
     function selectPostsRecent(){
 
         $statement=dataLink()->prepare("SELECT 
@@ -2881,6 +3016,52 @@
 
     }
 
+    function selectStudentApplications($userCode){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        applicants
+                                        LEFT JOIN
+                                        profiles
+                                        ON
+                                        applicants.app_applicant = profiles.user_code
+                                        Where
+                                        profiles.user_code = :user_code
+                                        ORDER BY
+                                        profile_created
+                                        DESC");
+        $statement->execute([
+            'user_code' => $userCode
+        ]);
+
+        return $statement;
+
+    }
+
+    function selectStudentHoursRanking($schoolId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        applicants
+                                        LEFT JOIN
+                                        profiles
+                                        ON
+                                        applicants.app_applicant = profiles.user_code
+                                        Where
+                                        profiles.school_id = :school_id
+                                        ORDER BY
+                                        app_hours
+                                        DESC");
+        $statement->execute([
+            'school_id' => $schoolId
+        ]);
+
+        return $statement;
+
+    }
+
     function selectVerifiedStudent($schoolId){
 
         $statement=dataLink()->prepare("SELECT
@@ -2989,6 +3170,46 @@
 
     }
 
+    function countRequests(){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        requirements
+                                        Where
+                                        require_status = :require_status
+                                        Order By
+                                        require_created
+                                        DESC");
+        $statement->execute([
+            'require_status' => 'pending'
+        ]);
+
+        $count=$statement->rowCount();
+
+        return $count;
+
+    }
+
+    function selectRequests(){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        requirements
+                                        Where
+                                        require_status = :require_status
+                                        Order By
+                                        require_created
+                                        DESC");
+        $statement->execute([
+            'require_status' => 'pending'
+        ]);
+
+        return $statement;
+
+    }
+
     function selectRequirements(){
 
         $statement=dataLink()->prepare("SELECT 
@@ -2999,6 +3220,25 @@
                                         require_created
                                         DESC");
         $statement->execute();
+
+        return $statement;
+
+    }
+
+    function selectRequirementsBySchool($schoolId){
+
+        $statement=dataLink()->prepare("SELECT 
+                                        * 
+                                        FROM
+                                        requirements
+                                        Where
+                                        school_id = :school_id
+                                        Order By
+                                        require_created
+                                        ASC");
+        $statement->execute([
+            'school_id' => $schoolId
+        ]);
 
         return $statement;
 

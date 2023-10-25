@@ -74,23 +74,61 @@
 
         }
 
+        // schools
+
+        if ($currpage == "schools") {
+            
+            if ($note == "removed") {
+                echo "
+                    <script>
+                        toastr.success('School removed');
+                    </script>
+                ";
+            } else if ($note == "updated") {
+                echo "
+                    <script>
+                        toastr.success('Changes saved');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
+        // requests
+
+        if ($currpage == "requests") {
+            
+            if ($note == "approved") {
+                echo "
+                    <script>
+                        toastr.success('Request approved');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
         // users
         
         if ($currpage == "users" || $currpage == "user_search") {
             
-            if ($note == "user_added") {
+            if ($note == "added") {
                 echo "
                     <script>
                         toastr.success('User has been added');
                     </script>
                 ";
-            } else if ($note == "user_updated") {
+            } else if ($note == "updated") {
                 echo "
                     <script>
-                        toastr.success('User has been updated');
+                        toastr.success('Changes saved');
                     </script>
                 ";
-            } else if ($note == "user_remove") {
+            } else if ($note == "removed") {
                 echo "
                     <script>
                         toastr.success('User has been removed');

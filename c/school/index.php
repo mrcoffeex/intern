@@ -57,6 +57,66 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title"><i class="ti-medall"></i> Most Hours Done</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Student</th>
+                                                    <th>Business/Company</th>
+                                                    <th class="text-center">Hours</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php  
+                                                    $getRankings=selectStudentHoursRanking($schoolId);
+                                                    while ($ranking=$getRankings->fetch(PDO::FETCH_ASSOC)) {
+                                                ?>
+                                                <tr>
+                                                    <td><?= getUserFullnameByCode($ranking['user_code']) ?></td>
+                                                    <td><?= getUserFullnameByCode($ranking['app_business']) ?></td>
+                                                    <td class="text-center"><?= $ranking['app_hours'] ?> / <?= $ranking['app_school_hours'] ?></td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title"><i class="ti-medall"></i> Most Jobs Posted</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Business/Company</th>
+                                                    <th class="text-center">Posts</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php  
+                                                    $getRankings=selectPostsRanking();
+                                                    while ($ranking=$getRankings->fetch(PDO::FETCH_ASSOC)) {
+                                                ?>
+                                                <tr>
+                                                    <td><?= $ranking['bus_name'] ?></td>
+                                                    <td class="text-center"><?= $ranking['post_count'] ?></td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
@@ -97,7 +157,7 @@
                                                             ";
                                                         }
                                                 ?>
-                                                <tr class="table-<?= studentVerificationSkin($recent['profile_verified']) ?>">
+                                                <tr>
                                                     <td><?= getUserFullnameByCode($recent['user_code']) ?></td>
                                                     <td class="text-center"><?= studentVerification($recent['profile_verified']) ?></td>
                                                     <td class="text-center"><span class="badge badge-dark"><?= $recent['app_status'] ?></span></td>

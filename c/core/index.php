@@ -63,102 +63,111 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12 grid-margin stretch-card">
+                        <div class="col-md-6 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <p class="card-title"><i class="ti-files"></i> School Access Requests</p>
+                                    <p class="card-title"><i class="ti-bar-chart"></i> System Stats</p>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover">
                                             <thead>
-                                                <tr class="table-dark">
-                                                    <th>User</th>
-                                                    <th class="text-center">School</th>
-                                                    <th class="text-center">Position</th>
-                                                    <th class="text-center">Attachments</th>
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-center">Opt</th>
+                                                <tr>
+                                                    <th>Users</th>
+                                                    <th class="text-center"><?= countUsers() ?></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Businesses</th>
+                                                    <th class="text-center"><?= countBusinessProfiles() ?></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Students</th>
+                                                    <th class="text-center"><?= countStudents() ?></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Schools</th>
+                                                    <th class="text-center"><?= countSchools() ?></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Jobs Posted</th>
+                                                    <th class="text-center"><?= countPostsAll() ?></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Hired Count</th>
+                                                    <th class="text-center"><?= countApplicantsHired() ?></th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title"><i class="ti-medall"></i> Most Jobs Posted</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Business/Company</th>
+                                                    <th class="text-center">Posts</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php  
-                                                    $getRecent=selectRequirements();
-                                                    while ($recent=$getRecent->fetch(PDO::FETCH_ASSOC)) {
-
-                                                        if ($recent['require_status'] == "approve") {
-                                                            $tableSkin = "table-primary";
-                                                        } else {
-                                                            $tableSkin = "table-warning";
-                                                        }
-                                                        
+                                                    $getRankings=selectPostsRanking();
+                                                    while ($ranking=$getRankings->fetch(PDO::FETCH_ASSOC)) {
                                                 ?>
-                                                <tr class="<?= $tableSkin ?>">
-                                                    <td><?= getUserFullnameByCode($recent['user_code']) ?></td>
-                                                    <td class="text-center"><?= getSchoolName($recent['school_id']) ?></td>
-                                                    <td class="text-center"><?= $recent['require_position'] ?></td>
-                                                    <td class="text-center">
-                                                        <button 
-                                                        type="button" 
-                                                        class="btn btn-primary btn-sm" 
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#att_<?= $recent['require_id'] ?>" >
-                                                            <i class="ti-image"></i>
-                                                        </button>
-                                                    </td>
-                                                    <td class="text-center"><span class="badge badge-dark"><?= $recent['require_status'] ?></span></td>
-                                                    <td class="text-center">
-                                                        <button 
-                                                        type="button" 
-                                                        class="btn btn-success btn-sm" 
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#approve_<?= $recent['require_id'] ?>" >
-                                                            <i class="ti-check"></i>
-                                                        </button>
-                                                    </td>
+                                                <tr>
+                                                    <td><?= $ranking['bus_name'] ?></td>
+                                                    <td class="text-center"><?= $ranking['post_count'] ?></td>
                                                 </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title"><i class="ti-layers-alt"></i> Recent Job Posts</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Title</th>
+                                                    <th class="text-center">Category</th>
+                                                    <th class="text-center">Type</th>
+                                                    <th class="text-center">Based</th>
+                                                    <th class="text-center">Tags</th>
+                                                    <th class="text-center">Post Views</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php  
+                                                    $getPostRecent=selectPostsRecent();
+                                                    while ($recent=$getPostRecent->fetch(PDO::FETCH_ASSOC)) {
+                                                ?>
+                                                <tr>
+                                                    <td><?= stringLimit($recent['post_title'], 30) ?></td>
+                                                    <td class="text-center"><?= $recent['post_category'] ?></td>
+                                                    <td class="text-center"><?= $recent['post_type'] ?></td>
+                                                    <td class="text-center"><?= $recent['post_based'] ?></td>
+                                                    <td class="text-center">
+                                                        <?php  
+                                                            $tagsArray = explode(',', $recent['post_tags']);
+                                                            foreach ($tagsArray as $tags) {
+                                                        ?>
 
-                                                <div class="modal fade" id="att_<?= $recent['require_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="ModalLabel"><i class="ti-image"></i> Attachments</h5>
-                                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="owl-carousel owl-theme full-width">
-                                                                    <div class="item">
-                                                                        <img src="<?= previewImage($recent['require_attachment1'], '../../images/blank.png', '../../imagebank/') ?>" alt="image"/>
-                                                                    </div>
-                                                                    <div class="item">
-                                                                        <img src="<?= previewImage($recent['require_attachment2'], '../../images/blank.png', '../../imagebank/') ?>" alt="image"/>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        <span class="badge badge-primary mt-2"><?= $tags ?></span> 
 
-                                                <div class="modal fade" id="approve_<?= $recent['require_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-sm" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="ModalLabel"><i class="ti-check"></i> Approve Request</h5>
-                                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <form action="requestApprove?token=<?= my_rand_str(30) ?>&reqId=<?= $recent['require_id'] ?>" method="post" onsubmit="btnLoader(this.approveBtn)">
-                                                                <div class="modal-body">
-                                                                    <p class="text-center">Are you sure you want to approve <span class="text-success"><?= getUserFullnameByCode($recent['user_code']) ?></span> request?</p>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="submit" id="approveBtn" class="btn btn-success btn-block">Approve Request</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td class="text-center"><?= $recent['post_views'] ?></td>
+                                                </tr>
                                                 <?php } ?>
                                             </tbody>
                                         </table>

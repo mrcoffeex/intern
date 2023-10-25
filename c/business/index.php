@@ -67,7 +67,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 grid-margin stretch-card">
+                        <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
                                     <p class="card-title"><i class="ti-user"></i> New Applicants</p>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 grid-margin stretch-card">
+                        <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
                                     <p class="card-title"><i class="ti-view-list-alt"></i> Recent Job Posts</p>
@@ -120,6 +120,12 @@
                                             while ($post=$getPosts->fetch(PDO::FETCH_ASSOC)) {
 
                                                 $tagsArray = explode(',', $post['post_tags']);
+
+                                                if ($post['post_salary_from'] == 0 && $post['post_salary_to'] == 0) {
+                                                    $salaryRate = "No Salary";
+                                                } else {
+                                                    $salaryRate = $post['post_salary_from'] . " - " . $post['post_salary_to'];
+                                                }
                                         ?>
                                             <div class="col-md-6">
                                                 <div class="alert alert-dark" role="alert">
@@ -127,7 +133,7 @@
                                                         <?= $post['post_category'] ?>
                                                     </p>
                                                     <p class="small-text m-2"><i class="ti-home"></i> <?= getCityName($post['city_id']) ?></p>
-                                                    <p class="small-text m-2"><i class="ti-money"></i> <?= $post['post_salary_from'] . " - " . $post['post_salary_to'] ?></p>
+                                                    <p class="small-text m-2"><i class="ti-money"></i> <?= $salaryRate ?></p>
                                                     <p class="small-text m-2"><i class="ti-calendar"></i> <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?></p>
                                                     <br>
                                                     <small>Posted <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?></small>
