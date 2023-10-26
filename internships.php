@@ -36,7 +36,7 @@
     <?php include '_navbar.php'; ?>
 
     <!-- HOME -->
-    <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section"></section>
+    <section class="section-hero overlay inner-page bg-image bg-primary" id="home-section"></section>
 
     <section class="pt-3 pb-0 bg-image overlay-primary fixed overlay">
         <div class="container">

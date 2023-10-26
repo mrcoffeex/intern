@@ -9,13 +9,13 @@
         <li class="nav-item">
             <a class="nav-link" href="students">
                 <i class="ti-user menu-icon"></i>
-                <span class="menu-title">Student List</span>
+                <span class="menu-title">Students <span class="text-bold bg-info p-1 pt-0 pb-0 text-dark" style="border-radius: 5px;"><?= countVerifiedStudentsBySchool($schoolId) ?></span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="studentUnverified">
                 <i class="ti-close menu-icon"></i>
-                <span class="menu-title">Unverified Students</span>
+                <span class="menu-title">Unverified <span class="text-bold bg-warning p-1 pt-0 pb-0 text-dark" style="border-radius: 5px;"><?= countUnVerifiedStudentsBySchool($schoolId) ?></span></span>
             </a>
         </li>
 

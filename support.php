@@ -27,7 +27,7 @@
     <?php include '_navbar.php'; ?>
 
     <!-- HOME -->
-    <section class="home-section section-hero overlay bg-image" style="background-image: url('images/intern/contact.jpg');" id="home-section">
+    <section class="home-section section-hero overlay bg-image bg-primary" id="home-section">
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-12">

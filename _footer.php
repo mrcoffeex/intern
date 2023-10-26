@@ -9,9 +9,9 @@
             <div class="col-6 col-md-6 mb-4 mb-md-0">
                 <h3>Company</h3>
                 <ul class="list-unstyled">
+                    <li><a href="./" target="_NEW">Home</a></li>
                     <li><a href="about" target="_NEW">About Us</a></li>
                     <li><a href="support" target="_NEW">Support</a></li>
-                    <li><a href="termsOFService" target="_NEW">Terms of Service</a></li>
                 </ul>
             </div>
             <div class="col-6 col-md-6 mb-4 mb-md-0">

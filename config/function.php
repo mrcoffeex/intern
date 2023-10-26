@@ -40,6 +40,8 @@
 
     function clean_int($value){
 
+        include 'conf.php';
+
         if ($value == 0) {
             return $value;
         } else {
@@ -52,6 +54,8 @@
     }
 
     function clean_float($value){
+
+        include 'conf.php';
 
         if ($value == 0) {
             return $value;
@@ -3111,6 +3115,27 @@
         ]);
 
         return $statement;
+
+    }
+
+    function verifyStudent($user_code, $status){
+
+        $statement=dataLink()->prepare("UPDATE
+                                        profiles
+                                        SET
+                                        profile_verified = :profile_verified
+                                        Where
+                                        user_code = :user_code");
+        $statement->execute([
+            'profile_verified' => $status,
+            'user_code' => $user_code
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 

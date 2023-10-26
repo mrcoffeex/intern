@@ -1,6 +1,5 @@
 <?php  
-    $servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "intern_builders_core";
+    $database_error = "location: //".$_SERVER['HTTP_HOST']."/intern/500";
+    $input_error = "location: //".$_SERVER['HTTP_HOST']."/intern/error";
+    $selfEmail = "internbuilders@gmail.com";
 ?>

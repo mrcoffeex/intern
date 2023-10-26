@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2023 at 06:07 PM
+-- Generation Time: Oct 26, 2023 at 07:11 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.1.17
 
@@ -1067,7 +1067,23 @@ INSERT INTO `notifications` (`notif_id`, `notif_type`, `notif_text`, `notif_crea
 (191, 'auth', 'Login - keanemay2020@gmail.com', '2023-10-25 23:57:23'),
 (192, 'auth', 'Logout - keanemay2020@gmail.com', '2023-10-25 23:57:31'),
 (193, 'auth', 'Login - player.mir100@gmail.com', '2023-10-25 23:57:40'),
-(194, 'auth', 'Logout - player.mir100@gmail.com', '2023-10-25 23:58:50');
+(194, 'auth', 'Logout - player.mir100@gmail.com', '2023-10-25 23:58:50'),
+(195, 'auth', 'Login - kjohn0319@gmail.com', '2023-10-26 09:09:11'),
+(196, 'auth', 'Logout - kjohn0319@gmail.com', '2023-10-26 09:12:26'),
+(197, 'attempt', 'Login Attempt - nonaki2293@introace.com', '2023-10-26 09:13:10'),
+(198, 'auth', 'Login - nonaki2293@introace.com', '2023-10-26 09:13:14'),
+(199, 'auth', 'Logout - nonaki2293@introace.com', '2023-10-26 09:18:31'),
+(200, 'auth', 'Login - krazyappsph@gmail.com', '2023-10-26 09:18:38'),
+(201, 'auth', 'Login - player.mir100@gmail.com', '2023-10-26 09:20:01'),
+(202, 'auth', 'Logout - player.mir100@gmail.com', '2023-10-26 09:22:00'),
+(203, 'auth', 'Login - keanemay2020@gmail.com', '2023-10-26 09:23:15'),
+(204, 'auth', 'Logout - krazyappsph@gmail.com', '2023-10-26 12:01:16'),
+(205, 'auth', 'Login - nonaki2293@introace.com', '2023-10-26 12:01:24'),
+(206, 'create', 'new applicant - user', '2023-10-26 12:05:33'),
+(207, 'auth', 'Login - lsean453@gmail.com', '2023-10-26 12:06:09'),
+(208, 'auth', 'Logout - nonaki2293@introace.com', '2023-10-26 12:43:18'),
+(209, 'auth', 'Login - keanemay2020@gmail.com', '2023-10-26 12:52:15'),
+(210, 'auth', 'Logout - keanemay2020@gmail.com', '2023-10-26 12:52:43');
 
 -- --------------------------------------------------------
 
@@ -1111,7 +1127,8 @@ INSERT INTO `otps` (`otp_id`, `otp_num`, `user_code`, `otp_status`, `otp_created
 (21, '378542', '20230528060129RmoxmzNs', 1, '2023-05-28 06:01:29'),
 (22, '535621', '20230529234643ZYyxiXxi', 1, '2023-05-29 23:46:43'),
 (23, '380727', '20230530075506yggzdmZT', 1, '2023-05-30 07:55:06'),
-(24, '643298', '20230530083357SxwzhFJD', 1, '2023-05-30 08:33:57');
+(24, '643298', '20230530083357SxwzhFJD', 1, '2023-05-30 08:33:57'),
+(25, '026474', '20231026120529OANStBtn', 1, '2023-10-26 12:05:29');
 
 -- --------------------------------------------------------
 
@@ -1178,7 +1195,8 @@ CREATE TABLE `profiles` (
 
 INSERT INTO `profiles` (`profile_id`, `user_code`, `profile_course`, `school_id`, `profile_country`, `profile_address`, `city_id`, `profile_gender`, `profile_contact`, `profile_about_me`, `profile_skills`, `profile_verified`, `profile_created`, `profile_updated`) VALUES
 (2, '20230518183525FpDmFLtE', 'BS Information Technology', 65, 'Philippines', '1095, Datoc Compound', 44, 'Male', '9121610673', 'hello there w6e are the malevoelent i am your love a if you want to be as the astss', ' php,HTML/CSS,PL/SQL', 1, '2023-05-18 18:47:30', '2023-05-18 18:47:30'),
-(5, '20230528060129RmoxmzNs', 'BS Information Technology', 18, 'Philippines', 'Brgy 1-A, Matina', 44, 'Female', '9121610673', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 'HTML/CSS,JavaScript,Laravel,PHP', 1, '2023-05-28 06:05:43', '2023-10-25 23:58:23');
+(5, '20230528060129RmoxmzNs', 'BS Information Technology', 18, 'Philippines', 'Brgy 1-A, Matina', 44, 'Female', '9121610673', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.', 'HTML/CSS,JavaScript,Laravel,PHP', 1, '2023-05-28 06:05:43', '2023-10-25 23:58:23'),
+(6, '20231026120529OANStBtn', 'BS Information Technology', 65, 'Philippines', 'zone 2', 44, 'Male', '9121610673', 'i am student', 'HTML/CSS,JavaScript,PHP', 0, '2023-10-26 12:05:51', '2023-10-26 12:07:01');
 
 -- --------------------------------------------------------
 
@@ -1654,7 +1672,8 @@ INSERT INTO `users` (`user_uid`, `user_code`, `user_fname`, `user_lname`, `user_
 (38, '20230528060129RmoxmzNs', 'Shaira', 'Mariz', 'player.mir100@gmail.com', 'cfe80a7823a1db46774e9b6f2ba55685', 3, 0, 1, '20231025235823_logo-twitch-ios-version-png-0.png', 0, '2023-05-28 06:01:29', '2023-10-25 23:58:23'),
 (39, '20230529234643ZYyxiXxi', 'Peter', 'Johnson', 'nonaki2293@introace.com', 'cfe80a7823a1db46774e9b6f2ba55685', 1, 0, 1, '', 65, '2023-05-29 23:46:43', '2023-05-29 23:46:43'),
 (40, '20230530075506yggzdmZT', 'Software Xi', '', 'tuzoloda@lyft.live', 'cfe80a7823a1db46774e9b6f2ba55685', 2, 0, 1, '', 0, '2023-05-30 07:55:06', '2023-05-30 07:55:06'),
-(41, '20230530083357SxwzhFJD', 'Peter', 'Simon', 'n36dlmm2yq@kzccv.com', 'cfe80a7823a1db46774e9b6f2ba55685', 1, 0, 1, '', 12, '2023-05-30 08:33:57', '2023-05-30 08:33:57');
+(41, '20230530083357SxwzhFJD', 'Peter', 'Simon', 'n36dlmm2yq@kzccv.com', 'cfe80a7823a1db46774e9b6f2ba55685', 1, 0, 1, '', 12, '2023-05-30 08:33:57', '2023-05-30 08:33:57'),
+(44, '20231026120529OANStBtn', 'lee', 'sean', 'lsean453@gmail.com', 'cfe80a7823a1db46774e9b6f2ba55685', 3, 0, 1, '20231026120701_logo-twitch-ios-version-png-0.png', 0, '2023-10-26 12:05:29', '2023-10-26 12:07:01');
 
 --
 -- Indexes for dumped tables
@@ -1848,13 +1867,13 @@ ALTER TABLE `filters`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notif_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
+  MODIFY `notif_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
 -- AUTO_INCREMENT for table `otps`
 --
 ALTER TABLE `otps`
-  MODIFY `otp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `otp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `posts`
@@ -1866,7 +1885,7 @@ ALTER TABLE `posts`
 -- AUTO_INCREMENT for table `profiles`
 --
 ALTER TABLE `profiles`
-  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `project`
@@ -1902,7 +1921,7 @@ ALTER TABLE `skills`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `user_uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

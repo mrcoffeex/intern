@@ -28,7 +28,7 @@
     <?php include '_navbar.php' ?>
 
     <!-- HOME -->
-    <section class="home-section section-hero overlay bg-image" style="background-image: url('images/hero_1.jpg');">
+    <section class="home-section section-hero overlay bg-image bg-primary">
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-12">
@@ -52,7 +52,7 @@
                   </select>
                 </div>
                 <div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4 mb-lg-0">
-                  <button type="submit" id="searchBtn" class="btn btn-primary btn-block text-white btn-search"><span class="icon-search icon mr-2"></span>Search Job</button>
+                  <button type="submit" id="searchBtn" class="btn btn-outline-primary btn-block text-white btn-search"><span class="icon-search icon mr-2"></span>Search Job</button>
                 </div>
               </div>
             </form>
@@ -115,7 +115,7 @@
       </div>
     </section>
 
-    <section class="site-section bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
+    <section class="site-section bg-image overlay bg-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-8">
@@ -175,7 +175,7 @@
 
       </div>
     
-    <section class="site-section bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
+    <section class="site-section bg-image overlay-primary fixed overlay">
       <div class="container">
         <div class="row mb-5 justify-content-center">
           <div class="col-md-7 text-center">

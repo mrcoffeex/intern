@@ -25,18 +25,27 @@
         $salaryMinimumRequest = "";
     }
 
-    if (!empty($keywords)) {
-        $keywordsRequest = " CONCAT
-                                (
-                                    post_category,
-                                    post_title,
-                                    post_description,
-                                    bus_name
-                                ) 
-                            LIKE '%$keywords%' ";
-    } else {
-        $keywordsRequest = "";
-    }
+    // if (!empty($keywords)) {
+    //     $keywordsRequest = " CONCAT
+    //                             (
+    //                                 post_category,
+    //                                 post_title,
+    //                                 post_description,
+    //                                 bus_name
+    //                             ) 
+    //                         LIKE '%$keywords%' ";
+    // } else {
+    //     $keywordsRequest = "";
+    // }
+
+    $keywordsRequest = " CONCAT
+                            (
+                                post_category,
+                                post_title,
+                                post_description,
+                                bus_name
+                            ) 
+                        LIKE '%$keywords%' ";
 
     $string = $profile['profile_skills'];
     $tagsArray = explode(",", $string);

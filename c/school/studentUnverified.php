@@ -3,6 +3,7 @@
     require '_session.php';
 
     $title = "Unverified Students";
+    include 'studentUnverified.paginate.php';
 ?>
 
 <!DOCTYPE html>
@@ -29,101 +30,119 @@
                         <?php 
                             include '_reminder.php';
                         ?>
-
-                        <div class="col-md-12 transparent">
-                            <div class="row">
-                                <div class="col-md-3 mb-4 stretch-card transparent">
-                                    <div class="card card-light-danger">
-                                        <div class="card-body">
-                                        <p class="fs-6 mb-2">Unverified Students</p>
-                                        <p class="fw-bold mb-2">
-                                            <span class="fs-3"><?= countUnVerifiedStudentsBySchool($schoolId) ?></span> counts
-                                        </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
 
                     <div class="row">
                         <div class="col-md-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <p class="card-title"><i class="ti-close"></i> Unverified List</p>
+                                    <p class="card-title">
+                                        <i class="ti-close"></i> List of Unverified Students
+                                        <span class="float-end text-lowercase"><?= $countRes ?> result(s)</span>
+                                    </p>
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover">
                                             <thead>
                                                 <tr class="table-dark">
-                                                    <th>Fullname</th>
+                                                    <th class="text-center">Verify</th>
+                                                    <th class="text-center">Info</th>
+                                                    <th>Name</th>
+                                                    <th>School</th>
+                                                    <th>Course</th>
+                                                    <th class="text-center">Gender</th>
                                                     <th class="text-center">Verified</th>
-                                                    <th class="text-center">Status</th>
-                                                    <th class="text-center">Business/Company</th>
-                                                    <th class="text-center">Date Applied</th>
-                                                    <th class="text-center">Date Hired</th>
-                                                    <th class="text-center">Hours</th>
-                                                    <th class="text-center">Tasks</th>
-                                                    <th class="text-center">Certificate</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php  
-                                                    $getRecent=selectUnverifiedStudent($schoolId);
-                                                    while ($recent=$getRecent->fetch(PDO::FETCH_ASSOC)) {
+                                                    while ($profile=$paginate->fetch(PDO::FETCH_ASSOC)) {
 
-                                                        if ($recent['app_hired'] == "0000-00-00 00:00:00") {
-                                                            $hired = "";
+                                                        if ($profile['profile_verified'] == 1) {
+                                                            $verified = "verified";
+                                                            $verifiedIcon = "<i class='ti-check'></i>";
                                                         } else {
-                                                            $hired = proper_date($recent['app_hired']);
+                                                            $verified = "unverified";
+                                                            $verifiedIcon = "<i class='ti-close'></i>";
                                                         }
-
-                                                        if (empty($recent['app_certificate'])) {
-                                                            $certificate = "not available";
-                                                        } else {
-                                                            $certificate = "
-                                                                <a href='download?token=" . my_rand_str(50) . "&postId=" . $recent['post_id'] . "&ucode=" . $recent['app_applicant'] . "'>
-                                                                    <button type='button' class='btn btn-info btn-sm'><i class='ti-download'></i></button>
-                                                                </a>
-                                                            ";
-                                                        }
+                                                        
                                                 ?>
-                                                <tr>
-                                                    <td><?= getUserFullnameByCode($recent['user_code']) ?></td>
-                                                    <td class="text-center"><?= studentVerification($recent['profile_verified']) ?></td>
-                                                    <td class="text-center"><span class="badge badge-dark"><?= $recent['app_status'] ?></span></td>
-                                                    <td class="text-center"><?= getBusinessName($recent['app_business']) ?></td>
-                                                    <td class="text-center"><?= proper_date($recent['app_created']) ?></td>
-                                                    <td class="text-center"><?= $hired ?></td>
-                                                    <td class="text-center"><h4><?= $recent['app_hours'] ?> / <?= $recent['app_school_hours'] ?></h4></td>
+                                                <tr class="">
                                                     <td class="text-center">
-                                                        <button 
-                                                        type="button" 
-                                                        class="btn btn-primary btn-sm" 
-                                                        data-bs-toggle="modal" 
-                                                        data-bs-target="#task_<?= $recent['app_id'] ?>">
-                                                            <i class="ti-list"></i>
+                                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#app_<?= $profile['profile_id'] ?>">
+                                                            <i class="ti-check"></i>
                                                         </button>
                                                     </td>
                                                     <td class="text-center">
-                                                        <?= $certificate ?>
+                                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#info_<?= $profile['profile_id'] ?>">
+                                                            <i class="ti-user"></i>
+                                                        </button>
                                                     </td>
+                                                    <td><?= getUserFullnameByCode($profile['user_code']) ?></td>
+                                                    <td><?= getSchoolName($profile['school_id']) ?></td>
+                                                    <td><?= $profile['profile_course'] ?></td>
+                                                    <td class="text-center"><?= $profile['profile_gender'] ?></td>
+                                                    <td class="text-center"><?= $verified ?></td>
                                                 </tr>
 
-                                                <div class="modal fade" id="task_<?= $recent['app_id'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
+                                                <div class="modal fade" id="app_<?= $profile['profile_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm" role="document">
                                                         <div class="modal-content">
-                                                            <div class="modal-header m-2">
-                                                                <h5 class="modal-title" id="exampleModalLabel"><i class="ti-list"></i> <?= getUserFullnameByCode($recent['user_code']) ?> Tasks</h5>
-                                                                <a href="#" data-dismiss="modal" aria-label="Close"><i class="icon-times"></i></a>
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="ModalLabel"><i class="ti-check"></i> Verify Student</h5>
+                                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <form 
+                                                                method="post" 
+                                                                enctype="multipart/form-data" 
+                                                                action="updateStudentStatus?usercode=<?= $profile['user_code'] ?>" onsubmit="btnLoader(this.updateStatus)">
+                                                            <div class="modal-body">
+                                                                <p class="text-center">
+                                                                    Trying to mark <span class="text-success"><?= getUserFullnameByCode($profile['user_code']) ?></span> as verified student?
+                                                                </p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" id="updateStatus" class="btn btn-success btn-block text-white">Verified</button>
+                                                            </div>
+
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="info_<?= $profile['profile_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="ModalLabel"><i class="ti-user"></i> Student info</h5>
+                                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                                </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div>
-                                                                            <?= $recent['app_task'] ?>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                                                <ul>
+                                                                    <li>Name: <span class="text-primary text-bold"><?= getUserFullnameByCode($profile['user_code']) . " " . $verifiedIcon ?></span></li>
+                                                                    <li>School: <span class="text-primary text-bold"><?= getSchoolName($profile['school_id']) ?></span></li>
+                                                                    <li>Course: <span class="text-primary text-bold"><?= $profile['profile_course'] ?></span></li>
+                                                                    <li>Gender: <span class="text-primary text-bold"><?= $profile['profile_gender'] ?></span></li>
+                                                                    <li>Contact: <span class="text-primary text-bold"><?= $profile['profile_contact'] ?></span></li>
+                                                                    <li>Address: <span class="text-primary text-bold"><?= $profile['profile_address'] ?></span></li>
+                                                                    <li>City: <span class="text-primary text-bold"><?= getCityName($profile['city_id']) ?></span></li>
+                                                                    <li>Country: <span class="text-primary text-bold"><?= $profile['profile_country'] ?></span></li>
+                                                                    <li>Created: <span class="text-primary text-bold"><?= proper_date($profile['profile_created']) ?></span></li>
+                                                                </ul>
+
+                                                                <p>Skills: </p>
+                                                                <?php  
+                                                                    $tagsArray = explode(',', $profile['profile_skills']);
+                                                                    foreach ($tagsArray as $tags) {
+                                                                ?>
+
+                                                                <span class="badge badge-primary mt-2"><?= $tags ?></span> 
+
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -133,6 +152,13 @@
                                         </table>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="float-right mt-4">
+                                <ul class="pagination flex-wrap pagination-rounded">
+                                    <?= $paginationCtrls; ?>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -147,6 +173,7 @@
     <!-- modals -->
 
     <?php include '_scripts.php'; ?>
+    <?php include '_alerts.php'; ?>
 
 </body>
 

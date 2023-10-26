@@ -3,8 +3,11 @@
 	function dataLink(){
 
 		date_default_timezone_set('Asia/Manila');
-
-		include 'conf.php';
+	
+		$servername = "localhost";
+		$username = "root";
+		$password = "";
+		$dbname = "intern_builders_core";
 
 		// Create connection
 		$dbConnection = new PDO('mysql:dbname='.$dbname.';host='.$servername.';charset=utf8mb4', $username, $password);

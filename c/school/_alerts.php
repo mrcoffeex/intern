@@ -68,6 +68,22 @@
 
         }
 
+        // studentUnverified
+
+        if ($currpage == "studentUnverified") {
+            
+            if ($note == "updated") {
+                echo "
+                    <script>
+                        toastr.success('Changes saved');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
         //postView
 
         if ($currpage == "postView") {
