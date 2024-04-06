@@ -18,6 +18,24 @@
                 <span class="menu-title">Unverified <span class="text-bold bg-warning p-1 pt-0 pb-0 text-dark" style="border-radius: 5px;"><?= countUnVerifiedStudentsBySchool($schoolId) ?></span></span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="courses">
+                <i class="ti-list menu-icon"></i>
+                <span class="menu-title">Courses</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="departments">
+                <i class="ti-home menu-icon"></i>
+                <span class="menu-title">Departments</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="sysem">
+                <i class="ti-calendar menu-icon"></i>
+                <span class="menu-title">S.Y. / Semester</span>
+            </a>
+        </li>
 
         <div class="dropdown-divider mt-3 mb-3"></div>
 

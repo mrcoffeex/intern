@@ -48,14 +48,12 @@
                     <div class="card mb-2">
                         <div class="card-body">
                             <p class="text-secondary">
-                                Posted <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?>
-                                <span class="float-right"><?= countApplicants($postId) ?> applicants</span>
+                                <a href="./"><button type="button" class="btn btn-dark btn-sm">find more</button></a>
+                                <span class="float-right"><?= $post['post_views'] ?> have seen this</span>
                             </p>
 
                             <h5 class="text-bold"><?= $post['post_category'] ?></h5>
-                            <h6 class="text-bold mb-2"><?= getBusinessName($post['user_code']) ?></h6>
-
-                            <p class="text-dark small-text"><i class="icon-map-marker"></i> <?= getCityName($post['city_id']) ?></p>
+                            <h6 class="mb-4"><?= getBusinessName($post['user_code']) ?> . <?= getCityName($post['city_id']) ?> . Posted <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?> . <?= countApplicants($post['post_id']) ?> applicants applied</h6>
 
                             <div class="row mb-4">
                                 <div class="col-sm-4 text-center">
@@ -69,7 +67,7 @@
                                 <div class="col-sm-4 text-center">
                                     <p class="text-uppercase text-bold">Salary</p>
                                     <p class="text-dark">
-                                        <?= RealNumber($post['post_salary_from'], 0) ?> - <?= RealNumber($post['post_salary_to'], 0) ?> /month
+                                        <?= RealNumber($post['post_salary_from'], 0) ?> - <?= RealNumber($post['post_salary_to'], 0) ?> / month
                                     </p>
                                 </div>
 

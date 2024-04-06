@@ -4,19 +4,21 @@
 
     $usercode = clean_string($_GET['usercode']);
 
-    if (empty($usercode)) {
+    if (isset($_POST['sysem'])) {
 
-        header("location: studentUnverified?rand=".my_rand_str(30)."&note=invalid");
+        $sysem = clean_string($_POST['sysem']);
 
-    }else{
-
-        $request = verifyStudent($usercode, 1);
+        $request = verifyStudent($usercode, $sysem, 1);
 
         if ($request == true) {
             header("location: studentUnverified?rand=".my_rand_str(30)."&note=updated");
         } else {
             header("location: studentUnverified?rand=".my_rand_str(30)."&note=error");
         }
+
+    }else{
+
+        header("location: studentUnverified?rand=".my_rand_str(30)."&note=invalid");
 
     }
     

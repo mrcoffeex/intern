@@ -51,7 +51,7 @@
                         <label for="" class="text-white">&nbsp;</label>
                         <button type="submit" id="searchBtn" class="btn btn-outline-white btn-block border-radius-none"><span class="icon-search icon mr-2"></span>Search</button>
                     </div>
-                    <div class="col-lg-4 mb-2">
+                    <div class="col-lg-3 mb-2">
                         <select name="city" id="city" class="select2" multiple="multiple" style="width: 100%;">
                             <?php  
                                 if (empty($city)) {
@@ -70,21 +70,24 @@
                     </div>
                     <div class="col-lg-4 mb-2">
                         <div class="btn-group" data-toggle="buttons" style="width: 100%;">
-                            <label id="typelabel1" class="btn btn-outline-white <?= ($type == 'Full-time' || $type == '') ? "bg-white text-dark" : ""; ?>">
-                                <input type="radio" name="type" id="type1" value="Full-time" autocomplete="off" <?= ($type == 'Full-time' || $type == '') ? "checked" : ""; ?> > Full-time
+                            <label id="typelabel1" class="btn btn-outline-white <?= ($type == 'Full-time') ? "bg-white text-dark" : ""; ?>">
+                                <input type="radio" name="type" id="type1" value="Full-time" autocomplete="off" <?= ($type == 'Full-time') ? "checked" : ""; ?> > Full-time
                             </label>
                             <label id="typelabel2" class="btn btn-outline-white <?= ($type == 'Part-time') ? "bg-white text-dark" : ""; ?>">
                                 <input type="radio" name="type" id="type2" value="Part-time" autocomplete="off" <?= ($type == 'Part-time') ? "checked" : ""; ?> > Part-time
                             </label>
                         </div>
                     </div>
-                    <div class="col-lg-4 mb-2">
+                    <div class="col-lg-5 mb-2">
                         <div class="btn-group" data-toggle="buttons" style="width: 100%;">
-                            <label id="basedlabel1" class="btn btn-outline-white <?= ($based == 'Office-based' || $based == '') ? "bg-white text-dark" : ""; ?>">
-                                <input type="radio" name="based" id="based1" value="Office-based" autocomplete="off"  <?= ($based == 'Office-based' || $based == '') ? "checked" : ""; ?> > Office-based
+                            <label id="basedlabel1" class="btn btn-outline-white <?= ($based == 'Office-based') ? "bg-white text-dark" : ""; ?>">
+                                <input type="radio" name="based" id="based1" value="Office-based" autocomplete="off"  <?= ($based == 'Office-based') ? "checked" : ""; ?> > Office-based
                             </label>
                             <label id="basedlabel2" class="btn btn-outline-white <?= ($based == 'Home-based') ? "bg-white text-dark" : ""; ?>">
                                 <input type="radio" name="based" id="based2" value="Home-based" autocomplete="off" <?= ($based == 'Home-based') ? "checked" : ""; ?> > Home-based
+                            </label>
+                            <label id="basedlabel2" class="btn btn-outline-white <?= ($based == 'Hybrid') ? "bg-white text-dark" : ""; ?>">
+                                <input type="radio" name="based" id="based3" value="Hybrid" autocomplete="off" <?= ($based == 'Hybrid') ? "checked" : ""; ?> > Hybrid
                             </label>
                         </div>
                     </div>
@@ -119,29 +122,38 @@
                                 }
                         ?>
 
-                        <div class="col-md-4 mb-4">
+                        <div class="col-md-12 mb-4">
                             <div class="card card-flex">
                                 <div class="card-body card-body-flex">
-                                    <p class="m-0 text-bold text-dark"><?= $post['post_category'] ?></p>
-                                    <p class="business-text m-0"><?= getBusinessName($post['user_code']) ?></p>
+                                    <p class="m-0 text-bold text-dark"><?= $post['post_category'] ?> <small class="float-right"><?= $post['total_matched_tags'] ?> <?= addS("skill", $post['total_matched_tags']) ?> match found</small></p>
+                                    <p class="business-text m-0"><?= getBusinessName($post['user_code']) ?> . <?= getCityName($post['city_id']) ?> . <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?> . <?= countApplicants($post['post_id']) ?> applicants applied</p>
 
                                     <hr>
 
-                                    <p class="small-text m-2"><span class="icon-room"></span> <?= getCityName($post['city_id']) ?></p>
-                                    <p class="small-text m-2"><span class="icon-timer"></span> <?= $post['post_type'] ?></p>
-                                    <p class="small-text m-2"><span class="icon-money"></span> <?= $salaryRate ?></p>
-                                    <p class="small-text m-2"><span class="icon-calendar-o"></span> <?= getTimePassed($post['post_created'], date("Y-m-d H:i:s")) ?></p>
+                                    <p class="small-text m-2"><span class="icon-briefcase"></span> <?= $post['post_based'] ?> . <?= $post['post_type'] ?></p>
+                                    <p class="m-2">
+                                        <span class="small-text">
+                                            <span class="icon-list"></span> Skills: 
+                                        </span>
+                                        <?php  
+                                            $tagsArray = explode(',', $post['post_tags']);
+                                            foreach ($tagsArray as $tags) {
+                                        ?>
 
-                                    <?php  
-                                        $tagsArray = explode(',', $post['post_tags']);
-                                        foreach ($tagsArray as $tags) {
-                                    ?>
+                                        <span class="badge badge-secondary"><?= $tags ?></span>
 
-                                    <span class="badge badge-secondary"><?= $tags ?></span>
+                                        <?php } ?>
+                                    </p>
+                                    <p class="small-text m-2"><span class="icon-money"></span> Salary:  <?= $salaryRate ?></p>
+                                    
+                                    <!-- <h5 class="mt-4 text-dark">About the Job</h5> -->
 
-                                    <?php } ?>
+                                    <p class="text-justify">
+                                        <?= stringLimit($post['post_description'], 500) ?>
+                                        <a href="#">Read more</a>
+                                    </p>
 
-                                    <a href="post?token=<?= my_rand_str(30) ?>&postId=<?= $post['post_id'] ?>" class="stretched-link" title="click to view ..."></a>
+                                    <a href="post?token=<?= my_rand_str(30) ?>&postId=<?= $post['post_id'] ?>" target="_NEW" class="stretched-link" title="click to view ..."></a>
                                 </div>
                             </div>
                         </div>

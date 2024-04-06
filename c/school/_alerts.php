@@ -84,6 +84,78 @@
 
         }
 
+        // sysem
+
+        if ($currpage == "sysem") {
+            
+            if ($note == "added") {
+                echo "
+                    <script>
+                        toastr.success('School Year and Semester added');
+                    </script>
+                ";
+            } else if ($note == "removed") {
+                echo "
+                    <script>
+                        toastr.success('School Year and Semester removed');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
+        // departments
+
+        if ($currpage == "departments") {
+            
+            if ($note == "added") {
+                echo "
+                    <script>
+                        toastr.success('Department added');
+                    </script>
+                ";
+            } else if ($note == "removed") {
+                echo "
+                    <script>
+                        toastr.success('Department removed');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
+        // courses
+
+        if ($currpage == "courses") {
+            
+            if ($note == "added") {
+                echo "
+                    <script>
+                        toastr.success('Course added');
+                    </script>
+                ";
+            } else if ($note == "removed") {
+                echo "
+                    <script>
+                        toastr.success('Course removed');
+                    </script>
+                ";
+            } else if ($note == "updated") {
+                echo "
+                    <script>
+                        toastr.success('Changes saved');
+                    </script>
+                ";
+            } else {
+                echo "";
+            }
+
+        }
+
         //postView
 
         if ($currpage == "postView") {

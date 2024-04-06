@@ -98,6 +98,7 @@
                                                 <select class="form-control form-control-lg" name="based" id="based" required>
                                                     <option>Office-Based</option>
                                                     <option>Home-Based</option>
+                                                    <option>Hybrid</option>
                                                 </select>
                                             </div>
                                         </div>

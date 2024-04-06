@@ -99,12 +99,28 @@
                                                                 enctype="multipart/form-data" 
                                                                 action="updateStudentStatus?usercode=<?= $profile['user_code'] ?>" onsubmit="btnLoader(this.updateStatus)">
                                                             <div class="modal-body">
-                                                                <p class="text-center">
-                                                                    Trying to mark <span class="text-success"><?= getUserFullnameByCode($profile['user_code']) ?></span> as verified student?
-                                                                </p>
+                                                                <div class="row">
+                                                                    <div class="col-md-12 mb-4">
+                                                                        <label for="form-label">Select S.Y. / Semester</label>
+                                                                        <select name="sysem" id="sysem" class="form-control" required>
+                                                                            <option></option>
+                                                                            <?php  
+                                                                                $getSysem=selectSysem();
+                                                                                while ($sysem=$getSysem->fetch(PDO::FETCH_ASSOC)) {
+                                                                            ?>
+                                                                            <option><?= $sysem['sysem_text'] ?></option>
+                                                                            <?php } ?>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <p class="text-center">
+                                                                            Trying to mark <span class="text-success"><?= getUserFullnameByCode($profile['user_code']) ?></span> as verified student?
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="submit" id="updateStatus" class="btn btn-success btn-block text-white">Verified</button>
+                                                                <button type="submit" id="updateStatus" class="btn btn-success btn-block text-white">Verify Now</button>
                                                             </div>
 
                                                             </form>

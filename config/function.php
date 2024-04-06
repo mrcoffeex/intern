@@ -1226,6 +1226,62 @@
 
     }
 
+    function selectSysem(){
+
+        $statement=dataLink()->prepare("SELECT * From sysem
+                                        Order By
+                                        sysem_text
+                                        DESC");
+        $statement->execute();
+
+        return $statement;
+        
+
+    }
+
+    function createSysem($schoolYear, $semester){
+
+        $sysem = $schoolYear . "-" . $semester;
+
+        $statement=dataLink()->prepare("INSERT INTO sysem
+                                    (
+                                        sysem_text, 
+                                        sysem_created
+                                    ) 
+                                    VALUES
+                                    (
+                                        :sysem_text, 
+                                        NOW()
+                                    )");
+        $statement->execute([
+            'sysem_text' => $sysem
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    function removeSysem($sysemId){
+
+        $statement=dataLink()->prepare("DELETE FROM sysem
+                                        Where
+                                        sysem_id = :sysem_id");
+        $statement->execute([
+            'sysem_id' => $sysemId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     // profile
 
     function createProfile($userCode){
@@ -1609,6 +1665,182 @@
 
         return $statement;
 
+    }
+
+    function createSchoolCourse($schoolId, $departmentId, $courseId){
+
+        $statement=dataLink()->prepare("INSERT INTO school_courses
+                                        (
+                                            school_id, 
+                                            department_id, 
+                                            course_id, 
+                                            school_course_created
+                                        ) 
+                                        VALUES
+                                        (
+                                            :school_id, 
+                                            :department_id, 
+                                            :course_id, 
+                                            NOW()
+                                        )");
+        $statement->execute([
+            'school_id' => $schoolId,
+            'department_id' => $departmentId,
+            'course_id' => $courseId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    function updateSchoolCourse($departmentId, $courseId, $schoolCourseId){
+
+        $statement=dataLink()->prepare("UPDATE school_courses SET
+                                        department_id = :department_id,
+                                        course_id = :course_id
+                                        Where
+                                        school_course_id = :school_course_id");
+        $statement->execute([
+            'department_id' => $departmentId,
+            'course_id' => $courseId,
+            'school_course_id' => $schoolCourseId
+            
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    function removeSchoolCourse($schoolCourseId){
+
+        $statement=dataLink()->prepare("DELETE FROM school_courses
+                                        Where
+                                        school_course_id = :school_course_id");
+        $statement->execute([
+            'school_course_id' => $schoolCourseId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    function getCourseName($courseId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        course_name
+                                        FROM
+                                        courses
+                                        Where
+                                        course_id = :course_id");
+        $statement->execute([
+            'course_id' => $courseId
+        ]);
+
+        $res=$statement->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($res)) {
+            return $res['course_name'];
+        } else {
+            return "unknown";
+        }
+
+    }
+
+    // department 
+
+    function selectDepartment($schoolId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        *
+                                        FROM
+                                        departments
+                                        Where
+                                        school_id = :school_id
+                                        Order By
+                                        department_name
+                                        ASC");
+        $statement->execute([
+            'school_id' => $schoolId
+        ]);
+
+        return $statement;
+
+    }
+
+    function createDepartment($departmentName, $schoolId){
+
+        $statement=dataLink()->prepare("INSERT INTO departments
+                                        (
+                                            school_id, 
+                                            department_name
+                                        ) 
+                                        VALUES
+                                        (
+                                            :school_id, 
+                                            :department_name
+                                        )");
+        $statement->execute([
+            'school_id' => $schoolId,
+            'department_name' => $departmentName
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+    function getDepartmentName($departmentId){
+
+        $statement=dataLink()->prepare("SELECT
+                                        department_name
+                                        FROM
+                                        departments
+                                        Where
+                                        department_id = :department_id");
+        $statement->execute([
+            'department_id' => $departmentId
+        ]);
+
+        $res=$statement->fetch(PDO::FETCH_ASSOC);
+
+        if (is_array($res)) {
+            return $res['department_name'];
+        } else {
+            return "unknown";
+        }
+
+    }
+
+    function removeDepartment($departmentId){
+
+        $statement=dataLink()->prepare("DELETE FROM departments
+                                        Where
+                                        department_id = :department_id");
+        $statement->execute([
+            'department_id' => $departmentId
+        ]);
+
+        if ($statement) {
+            return true;
+        } else {
+            return false;
+        }
+        
     }
 
     // city 
@@ -3118,16 +3350,18 @@
 
     }
 
-    function verifyStudent($user_code, $status){
+    function verifyStudent($user_code, $sysem, $status){
 
         $statement=dataLink()->prepare("UPDATE
                                         profiles
                                         SET
-                                        profile_verified = :profile_verified
+                                        profile_verified = :profile_verified,
+                                        profile_sysem = :profile_sysem
                                         Where
                                         user_code = :user_code");
         $statement->execute([
             'profile_verified' => $status,
+            'profile_sysem' => $sysem,
             'user_code' => $user_code
         ]);
 

@@ -105,6 +105,7 @@
                                                     <option><?= $post['post_based'] ?></option>
                                                     <option>Office-Based</option>
                                                     <option>Home-Based</option>
+                                                    <option>Hybrid</option>
                                                 </select>
                                             </div>
                                         </div>

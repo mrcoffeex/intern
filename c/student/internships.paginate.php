@@ -25,20 +25,7 @@
         $salaryMinimumRequest = "";
     }
 
-    // if (!empty($keywords)) {
-    //     $keywordsRequest = " CONCAT
-    //                             (
-    //                                 post_category,
-    //                                 post_title,
-    //                                 post_description,
-    //                                 bus_name
-    //                             ) 
-    //                         LIKE '%$keywords%' ";
-    // } else {
-    //     $keywordsRequest = "";
-    // }
-
-    $keywordsRequest = " CONCAT
+    $keywordsRequest = " CONCAT_WS
                             (
                                 post_category,
                                 post_title,
@@ -50,48 +37,20 @@
     $string = $profile['profile_skills'];
     $tagsArray = explode(",", $string);
     $tagsArray = array_map('trim', $tagsArray);
-    $conditions = array();
-
-    foreach ($tagsArray as $tag) {
-        $conditions[] = "post_tags LIKE '%" . clean_string($tag) . "%'";
-    }
 
     if (empty($keywords) && empty($type) && empty($based) && empty($salaryMinimum)) {
-        $countResults=dataLink()->prepare("SELECT * From posts
-                                        LEFT JOIN
-                                        business_profiles
-                                        ON
-                                        posts.user_code = business_profiles.user_code
-                                        Where
-                                        " . implode(" OR ", $conditions) . "
-                                        Order By 
-                                        post_views
-                                        DESC");
-        $countResults->execute();
 
-        $getPaginate=dataLink()->prepare("SELECT COUNT(post_id) From posts
-                                        LEFT JOIN
-                                        business_profiles
-                                        ON
-                                        posts.user_code = business_profiles.user_code
-                                        Where
-                                        " . implode(" OR ", $conditions) . "
-                                        Order By 
-                                        post_views
-                                        DESC");
+        $query = "SELECT COUNT(DISTINCT posts.post_id) AS matched_post_count
+                FROM posts
+                LEFT JOIN business_profiles ON posts.user_code = business_profiles.user_code
+                WHERE " . implode(" OR ", array_map(function($tag) {
+            return "post_tags LIKE '%" . clean_string($tag) . "%'";
+        }, $tagsArray));
+
+        $getPaginate=dataLink()->prepare($query);
         $getPaginate->execute();
+
     } else {
-        $countResults=dataLink()->prepare("SELECT * From posts
-                                        LEFT JOIN
-                                        business_profiles
-                                        ON
-                                        posts.user_code = business_profiles.user_code
-                                        Where
-                                        " . $keywordsRequest . $cityRequest . $typeRequest . $basedRequest . $salaryMinimumRequest . " 
-                                        Order By 
-                                        post_views
-                                        DESC");
-        $countResults->execute();
 
         $getPaginate=dataLink()->prepare("SELECT COUNT(post_id) From posts
                                         LEFT JOIN
@@ -105,9 +64,6 @@
                                         DESC");
         $getPaginate->execute();
     }
-
-    $countRes=$countResults->rowCount();
-        
     
     $paginates=$getPaginate->fetch(PDO::FETCH_BOTH);
 
@@ -133,30 +89,42 @@
     
     $limit = 'LIMIT ' .($pagenum - 1) * $page_rows .',' .$page_rows;
 
+    $countRes=$paginates[0];
+
     if (empty($keywords) && empty($type) && empty($based) && empty($salaryMinimum)) {
-        $paginate=dataLink()->prepare("SELECT * From posts
-                                        LEFT JOIN
-                                        business_profiles
-                                        ON
-                                        posts.user_code = business_profiles.user_code
-                                        Where
-                                        " . implode(" OR ", $conditions) . "
-                                        Order By 
-                                        post_views
-                                        DESC
-                                        $limit");
+        // Construct the query to count the matched post tags
+        $query = "SELECT posts.*, ";
+
+        // Use CONCAT_WS to split post_tags into individual tags
+        $query .= "SUM(" . implode(" + ", array_map(function($tag) {
+            return "IF(CONCAT_WS(',', post_tags) LIKE '%" . clean_string($tag) . "%', 1, 0)";
+        }, $tagsArray)) . ") AS total_matched_tags
+                FROM posts
+                LEFT JOIN business_profiles ON posts.user_code = business_profiles.user_code
+                WHERE
+                " . $keywordsRequest . $cityRequest . $typeRequest . $basedRequest . $salaryMinimumRequest . " AND 
+                " . implode(" OR ", array_map(function($tag) {
+            return "post_tags LIKE '%" . clean_string($tag) . "%'";
+        }, $tagsArray)) . "
+                GROUP BY posts.post_id
+                ORDER BY total_matched_tags DESC, post_views DESC";
+
+        $paginate=dataLink()->prepare($query);
         $paginate->execute();
     } else {
-        $paginate=dataLink()->prepare("SELECT * From posts
+        $paginate=dataLink()->prepare("SELECT posts.*, 
+                                        SUM(" . implode(" + ", array_map(function($tag) {
+                                            return "IF(CONCAT_WS(',', post_tags) LIKE '%" . clean_string($tag) . "%', 1, 0)";
+                                        }, $tagsArray)) . ") AS total_matched_tags
+                                        From posts
                                         LEFT JOIN
                                         business_profiles
                                         ON
                                         posts.user_code = business_profiles.user_code
                                         Where
                                         " . $keywordsRequest . $cityRequest . $typeRequest . $basedRequest . $salaryMinimumRequest . " 
-                                        Order By 
-                                        post_views
-                                        DESC
+                                        GROUP BY posts.post_id 
+                                        ORDER BY total_matched_tags DESC 
                                         $limit");
         $paginate->execute();
     }
